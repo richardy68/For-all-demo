@@ -1,179 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Security Alert</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #000;
-            color: white;
-            height: 100vh;
-            overflow: hidden;
-            touch-action: manipulation;
-            position: fixed;
-            width: 100%;
-        }
-        
-        .alert-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-        }
-        
-        .alert-box {
-            background: #d10000;
-            color: white;
-            border: 3px solid #ff0000;
-            border-radius: 10px;
-            padding: 25px;
-            max-width: 500px;
-            text-align: center;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
-            animation: pulse 1.5s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
-            50% { box-shadow: 0 0 30px rgba(255, 0, 0, 0.9); }
-            100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
-        }
-        
-        .alert-logo {
-            width: 80px;
-            margin-bottom: 15px;
-        }
-        
-        h1 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-        
-        .system-alert-text {
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        
-        .checkbox-warning {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            text-align: left;
-            padding-left: 10px;
-        }
-        
-        .button-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .btn-install {
-            background: #00a800;
-            color: white;
-        }
-        
-        .btn-install:hover {
-            background: #008000;
-        }
-        
-        .btn-cancel {
-            background: #333;
-            color: white;
-        }
-        
-        .btn-cancel:hover {
-            background: #555;
-        }
-        
-        .exit-attempts {
-            margin-top: 15px;
-            font-size: 14px;
-            color: #ff9999;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Private Browsing VPN</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #001848;
+      color: #fff;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .vpn-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .install-btn {
+      display: inline-block;
+      background: #00c853;
+      color: white;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: background 0.3s ease;
+    }
+
+    .install-btn:hover {
+      background: #00a647;
+    }
+
+    .disclaimer {
+      font-size: 12px;
+      color: #ccc;
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
-    <div class="alert-container" id="alertContainer">
-        <div class="alert-box">
-            <img src="https://cdn-icons-png.flaticon.com/512/753/753345.png" class="alert-logo" alt="Warning">
-            <h1>EMERGENCY SECURITY ALERT</h1>
-            
-            <div class="system-alert-text">system alert</div>
-            
-            <div class="checkbox-warning">
-                <input type="checkbox" id="warningCheck" disabled checked>
-                <label for="warningCheck">Hackers may be accessing your photos!</label>
-            </div>
-            
-            <div class="button-group">
-                <button class="btn btn-install" onclick="window.location.href='YOUR_CPA_LINK'">
-                    INSTALL VPN PROTECTION NOW
-                </button>
-                <button class="btn btn-cancel" id="cancelBtn">
-                    CANCEL (RISKY)
-                </button>
-            </div>
-            
-            <div class="exit-attempts" id="exitAttempts">
-                Warning: 1/7 attempts to exit
-            </div>
-        </div>
+  <div class="container">
+    <img src="https://chat.openai.com/cdn-cgi/imagedelivery/_/image/b1db64ed-a77a-4f1e-9ed2-01cb680a6541" alt="VPN App Promo" class="vpn-image">
+
+    <a class="install-btn"
+      href="https://www.smallvalue.guru/click?offer_id=29716&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE"
+      target="_blank">
+      Install Now
+    </a>
+
+    <div class="disclaimer">
+      22.3MB • Fast & Secure • Android Friendly
     </div>
-
-    <script>
-        let attempts = 1;
-        const maxAttempts = 7;
-        const cancelBtn = document.getElementById('cancelBtn');
-        const exitAttemptsText = document.getElementById('exitAttempts');
-        
-        // Warn user when trying to leave
-        window.onbeforeunload = function(e) {
-            if (attempts < maxAttempts) {
-                e.preventDefault();
-                e.returnValue = `⚠️ WARNING (${attempts}/${maxAttempts}): Leaving may expose you to hackers!`;
-                return e.returnValue;
-            }
-        };
-
-        // "Cancel" button also triggers warning
-        cancelBtn.addEventListener('click', function() {
-            attempts++;
-            exitAttemptsText.textContent = `Warning: ${attempts}/${maxAttempts} attempts to exit`;
-            
-            if (attempts < maxAttempts) {
-                alert(`⚠️ WARNING (${attempts}/${maxAttempts}): You are at risk!`);
-            } else {
-                window.location.href = "about:blank";
-            }
-        });
-    </script>
+  </div>
 </body>
 </html>
