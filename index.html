@@ -2,66 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>system-alert</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure VPN App</title>
   <style>
     body {
       margin: 0;
-      background-color: #000;
-      color: white;
+      padding: 0;
+      background-color: #0d0d0d;
       font-family: Arial, sans-serif;
-    }
-    .alert-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-    .custom-alert {
-      background-color: #1c1c1e;
-      border-radius: 8px;
-      padding: 20px;
-      width: 90%;
-      max-width: 300px;
+      color: #ffffff;
       text-align: center;
-      box-shadow: 0 0 10px #ff0000;
     }
-    .custom-alert h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      color: #fff;
+
+    .container {
+      padding: 20px;
     }
-    .custom-alert p {
-      color: #ffcc00;
+
+    .vpn-link {
+      display: inline-block;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .vpn-image {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    .install-btn {
+      display: inline-block;
+      padding: 15px 30px;
+      background-color: #00c853;
+      color: #ffffff;
+      font-size: 18px;
       font-weight: bold;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 0 0 rgba(0, 200, 83, 0.7);
+      animation: breathing 2s infinite ease-in-out;
     }
-    .custom-alert button {
+
+    @keyframes breathing {
+      0% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
+      50% { box-shadow: 0 0 20px 10px rgba(0, 200, 83, 0.3); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
+    }
+
+    .disclaimer {
+      font-size: 13px;
+      color: #aaaaaa;
       margin-top: 15px;
-      background: #007aff;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <!-- Clickable Image -->
+    <a class="vpn-link" 
+       href="https://www.smallvalue.guru/click?offer_id=29716&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" 
+       target="_blank">
+      <img src="https://files.catbox.moe/52ox56.jpg" alt="VPN Promo Image" class="vpn-image">
+    </a>
 
-<div class="alert-overlay" id="alertBox">
-  <div class="custom-alert">
-    <h3>system-alert</h3>
-    <p>⚠️ Bank accounts is visible!</p>
-    <button onclick="document.getElementById('alertBox').style.display='none'">OK</button>
+    <!-- Breathing Install Button -->
+    <a class="install-btn" 
+       href="https://www.smallvalue.guru/click?offer_id=29716&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" 
+       target="_blank">
+      Install Now
+    </a>
+
+    <div class="disclaimer">
+      100% Free • Fast & Secure Connection • Only 22.3MB
+    </div>
   </div>
-</div>
-
-<!-- Main content below -->
-<h1 style="padding: 20px;">EMERGENCY SECURITY ALERT ⚠️</h1>
-<p style="padding: 20px;">YOUR PHONE IS BEING TRACKED!</p>
-
 </body>
 </html>
