@@ -55,6 +55,61 @@
       color: #aaaaaa;
       margin-top: 15px;
     }
+
+    /* Exit Trap Modal */
+    .exit-trap {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .exit-trap-content {
+      background: #d10000;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      text-align: center;
+      border: 2px solid #ff0000;
+      box-shadow: 0 0 30px rgba(255,0,0,0.6);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 15px rgba(255,0,0,0.6); }
+      50% { box-shadow: 0 0 30px rgba(255,0,0,0.9); }
+      100% { box-shadow: 0 0 15px rgba(255,0,0,0.6); }
+    }
+
+    .exit-trap h2 {
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .exit-trap p {
+      margin-bottom: 25px;
+    }
+
+    .exit-trap-btn {
+      padding: 12px 25px;
+      background: #00c853;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 0 10px;
+    }
+
+    .exit-trap-cancel {
+      background: #333;
+    }
   </style>
 </head>
 <body>
@@ -78,17 +133,55 @@
     </div>
   </div>
 
-  <!-- ONE-TIME EXIT ALERT SCRIPT -->
+  <!-- Exit Trap Alert -->
+  <div class="exit-trap" id="exitTrap">
+    <div class="exit-trap-content">
+      <h2>⚠️ SECURITY WARNING ⚠️</h2>
+      <p>Your connection is not secure! Hackers may be stealing your data right now.</p>
+      <p>Install VPN protection to secure your device immediately!</p>
+      <button class="exit-trap-btn" onclick="window.location.href='https://www.smallvalue.guru/click?offer_id=29716&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE'">INSTALL VPN NOW</button>
+      <button class="exit-trap-btn exit-trap-cancel" id="exitAnyway">LEAVE ANYWAY (UNSAFE)</button>
+    </div>
+  </div>
+
   <script>
-    let warned = false;
-    history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-      if (!warned) {
-        warned = true;
-        alert("⚠️ Scammers are accessing your password, install now");
-        history.pushState(null, null, location.href); // Push again to trap once
+    // Exit Trap Functionality
+    let exitAttempts = 0;
+    const maxAttempts = 3;
+    const exitTrap = document.getElementById('exitTrap');
+    const exitAnywayBtn = document.getElementById('exitAnyway');
+
+    // Show trap when mouse leaves window
+    document.addEventListener('mouseout', function(e) {
+      if (e.clientY < 0 && exitAttempts < maxAttempts) {
+        exitTrap.style.display = 'flex';
+      }
+    });
+
+    // Show trap when back button is pressed
+    window.onbeforeunload = function(e) {
+      if (exitAttempts < maxAttempts) {
+        e.preventDefault();
+        exitTrap.style.display = 'flex';
+        return "Your connection is not secure!";
       }
     };
+
+    // Handle exit anyway button
+    exitAnywayBtn.addEventListener('click', function() {
+      exitAttempts++;
+      if (exitAttempts >= maxAttempts) {
+        window.location.href = "about:blank";
+      } else {
+        exitTrap.style.display = 'none';
+        alert(`WARNING ${exitAttempts}/${maxAttempts}: Your data is at risk!`);
+      }
+    });
+
+    // Prevent right-click inspection
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
   </script>
 </body>
 </html>
