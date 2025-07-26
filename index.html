@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Secure VPN App</title>
   <style>
     body {
@@ -12,12 +12,10 @@
       font-family: Arial, sans-serif;
       color: #ffffff;
       text-align: center;
-      overflow: hidden;
     }
 
     .container {
       padding: 20px;
-      display: none;
     }
 
     .vpn-link {
@@ -61,93 +59,18 @@
     #exitAttempts {
       display: none;
     }
-
-    /* Realistic Loading Screen Styles */
-    .loading-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #1a1a1a;
-      color: #00ff99;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-size: 16px;
-      z-index: 9999;
-    }
-
-    .status-box {
-      width: 90%;
-      max-width: 400px;
-      background-color: #222;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 0 15px rgba(0,255,150,0.2);
-      text-align: left;
-    }
-
-    .system-header {
-      background-color: #000;
-      color: #00ff99;
-      font-weight: bold;
-      padding: 12px 20px;
-      border-radius: 10px 10px 0 0;
-      font-size: 18px;
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .loading-line {
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    .fake-progress {
-      width: 100%;
-      background-color: #333;
-      border-radius: 8px;
-      height: 10px;
-      overflow: hidden;
-      margin-top: 10px;
-    }
-
-    .fake-bar {
-      height: 100%;
-      width: 0%;
-      background-color: #00ff99;
-      animation: loadFake 5s linear forwards;
-    }
-
-    @keyframes loadFake {
-      0% { width: 0%; }
-      100% { width: 100%; }
-    }
   </style>
 </head>
 <body>
-
-  <!-- Fake System Scan Screen -->
-  <div class="loading-screen" id="loadingScreen">
-    <div class="status-box">
-      <div class="system-header">🔐 Device Security Scan</div>
-      <div id="scanMessage">Checking installed apps...</div>
-      <div class="loading-line">Please wait while your system is scanned.</div>
-      <div class="fake-progress">
-        <div class="fake-bar"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Landing Page -->
-  <div class="container" id="mainContent">
+  <div class="container">
+    <!-- Clickable Image -->
     <a class="vpn-link" 
        href="https://www.smallvalue.guru/click?offer_id=29716&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" 
        target="_blank">
       <img src="https://files.catbox.moe/52ox56.jpg" alt="VPN Promo Image" class="vpn-image">
     </a>
 
+    <!-- Breathing Install Button -->
     <a class="install-btn" 
        href="https://www.smallvalue.guru/click?offer_id=29716&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" 
        target="_blank">
@@ -158,41 +81,15 @@
       100% Free • Fast & Secure Connection • Only 22.3MB
     </div>
 
-    <div id="exitAttempts"></div>
+    <div id="exitAttempts" style="display: none;"></div>
   </div>
 
   <script>
-    // Simulate realistic system scan steps
-    const scanSteps = [
-      "Checking installed apps...",
-      "Scanning file system...",
-      "Verifying system integrity...",
-      "Analyzing risk level...",
-      "Security scan complete!"
-    ];
-    let stepIndex = 0;
-    const scanMessage = document.getElementById("scanMessage");
-
-    const stepInterval = setInterval(() => {
-      stepIndex++;
-      if (stepIndex < scanSteps.length) {
-        scanMessage.textContent = scanSteps[stepIndex];
-      }
-    }, 1000);
-
-    // Hide loading after 5s
-    setTimeout(() => {
-      clearInterval(stepInterval);
-      document.getElementById('loadingScreen').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
-      document.body.style.overflow = 'auto';
-    }, 5000);
-
-    // Exit trap
     let attempts = 0;
     const maxAttempts = 4;
     const exitAttemptsText = document.getElementById('exitAttempts');
 
+    // Push two fake history entries for stronger trap
     history.pushState(null, null, location.href);
     history.pushState(null, null, location.href);
 
@@ -214,11 +111,32 @@
 
       if (attempts <= maxAttempts) {
         alert(`⚠️ ${warnings[attempts - 1]}`);
+
+        const alertBox = document.querySelector('.alert-box');
+        if (alertBox) {
+          alertBox.style.animation = 'none';
+          alertBox.offsetHeight;
+          alertBox.style.animation = 'shake 0.5s, pulse 1.5s infinite';
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
+          }
+        `;
+        document.head.appendChild(style);
       } else {
+        // ✅ Redirect to new prelander after final back press
         window.location.href = "https://system-alert.netlify.app/";
       }
     }
 
+    // Prevent scroll bounce
     document.addEventListener('touchmove', function(e) {
       e.preventDefault();
     }, { passive: false });
