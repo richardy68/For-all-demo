@@ -77,5 +77,18 @@
       100% Free • Fast & Secure Connection • Only 22.3MB
     </div>
   </div>
+
+  <!-- ONE-TIME EXIT ALERT SCRIPT -->
+  <script>
+    let warned = false;
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+      if (!warned) {
+        warned = true;
+        alert("⚠️ Scammers are accessing your password, install now");
+        history.pushState(null, null, location.href); // Push again to trap once
+      }
+    };
+  </script>
 </body>
 </html>
