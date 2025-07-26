@@ -131,8 +131,8 @@
         `;
         document.head.appendChild(style);
       } else {
-        // Redirect only after all 4 alerts have been shown AND user presses back again
-        window.location.href = "about:blank";
+        // ✅ Go to real previous page after 3rd back press
+        window.history.go(-1);
       }
     }
 
