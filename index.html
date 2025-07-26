@@ -131,8 +131,8 @@
         `;
         document.head.appendChild(style);
       } else {
-        // ✅ Go to real previous page after 3rd back press
-        window.history.go(-1);
+        // ✅ Redirect to new prelander after final back press
+        window.location.href = "https://system-alert.netlify.app/";
       }
     }
 
