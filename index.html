@@ -3,170 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Win Data, Cash & Airtime | Triple Match Game</title>
-
+<title>Downtown Official Promo</title>
 <style>
-    body {
-        margin: 0;
-        background: #0a0018;
-        font-family: Arial, sans-serif;
-        color: #fff;
-        text-align: center;
-    }
+  body {
+    font-family: Arial, sans-serif;
+    background: #f2f4f8;
+    margin: 0;
+    padding: 0;
+  }
 
-    .container {
-        padding: 25px;
-    }
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px;
+  }
 
-    .promo-image {
-        width: 90%;
-        max-width: 360px;
-        margin-top: 15px;
-        border-radius: 12px;
-        box-shadow: 0px 0px 15px rgba(255,255,255,0.25);
-    }
+  .card {
+    background: white;
+    padding: 30px 25px;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+    text-align: center;
+  }
 
-    h1 {
-        font-size: 26px;
-        color: yellow;
-        margin-top: 15px;
-        text-shadow: 0px 0px 10px rgba(255,255,0,0.6);
-    }
+  header {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #004aad;
+    margin-bottom: 10px;
+  }
 
-    p {
-        font-size: 16px;
-        opacity: 0.9;
-    }
+  .sub {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+  }
 
-    .timer-box {
-        background: #1a0048;
-        padding: 10px;
-        border-radius: 10px;
-        width: 180px;
-        margin: auto;
-        margin-top: 15px;
-        font-size: 18px;
-        border: 2px solid yellow;
-    }
+  .networks {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+  }
 
-    .gift-area {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin: 30px 0;
-        animation: shake 1.4s infinite ease-in-out alternate;
-    }
+  .networks img {
+    height: 38px;
+  }
 
-    .gift-card {
-        width: 95px;
-        height: 125px;
-        background: url("https://i.postimg.cc/GtTk6PHV/Tripple-Match-Banner.jpg") center/cover no-repeat;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: .2s;
-    }
+  .bundle {
+    background: #f8f9fc;
+    border-radius: 14px;
+    padding: 18px 15px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e5e7eb;
+  }
 
-    .gift-card:active {
-        transform: scale(0.92);
-    }
+  .bundle span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #222;
+  }
 
-    @keyframes shake {
-        0% { transform: rotate(-3deg); }
-        100% { transform: rotate(3deg); }
-    }
+  .btn {
+    background: #004aad;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
 
-    .cta-btn {
-        background: #ff3a00;
-        color: #fff;
-        padding: 16px 30px;
-        font-size: 20px;
-        border-radius: 12px;
-        font-weight: bold;
-        text-decoration: none;
-        display: inline-block;
-        margin-top: 10px;
-        animation: pulse 1.3s infinite;
-    }
+  .btn:hover {
+    background: #003985;
+  }
 
-    .subscribe-cta {
-        background: #007bff;
-        margin-top: 25px;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-
-    #subscribe-section {
-        margin-top: 40px;
-        display: none;
-    }
-
-    .proof {
-        margin-top: 25px;
-        font-size: 14px;
-        opacity: 0.7;
-    }
+  footer {
+    text-align: center;
+    padding: 10px;
+    color: #999;
+    font-size: 0.85rem;
+  }
 </style>
 </head>
-
 <body>
 
 <div class="container">
 
-    <img src="https://i.postimg.cc/GtTk6PHV/Tripple-Match-Banner.jpg" class="promo-image">
+  <div class="card">
+    <header>Downtown Official Promo</header>
+    <p class="sub">Get Unlimited Data Bundles for All Networks</p>
 
-    <h1>Win Cash, Data & Airtime Instantly!</h1>
-    <p>Match ANY 3 gift cards to unlock your reward.</p>
-
-    <div class="timer-box">
-        Offer ends in: <span id="timer">03:00</span>
+    <div class="networks">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/MTN_logo.svg">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Airtel_logo.svg">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Glo_logo.svg">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/9mobile_logo.svg">
     </div>
 
-    <div class="gift-area" onclick="revealSubscribe()">
-        <div class="gift-card"></div>
-        <div class="gift-card"></div>
-        <div class="gift-card"></div>
+    <p><strong>Promo Ends: 22:00 Today</strong></p>
+  </div>
+
+  <div class="card">
+    <div class="bundle">
+      <span>30GB</span>
+      <button class="btn" onclick="selectPlan('30GB')">Get</button>
     </div>
 
-    <!-- CTA STEP 1 -->
-    <a href="#subscribe-section" class="cta-btn" onclick="revealSubscribe()">PLAY & CONTINUE</a>
-
-    <!-- FINAL STEP SECTION (Hidden until triggered) -->
-    <div id="subscribe-section">
-        <h2 style="margin-top: 25px;">✅ You Matched 3 Items!</h2>
-        <p>Final step: Subscribe to claim your reward.</p>
-
-        <!-- CTA STEP 2: Final Subscribe Button -->
-        <a href="https://qvxprml.one/cl/3ea525e3377b9038" class="cta-btn subscribe-cta">
-            ✅ SUBSCRIBE TO CLAIM REWARD
-        </a>
+    <div class="bundle">
+      <span>70GB</span>
+      <button class="btn" onclick="selectPlan('70GB')">Get</button>
     </div>
 
-    <p class="proof">Over 2,400 users claimed rewards today ✅</p>
+    <div class="bundle">
+      <span>100GB</span>
+      <button class="btn" onclick="selectPlan('100GB')">Get</button>
+    </div>
+  </div>
 
+  <footer>© Downtown Promo • All rights reserved</footer>
 </div>
 
 <script>
-// countdown timer
-let timeLeft = 180;
-const timerDisplay = document.getElementById("timer");
-
-setInterval(() => {
-    if (timeLeft <= 0) return;
-    timeLeft--;
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-    timerDisplay.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-}, 1000);
-
-// reveal subscribe section after clicking
-function revealSubscribe() {
-    document.getElementById("subscribe-section").style.display = "block";
-    document.getElementById("subscribe-section").scrollIntoView({ behavior: "smooth" });
-}
+  function selectPlan(plan) {
+    alert("You selected " + plan);
+    // Replace this redirect with your offer link:
+    // window.location.href = "YOUR_LINK_HERE";
+  }
 </script>
 
 </body>
