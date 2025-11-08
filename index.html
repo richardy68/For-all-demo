@@ -3,139 +3,147 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Downtown Official Promo</title>
+<title>Triple Match Game | Win Data, Cash & Airtime</title>
+
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f2f4f8;
-    margin: 0;
-    padding: 0;
-  }
+    body {
+        margin: 0;
+        background: #0a0018;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
 
-  .container {
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 20px;
-  }
+    .container {
+        padding: 20px;
+    }
 
-  .card {
-    background: white;
-    padding: 30px 25px;
-    border-radius: 18px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    margin-bottom: 20px;
-    text-align: center;
-  }
+    .promo-image {
+        width: 90%;
+        max-width: 350px;
+        border-radius: 12px;
+        margin-top: 15px;
+        box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    }
 
-  header {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #004aad;
-    margin-bottom: 10px;
-  }
+    .gift-area {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 25px;
+    }
 
-  .sub {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 25px;
-  }
+    .card {
+        width: 95px;
+        height: 125px;
+        perspective: 1000px;
+    }
 
-  .networks {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-bottom: 25px;
-  }
+    .inner {
+        width: 100%;
+        height: 100%;
+        transition: transform .6s;
+        transform-style: preserve-3d;
+        cursor: pointer;
+    }
 
-  .networks img {
-    height: 38px;
-  }
+    .inner.flipped {
+        transform: rotateY(180deg);
+    }
 
-  .bundle {
-    background: #f8f9fc;
-    border-radius: 14px;
-    padding: 18px 15px;
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid #e5e7eb;
-  }
+    .front, .back {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        backface-visibility: hidden;
+        border-radius: 12px;
+    }
 
-  .bundle span {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #222;
-  }
+    .front {
+        background: url("https://i.postimg.cc/GtTk6PHV/Tripple-Match-Banner.jpg") center/cover no-repeat;
+    }
 
-  .btn {
-    background: #004aad;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 600;
-  }
+    .back {
+        background: url("https://cdn-icons-png.flaticon.com/512/992/992651.png") center/60% no-repeat;
+        background-color: yellow;
+        transform: rotateY(180deg);
+    }
 
-  .btn:hover {
-    background: #003985;
-  }
+    .cta-btn {
+        background: #ff3a00;
+        color: white;
+        padding: 16px 28px;
+        font-size: 20px;
+        text-decoration: none;
+        border-radius: 10px;
+        margin-top: 20px;
+        display: inline-block;
+        animation: pulse 1.2s infinite;
+    }
 
-  footer {
-    text-align: center;
-    padding: 10px;
-    color: #999;
-    font-size: 0.85rem;
-  }
+    .subscribe-cta {
+        background: #007bff;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    #subscribe-section {
+        display: none;
+        margin-top: 30px;
+    }
+
 </style>
 </head>
+
 <body>
 
 <div class="container">
 
-  <div class="card">
-    <header>Downtown Official Promo</header>
-    <p class="sub">Get Unlimited Data Bundles for All Networks</p>
+    <img src="https://i.postimg.cc/GtTk6PHV/Tripple-Match-Banner.jpg" class="promo-image">
 
-    <div class="networks">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/MTN_logo.svg">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Airtel_logo.svg">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Glo_logo.svg">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/9mobile_logo.svg">
+    <h1>Win Cash, Data & Airtime!</h1>
+    <p>Tap all 3 cards to reveal your match.</p>
+
+    <div class="gift-area">
+        <div class="card" onclick="flipCard(this)"><div class="inner"><div class="front"></div><div class="back"></div></div></div>
+        <div class="card" onclick="flipCard(this)"><div class="inner"><div class="front"></div><div class="back"></div></div></div>
+        <div class="card" onclick="flipCard(this)"><div class="inner"><div class="front"></div><div class="back"></div></div></div>
     </div>
 
-    <p><strong>Promo Ends: 22:00 Today</strong></p>
-  </div>
+    <!-- Hidden until cards are flipped -->
+    <div id="subscribe-section">
+        <h2>🎉 You Matched 3 Items!</h2>
+        <p>Final step: Subscribe to claim your reward.</p>
 
-  <div class="card">
-    <div class="bundle">
-      <span>30GB</span>
-      <button class="btn" onclick="selectPlan('30GB')">Get</button>
+        <a href="https://qvxprml.one/cl/3ea525e3377b9038" class="cta-btn subscribe-cta">
+            ✅ SUBSCRIBE TO CLAIM REWARD
+        </a>
     </div>
 
-    <div class="bundle">
-      <span>70GB</span>
-      <button class="btn" onclick="selectPlan('70GB')">Get</button>
-    </div>
-
-    <div class="bundle">
-      <span>100GB</span>
-      <button class="btn" onclick="selectPlan('100GB')">Get</button>
-    </div>
-  </div>
-
-  <footer>© Downtown Promo • All rights reserved</footer>
 </div>
 
 <script>
-  function selectPlan(plan) {
-    alert("You selected " + plan);
-    // Replace this redirect with your offer link:
-    // window.location.href = "YOUR_LINK_HERE";
-  }
+let flipCount = 0;
+
+function flipCard(card) {
+    let inner = card.querySelector(".inner");
+
+    if (!inner.classList.contains("flipped")) {
+        inner.classList.add("flipped");
+        flipCount++;
+    }
+
+    if (flipCount === 3) {
+        setTimeout(() => {
+            document.getElementById("subscribe-section").style.display = "block";
+            document.getElementById("subscribe-section").scrollIntoView({ behavior: "smooth" });
+        }, 600);
+    }
+}
 </script>
 
 </body>
