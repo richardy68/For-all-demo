@@ -1,124 +1,152 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Secure VPN App</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Free Data Giveaway — Subscribe to Claim</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #0d0d0d;
-      font-family: Arial, sans-serif;
-      color: #ffffff;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .container {
-      padding: 20px;
-    }
-
-    .vpn-link {
-      display: inline-block;
-      width: 100%;
-      max-width: 480px;
-    }
-
-    .vpn-image {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    }
-
-    .install-btn {
-      display: inline-block;
-      padding: 15px 30px;
-      background-color: #00c853;
-      color: #ffffff;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 10px;
-      text-decoration: none;
-      box-shadow: 0 0 0 rgba(0, 200, 83, 0.7);
-      animation: breathing 2s infinite ease-in-out;
-    }
-
-    @keyframes breathing {
-      0% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
-      50% { box-shadow: 0 0 20px 10px rgba(0, 200, 83, 0.3); }
-      100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
-    }
-
-    .disclaimer {
-      font-size: 13px;
-      color: #aaaaaa;
-      margin-top: 15px;
-    }
-
-    #exitAttempts {
-      display: none;
-    }
+    :root{--accent:#ffcc00;--accent-dark:#e6b800;--bg:#0b1020;--card:#0f1724;--muted:#aab3c6}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#071027 0%, #071c2b 100%);color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .wrap{width:100%;max-width:820px}
+    .hero{background:linear-gradient(90deg, rgba(255,204,0,0.12), rgba(255,255,255,0.03));border-radius:14px;padding:28px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:72px;height:72px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#072033;font-weight:700;font-size:22px}
+    h1{margin:6px 0 0;font-size:22px}
+    p.lead{color:var(--muted);margin:8px 0 18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;margin-top:12px}
+    label{display:block;font-size:13px;margin-bottom:8px;color:var(--muted)}
+    .row{display:flex;gap:12px}
+    input[type=text]{flex:1;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit;font-size:16px}
+    .btn{background:var(--accent);color:#072033;border:none;padding:12px 16px;border-radius:10px;font-weight:700;cursor:pointer;box-shadow:0 8px 18px rgba(0,0,0,0.35)}
+    .small{font-size:13px;color:var(--muted);margin-top:10px}
+    .center{display:flex;align-items:center;justify-content:center}
+    .spinner{width:36px;height:36px;border-radius:50%;border:4px solid rgba(255,255,255,0.08);border-top-color:var(--accent);animation:spin 1s linear infinite;margin:12px auto}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .success{background:linear-gradient(90deg,#0a8f6f22,#0a8f6f11);border:1px solid rgba(10,143,111,0.15);padding:14px;border-radius:10px;margin-top:12px}
+    .terms{font-size:13px;color:var(--muted);margin-top:8px}
+    .offer-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:12px}
+    .offer{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;text-align:center}
+    .offer b{display:block;font-size:18px}
+    footer{color:var(--muted);font-size:12px;margin-top:14px;text-align:center}
+    @media(max-width:520px){.row{flex-direction:column}}
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Image -->
-    <a class="vpn-link" href="https://www.gravelroat.info/click?offer_id=28736&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" target="_blank">
-      <img src="https://files.catbox.moe/52ox56.jpg" alt="VPN Promo" class="vpn-image">
-    </a>
+  <div class="wrap">
+    <div class="hero">
+      <div class="brand">
+        <div class="logo">DATA</div>
+        <div>
+          <h1>Free Data Giveaway — Nigeria</h1>
+          <p class="lead">Subscribe to claim a chance at free daily data bundles. No fake checks — clear terms and a single opt-in.</p>
+        </div>
+      </div><div class="card">
+    <label for="phone">Enter your phone number</label>
+    <div class="row">
+      <input id="phone" type="text" placeholder="e.g. 08012345678" pattern="[0-9]*" inputmode="numeric" />
+      <button id="verifyBtn" class="btn">Subscribe to Claim</button>
+    </div>
+    <div id="feedback" class="small"></div>
 
-    <!-- Install Button -->
-    <a class="install-btn" href="https://www.gravelroat.info/click?offer_id=28736&pub_id=269631&pub_click_id=ADD_CLICK_ID_HERE&site=PASS_SITE_HERE" target="_blank">
-      Install Now
-    </a>
-
-    <div class="disclaimer">
-      100% Free • Fast & Secure Connection • Only 22.3MB
+    <div id="process" style="display:none">
+      <div class="center"><div class="spinner" aria-hidden="true"></div></div>
+      <div class="center small">Processing your entry... Please wait</div>
     </div>
 
-    <div id="exitAttempts"></div>
+    <div id="entered" style="display:none">
+      <div class="success">
+        <strong>You're entered!</strong>
+        <div class="small">To complete, please confirm you agree to receive promotional messages and that you consent for us to redirect you to the offer partner.</div>
+      </div>
+
+      <div style="margin-top:12px">
+        <label style="display:flex;gap:8px;align-items:center"><input id="consent" type="checkbox" /> I confirm I want to receive promotional messages and understand terms.</label>
+        <div class="terms">By ticking the box you give consent to receive messages. If offers involve billing, your explicit consent and the partner's billing flow appear on the partner's page.</div>
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+          <button id="proceedBtn" class="btn" disabled>Proceed to Offer</button>
+          <button id="downloadBtn" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)">Maybe later</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <script>
-    let attempts = 0;
-    const maxAttempts = 3;
-    const exitAttemptsText = document.getElementById('exitAttempts');
+  <div class="card" style="margin-top:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div><strong>Sample Prize Pool</strong><div class="small">Winners selected weekly</div></div>
+      <div class="small">Open: Nigeria only</div>
+    </div>
 
-    // Push 10 fake states to history to trap back button
-    for (let i = 0; i < 10; i++) {
-      history.pushState(null, '', location.href);
+    <div class="offer-list">
+      <div class="offer"><b>500MB</b><span class="small">Fast data — daily winners</span></div>
+      <div class="offer"><b>1.5GB</b><span class="small">Weekly draw prize</span></div>
+      <div class="offer"><b>3GB</b><span class="small">Top referral prize</span></div>
+    </div>
+  </div>
+
+  <footer>
+    This promotion is a lead capture for marketing purposes. We'll never charge your number from this page. If you are redirected to a billing partner, you will see clear partner terms and must consent again.
+  </footer>
+</div>
+
+  </div>  <script>
+    const phoneInput = document.getElementById('phone');
+    const verifyBtn = document.getElementById('verifyBtn');
+    const feedback = document.getElementById('feedback');
+    const processBox = document.getElementById('process');
+    const entered = document.getElementById('entered');
+    const consent = document.getElementById('consent');
+    const proceedBtn = document.getElementById('proceedBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    const AFF_LINK = 'https://example.com/your-affiliate-link'; // <-- REPLACE with your affiliate/offer URL
+
+    function validPhone(v){
+      // basic Nigeria phone normalization: allow 08012345678, +2348012345678, 2348012345678
+      const digits = v.replace(/\D/g,'');
+      if(digits.length===11 && digits.startsWith('0')) return true;
+      if(digits.length===13 && digits.startsWith('234')) return true;
+      if(digits.length===12 && digits.startsWith('234')) return true;
+      return false;
     }
 
-    // iOS Back button trap
-    window.onpopstate = function () {
-      history.pushState(null, '', location.href);
-      handleExitAttempt();
-    };
-
-    function handleExitAttempt() {
-      attempts++;
-      const warnings = [
-        "Scammers are accessing your password, install now",
-        "Last chance to protect yourself!",
-        "Your device is still at risk",
-        "Final warning, install now!"
-      ];
-
-      if (attempts < maxAttempts) {
-        const index = (attempts - 1) * 2;
-        alert(`⚠️ ${warnings[index] || warnings[0]}`);
-        alert(`⚠️ ${warnings[index + 1] || warnings[1]}`);
-      } else {
-        window.location.href = "https://system-alert.netlify.app/";
+    verifyBtn.addEventListener('click', ()=>{
+      const val = phoneInput.value.trim();
+      if(!validPhone(val)){
+        feedback.textContent = 'Please enter a valid Nigerian phone number like 08012345678.';
+        return;
       }
-    }
+      feedback.textContent = '';
+      // show processing — this is NOT a fake eligibility check, it's an entry confirmation animation
+      processBox.style.display = 'block';
+      verifyBtn.disabled = true; phoneInput.disabled = true;
 
-    // Disable scroll and swipe exit
-    document.addEventListener('touchmove', function (e) {
-      e.preventDefault();
-    }, { passive: false });
-  </script>
-</body>
+      setTimeout(()=>{
+        processBox.style.display = 'none';
+        entered.style.display = 'block';
+        // save lead to localStorage for demo — replace with real endpoint if you have one
+        const leads = JSON.parse(localStorage.getItem('dg_leads')||'[]');
+        leads.push({phone:val,ts:new Date().toISOString()});
+        localStorage.setItem('dg_leads', JSON.stringify(leads));
+      }, 1500);
+    });
+
+    consent.addEventListener('change', ()=>{ proceedBtn.disabled = !consent.checked });
+
+    proceedBtn.addEventListener('click', ()=>{
+      // final confirmation; redirect to AFF_LINK. Do not auto-bill from this page.
+      // Append phone as query param (optional) so partner can prefill forms.
+      const phone = encodeURIComponent(phoneInput.value.trim());
+      const url = AFF_LINK + (AFF_LINK.includes('?')? '&':'?') + 'phone=' + phone;
+      // clear inputs and redirect
+      window.location.href = url;
+    });
+
+    downloadBtn.addEventListener('click', ()=>{
+      // user opted out — reset
+      entered.style.display = 'none';
+      phoneInput.disabled = false; phoneInput.value=''; verifyBtn.disabled=false;
+    });
+  </script></body>
 </html>
