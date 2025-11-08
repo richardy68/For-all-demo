@@ -36,16 +36,17 @@
             color: white; text-decoration: none; border-radius: 8px;
             font-weight: bold; margin-top: 25px; font-size: 1.2em;
             text-transform: uppercase;
-            cursor: pointer; /* Ensure the button looks clickable */
+            cursor: pointer; 
         }
         
         /* --- 2. Network Selection Styles (The Main Pre-lander Background) --- */
-        /* This content is visible underneath the popup */
         .network-box {
-            background-color: #1a237e; 
+            background-color: #1a237e; /* Dark Blue */
             padding: 30px; border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            max-width: 400px; width: 90%;
+            /* INCREASED SIZE: Max-width is now 95% of the viewport */
+            max-width: 95%; 
+            width: 380px; /* Base width for larger phones */
             text-align: center;
         }
         .network-box h2 {
@@ -62,15 +63,23 @@
             background-color: white; border-radius: 10px;
             text-decoration: none; color: black; font-weight: bold;
             transition: transform 0.2s; cursor: pointer;
+            border: 3px solid white; /* Default border is white */
         }
         .network-button:active { transform: scale(0.95); }
         .dot { width: 35px; height: 35px; border-radius: 50%; margin-bottom: 5px; }
         
-        /* Network Colors */
+        /* Network Colors & Borders (The requested change) */
         .mtn { background-color: #ffcc00; }
+        .mtn-button { border-color: #ffcc00; }
+
         .airtel { background-color: #ff0000; }
-        .glo { background-color: #008000; border: 2px solid #008000; }
+        .airtel-button { border-color: #ff0000; }
+
+        .glo { background-color: #008000; }
+        .glo-button { border-color: #008000; }
+
         .mobile9 { background-color: #000000; }
+        .mobile9-button { border-color: #000000; }
     </style>
 </head>
 <body>
@@ -120,7 +129,6 @@
         function dismissPopup() {
             // Hide the pop-up overlay layer
             document.getElementById('offerPopup').style.display = 'none';
-            // Now the user can interact with the Network Selection box beneath it
         }
 
         // --- Timer Logic ---
