@@ -1,150 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Triple Match Game | Win Data, Cash & Airtime</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downtown Promo - Claim Your Data</title>
+    <style>
+        /* --- General Reset & Background for Network Select Screen --- */
+        body { 
+            margin: 0; 
+            height: 100vh; 
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0077b6 0%, #00b4d8 100%);
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            overflow: hidden; /* Hide scrollbar */
+        }
 
-<style>
-    body {
-        margin: 0;
-        background: #0a0018;
-        color: #fff;
-        font-family: Arial, sans-serif;
-        text-align: center;
-    }
+        /* --- 1. Pop-up Styles (Initial View) --- */
+        .popup-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); display: flex;
+            justify-content: center; align-items: center; z-index: 1000;
+        }
+        .popup-content {
+            background: #fff; padding: 30px; border-radius: 15px;
+            text-align: center; max-width: 90%; box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            border: 5px solid #ffcc00; 
+        }
+        .popup-content h2 { color: #E91E63; margin-top: 0; font-size: 1.5em; }
+        .popup-content p { font-size: 1.1em; color: #333; }
+        .timer { font-size: 1.2em; color: red; font-weight: bold; margin: 10px 0; }
+        .cta-button {
+            display: block; padding: 15px 30px; background-color: #4CAF50;
+            color: white; text-decoration: none; border-radius: 8px;
+            font-weight: bold; margin-top: 25px; font-size: 1.2em;
+            text-transform: uppercase;
+        }
 
-    .container {
-        padding: 20px;
-    }
-
-    .promo-image {
-        width: 90%;
-        max-width: 350px;
-        border-radius: 12px;
-        margin-top: 15px;
-        box-shadow: 0 0 15px rgba(255,255,255,0.3);
-    }
-
-    .gift-area {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 25px;
-    }
-
-    .card {
-        width: 95px;
-        height: 125px;
-        perspective: 1000px;
-    }
-
-    .inner {
-        width: 100%;
-        height: 100%;
-        transition: transform .6s;
-        transform-style: preserve-3d;
-        cursor: pointer;
-    }
-
-    .inner.flipped {
-        transform: rotateY(180deg);
-    }
-
-    .front, .back {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        backface-visibility: hidden;
-        border-radius: 12px;
-    }
-
-    .front {
-        background: url("https://i.postimg.cc/GtTk6PHV/Tripple-Match-Banner.jpg") center/cover no-repeat;
-    }
-
-    .back {
-        background: url("https://cdn-icons-png.flaticon.com/512/992/992651.png") center/60% no-repeat;
-        background-color: yellow;
-        transform: rotateY(180deg);
-    }
-
-    .cta-btn {
-        background: #ff3a00;
-        color: white;
-        padding: 16px 28px;
-        font-size: 20px;
-        text-decoration: none;
-        border-radius: 10px;
-        margin-top: 20px;
-        display: inline-block;
-        animation: pulse 1.2s infinite;
-    }
-
-    .subscribe-cta {
-        background: #007bff;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-
-    #subscribe-section {
-        display: none;
-        margin-top: 30px;
-    }
-
-</style>
+        /* --- 2. Network Selection Styles (Swapped View) --- */
+        #network-select-screen { display: none; } /* Hidden by default */
+        .network-box {
+            background-color: #1a237e; 
+            padding: 30px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 400px; width: 90%;
+            text-align: center;
+        }
+        .network-box h2 {
+            color: #ffcc00; 
+            margin-bottom: 25px; font-size: 1.5em;
+        }
+        .network-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .network-button {
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; padding: 25px 10px;
+            background-color: white; border-radius: 10px;
+            text-decoration: none; color: black; font-weight: bold;
+            transition: transform 0.2s; cursor: pointer;
+        }
+        .network-button:active { transform: scale(0.95); }
+        .dot { width: 35px; height: 35px; border-radius: 50%; margin-bottom: 5px; }
+        
+        /* Network Colors */
+        .mtn { background-color: #ffcc00; }
+        .airtel { background-color: #ff0000; }
+        .glo { background-color: #008000; border: 2px solid #008000; }
+        .mobile9 { background-color: #000000; }
+    </style>
 </head>
-
 <body>
 
-<div class="container">
-
-    <img src="https://i.postimg.cc/GtTk6PHV/Tripple-Match-Banner.jpg" class="promo-image">
-
-    <h1>Win Cash, Data & Airtime!</h1>
-    <p>Tap all 3 cards to reveal your match.</p>
-
-    <div class="gift-area">
-        <div class="card" onclick="flipCard(this)"><div class="inner"><div class="front"></div><div class="back"></div></div></div>
-        <div class="card" onclick="flipCard(this)"><div class="inner"><div class="front"></div><div class="back"></div></div></div>
-        <div class="card" onclick="flipCard(this)"><div class="inner"><div class="front"></div><div class="back"></div></div></div>
+    <div id="offerPopup" class="popup-overlay">
+        <div class="popup-content">
+            
+            <h2>🎉 Downtown Official Promo!</h2>
+            <p>Our **7-Year Anniversary Celebration** is Here!</p>
+            <p>You are eligible to claim **FREE MOBILE DATA** today!</p>
+            <p class="timer">PROMO ENDS IN: <span id="countdown">23:00</span></p>
+            
+            <button onclick="showNetworkSelect()" class="cta-button">
+                CHECK ELIGIBILITY NOW
+            </button>
+            
+        </div>
     </div>
 
-    <!-- Hidden until cards are flipped -->
-    <div id="subscribe-section">
-        <h2>🎉 You Matched 3 Items!</h2>
-        <p>Final step: Subscribe to claim your reward.</p>
-
-        <a href="https://qvxprml.one/cl/3ea525e3377b9038" class="cta-btn subscribe-cta">
-            ✅ SUBSCRIBE TO CLAIM REWARD
-        </a>
+    <div id="network-select-screen">
+        <div class="network-box">
+            <h2>Select Your Network</h2>
+            
+            <div class="network-grid">
+                
+                <a href="prelander-3.html" class="network-button mtn-button">
+                    <div class="dot mtn"></div>MTN
+                </a>
+                
+                <a href="prelander-3.html" class="network-button airtel-button">
+                    <div class="dot airtel"></div>AIRTEL
+                </a>
+                
+                <a href="prelander-3.html" class="network-button glo-button">
+                    <div class="dot glo"></div>GLO
+                </a>
+                
+                <a href="prelander-3.html" class="network-button mobile9-button">
+                    <div class="dot mobile9"></div>9MOBILE
+                </a>
+            </div>
+        </div>
     </div>
 
-</div>
+    <script>
+        // --- Funnel Logic: Hiding and Showing Steps ---
+        function showNetworkSelect() {
+            // Hide the pop-up
+            document.getElementById('offerPopup').style.display = 'none';
+            // Show the network selection screen
+            document.getElementById('network-select-screen').style.display = 'flex';
+        }
 
-<script>
-let flipCount = 0;
-
-function flipCard(card) {
-    let inner = card.querySelector(".inner");
-
-    if (!inner.classList.contains("flipped")) {
-        inner.classList.add("flipped");
-        flipCount++;
-    }
-
-    if (flipCount === 3) {
-        setTimeout(() => {
-            document.getElementById("subscribe-section").style.display = "block";
-            document.getElementById("subscribe-section").scrollIntoView({ behavior: "smooth" });
-        }, 600);
-    }
-}
-</script>
-
+        // --- Timer Logic ---
+        let time = 23 * 60; 
+        const countdownEl = document.getElementById('countdown');
+        function updateCountdown() {
+            const minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            countdownEl.textContent = `${minutes}:${seconds}`;
+            time--;
+            if (time < 0) {
+                countdownEl.textContent = 'EXPIRED';
+                clearInterval(timerInterval);
+            }
+        }
+        const timerInterval = setInterval(updateCountdown, 1000);
+    </script>
 </body>
 </html>
