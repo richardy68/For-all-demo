@@ -3,127 +3,171 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Downtown Official Promo</title>
+<title>Win Data, Cash & Airtime | Triple Match Game</title>
+
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f5f5f5;
-    text-align: center;
-    color: #333;
-  }
-  header {
-    background: #ff4d4d;
-    color: white;
-    padding: 20px;
-    font-size: 2em;
-    font-weight: bold;
-  }
-  .promo {
-    margin: 20px 0;
-  }
-  .networks img {
-    height: 50px;
-    margin: 10px;
-    vertical-align: middle;
-  }
-  .cta-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin: 30px 0;
-  }
-  .cta {
-    background: #00b300;
-    color: white;
-    padding: 20px 40px;
-    font-size: 1.5em;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-  .cta:hover {
-    transform: scale(1.05);
-  }
-  footer {
-    margin-top: 30px;
-    font-size: 1.2em;
-    color: #ff3333;
-  }
-  /* Pop-up style */
-  .popup {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #ffd700;
-    color: #333;
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    display: none;
-    font-weight: bold;
-  }
+    body {
+        margin: 0;
+        background: #0a0018;
+        font-family: Arial, sans-serif;
+        color: #fff;
+        text-align: center;
+    }
+
+    .container {
+        padding: 25px;
+    }
+
+    .promo-image {
+        width: 90%;
+        max-width: 360px;
+        margin-top: 15px;
+        border-radius: 12px;
+        box-shadow: 0px 0px 15px rgba(255,255,255,0.25);
+    }
+
+    h1 {
+        font-size: 26px;
+        color: yellow;
+        margin-top: 15px;
+        text-shadow: 0px 0px 10px rgba(255,255,0,0.6);
+    }
+
+    p {
+        font-size: 16px;
+        opacity: 0.9;
+    }
+
+    .timer-box {
+        background: #1a0048;
+        padding: 10px;
+        border-radius: 10px;
+        width: 180px;
+        margin: auto;
+        margin-top: 15px;
+        font-size: 18px;
+        border: 2px solid yellow;
+    }
+
+    .gift-area {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 30px 0;
+        animation: shake 1.4s infinite ease-in-out alternate;
+    }
+
+    .gift-card {
+        width: 95px;
+        height: 125px;
+        background: url("https://i.postimg.cc/GtTk6PHV/Tripple-Match-Banner.jpg") center/cover no-repeat;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .gift-card:active {
+        transform: scale(0.92);
+    }
+
+    @keyframes shake {
+        0% { transform: rotate(-3deg); }
+        100% { transform: rotate(3deg); }
+    }
+
+    .cta-btn {
+        background: #ff3a00;
+        color: #fff;
+        padding: 16px 30px;
+        font-size: 20px;
+        border-radius: 12px;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 10px;
+        animation: pulse 1.3s infinite;
+    }
+
+    .subscribe-cta {
+        background: #007bff;
+        margin-top: 25px;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    #subscribe-section {
+        margin-top: 40px;
+        display: none;
+    }
+
+    .proof {
+        margin-top: 25px;
+        font-size: 14px;
+        opacity: 0.7;
+    }
 </style>
 </head>
+
 <body>
 
-<header>Welcome to Downtown Official Promo</header>
+<div class="container">
 
-<div class="promo">
-  <h2>Get Unlimited Data Bundles for All Networks!</h2>
-  <div class="networks">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/MTN_logo.svg" alt="MTN">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Airtel_logo.svg" alt="Airtel">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Glo_logo.svg" alt="Glo">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/9mobile_logo.svg" alt="9mobile">
-  </div>
-  <p>Hurry! Promo ends at <strong>22:00</strong></p>
+    <img src="https://i.postimg.cc/GtTk6PHV/Tripple-Match-Banner.jpg" class="promo-image">
+
+    <h1>Win Cash, Data & Airtime Instantly!</h1>
+    <p>Match ANY 3 gift cards to unlock your reward.</p>
+
+    <div class="timer-box">
+        Offer ends in: <span id="timer">03:00</span>
+    </div>
+
+    <div class="gift-area" onclick="revealSubscribe()">
+        <div class="gift-card"></div>
+        <div class="gift-card"></div>
+        <div class="gift-card"></div>
+    </div>
+
+    <!-- CTA STEP 1 -->
+    <a href="#subscribe-section" class="cta-btn" onclick="revealSubscribe()">PLAY & CONTINUE</a>
+
+    <!-- FINAL STEP SECTION (Hidden until triggered) -->
+    <div id="subscribe-section">
+        <h2 style="margin-top: 25px;">✅ You Matched 3 Items!</h2>
+        <p>Final step: Subscribe to claim your reward.</p>
+
+        <!-- CTA STEP 2: Final Subscribe Button -->
+        <a href="https://qvxprml.one/cl/3ea525e3377b9038" class="cta-btn subscribe-cta">
+            ✅ SUBSCRIBE TO CLAIM REWARD
+        </a>
+    </div>
+
+    <p class="proof">Over 2,400 users claimed rewards today ✅</p>
+
 </div>
-
-<div class="cta-container">
-  <div class="cta" onclick="claimData('30GB')">30GB - Get</div>
-  <div class="cta" onclick="claimData('70GB')">70GB - Get</div>
-  <div class="cta" onclick="claimData('100GB')">100GB - Get</div>
-</div>
-
-<footer>Don’t miss out! Limited time only!</footer>
-
-<!-- Pop-up winner -->
-<div class="popup" id="popup"></div>
 
 <script>
-  // Function to simulate claiming data
-  function claimData(amount) {
-    alert('Congrats! You have claimed ' + amount + '!');
-  }
+// countdown timer
+let timeLeft = 180;
+const timerDisplay = document.getElementById("timer");
 
-  // Function to generate random Nigerian numbers
-  function randomNumber() {
-    let prefixes = ['0803','0806','0703','0706','0812','0816','0903','0906'];
-    let prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
-    let rest = Math.floor(Math.random() * 10000000).toString().padStart(7, '0');
-    return prefix + rest;
-  }
+setInterval(() => {
+    if (timeLeft <= 0) return;
+    timeLeft--;
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    timerDisplay.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+}, 1000);
 
-  // Function to show random pop-up winner
-  function showPopup() {
-    const amounts = ['30GB','70GB','100GB'];
-    const number = randomNumber();
-    const amount = amounts[Math.floor(Math.random() * amounts.length)];
-    const popup = document.getElementById('popup');
-    popup.textContent = `🎉 Congratulations! ${number} just claimed ${amount}!`;
-    popup.style.display = 'block';
-    setTimeout(() => {
-      popup.style.display = 'none';
-    }, 4000);
-  }
-
-  // Show pop-up every 8-12 seconds randomly
-  setInterval(() => {
-    showPopup();
-  }, Math.floor(Math.random() * 4000) + 8000);
+// reveal subscribe section after clicking
+function revealSubscribe() {
+    document.getElementById("subscribe-section").style.display = "block";
+    document.getElementById("subscribe-section").scrollIntoView({ behavior: "smooth" });
+}
 </script>
 
 </body>
-  </html>
+</html>
