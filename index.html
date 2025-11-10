@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Rewards Hub</title>
+    <title>DataMax Pro - Boost Your Mobile Experience</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
             min-height: 100vh;
             padding: 20px;
         }
@@ -21,224 +22,329 @@
         .container {
             max-width: 400px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
         }
         
         .header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            padding: 30px 20px;
+            background: linear-gradient(135deg, #007CF0, #00DFD8);
+            padding: 40px 20px;
             text-align: center;
+            position: relative;
         }
         
-        .logo {
-            font-size: 24px;
+        .data-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            font-size: 28px;
             font-weight: bold;
             margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
         .subtitle {
             font-size: 16px;
             opacity: 0.9;
+            font-weight: 300;
         }
         
         .content {
-            padding: 25px;
+            padding: 30px 25px;
         }
         
-        .offer-card {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-left: 4px solid #4facfe;
+        .benefits {
+            margin-bottom: 30px;
         }
         
-        .offer-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        
-        .offer-description {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-        
-        .reward-badge {
-            background: #28a745;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-        
-        .cta-button {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: transform 0.2s;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-        }
-        
-        .steps {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .step {
+        .benefit-item {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid #00DFD8;
         }
         
-        .step-number {
-            background: #4facfe;
-            color: white;
-            width: 25px;
-            height: 25px;
+        .benefit-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            background: #007CF0;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-            margin-right: 10px;
         }
         
-        .step-text {
-            font-size: 14px;
-            color: #555;
+        .benefit-text {
+            flex: 1;
         }
         
-        .disclaimer {
-            font-size: 11px;
-            color: #888;
-            text-align: center;
+        .benefit-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .benefit-desc {
+            font-size: 13px;
+            opacity: 0.8;
             line-height: 1.4;
-            margin-top: 20px;
-            padding: 15px;
-            border-top: 1px solid #eee;
         }
         
-        .trust-badges {
+        .data-stats {
             display: flex;
             justify-content: space-around;
-            margin: 20px 0;
+            margin: 30px 0;
+            text-align: center;
         }
         
-        .trust-badge {
+        .stat-item {
+            padding: 15px;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00DFD8;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .pricing {
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .price {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #00DFD8;
+        }
+        
+        .price-period {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #007CF0, #00DFD8);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,223,216,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,223,216,0.4);
+        }
+        
+        .guarantee {
             text-align: center;
             font-size: 12px;
-            color: #666;
+            opacity: 0.7;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
-        .badge-icon {
-            font-size: 20px;
-            margin-bottom: 5px;
+        .testimonial {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+            font-style: italic;
+            border-left: 4px solid #007CF0;
+        }
+        
+        .testimonial-text {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .testimonial-author {
+            font-size: 12px;
+            opacity: 0.8;
+            text-align: right;
+        }
+        
+        .footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 11px;
+            opacity: 0.6;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .urgency {
+            background: rgba(255,255,255,0.15);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,68,68,0.3);
+        }
+        
+        .urgency-text {
+            font-size: 14px;
+            color: #ff4444;
+            font-weight: 600;
+        }
+        
+        .timer {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00DFD8;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo">RewardsHub</div>
-            <div class="subtitle">Complete Offers & Earn Rewards</div>
+            <div class="data-icon">📶</div>
+            <h1>DataMax Pro</h1>
+            <div class="subtitle">SMART DATA OPTIMIZATION TECHNOLOGY</div>
         </div>
         
         <div class="content">
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-text">Choose an offer below</div>
+            <div class="urgency">
+                <div class="urgency-text">SPECIAL OFFER ENDS IN:</div>
+                <div class="timer" id="countdown">15:00</div>
+            </div>
+            
+            <div class="benefits">
+                <div class="benefit-item">
+                    <div class="benefit-icon">⚡</div>
+                    <div class="benefit-text">
+                        <div class="benefit-title">Boost Data Speed</div>
+                        <div class="benefit-desc">Optimize your connection for faster browsing and streaming</div>
+                    </div>
                 </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-text">Complete the requirements</div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">💾</div>
+                    <div class="benefit-text">
+                        <div class="benefit-title">Reduce Data Usage</div>
+                        <div class="benefit-desc">Smart compression saves up to 50% of your mobile data</div>
+                    </div>
                 </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-text">Get your reward instantly</div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">🛡️</div>
+                    <div class="benefit-text">
+                        <div class="benefit-title">Enhanced Security</div>
+                        <div class="benefit-desc">Protect your privacy with advanced encryption</div>
+                    </div>
                 </div>
             </div>
             
-            <div class="offer-card">
-                <div class="offer-title">Try Streaming Service</div>
-                <div class="offer-description">
-                    Sign up for a free trial and enjoy premium content for 30 days. Cancel anytime.
+            <div class="data-stats">
+                <div class="stat-item">
+                    <div class="stat-number">50%</div>
+                    <div class="stat-label">Data Saved</div>
                 </div>
-                <div class="reward-badge">Earn: $5.00</div>
-                <button class="cta-button" onclick="startOffer('streaming')">Get This Offer</button>
-            </div>
-            
-            <div class="offer-card">
-                <div class="offer-title">Mobile Game Download</div>
-                <div class="offer-description">
-                    Download and play this popular game to level 10. Fun and easy to complete!
+                <div class="stat-item">
+                    <div class="stat-number">2.5x</div>
+                    <div class="stat-label">Faster Speed</div>
                 </div>
-                <div class="reward-badge">Earn: $2.50</div>
-                <button class="cta-button" onclick="startOffer('game')">Play & Earn</button>
-            </div>
-            
-            <div class="offer-card">
-                <div class="offer-title">Survey Opportunity</div>
-                <div class="offer-description">
-                    Share your opinion in a 5-minute survey about mobile apps and services.
-                </div>
-                <div class="reward-badge">Earn: $1.75</div>
-                <button class="cta-button" onclick="startOffer('survey')">Take Survey</button>
-            </div>
-            
-            <div class="trust-badges">
-                <div class="trust-badge">
-                    <div class="badge-icon">🔒</div>
-                    <div>Secure</div>
-                </div>
-                <div class="trust-badge">
-                    <div class="badge-icon">⚡</div>
-                    <div>Instant</div>
-                </div>
-                <div class="trust-badge">
-                    <div class="badge-icon">💎</div>
-                    <div>Verified</div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Protection</div>
                 </div>
             </div>
             
-            <div class="disclaimer">
-                RewardsHub is an independent service not affiliated with mobile carriers. All offers are provided by third-party partners. You will receive rewards from RewardsHub, not mobile data from your carrier. Please read all offer terms before participating.
+            <div class="testimonial">
+                <div class="testimonial-text">
+                    "DataMax Pro doubled my data allowance effectively! I stream videos daily and still have data left at month's end."
+                </div>
+                <div class="testimonial-author">- Sarah M., Premium User</div>
             </div>
+            
+            <div class="pricing">
+                <div>START YOUR FREE TRIAL</div>
+                <div class="price">$0</div>
+                <div class="price-period">for 7 days, then $4.99/month</div>
+                
+                <button class="cta-button" onclick="subscribeNow()">
+                    SUBSCRIBE NOW
+                </button>
+                
+                <div class="guarantee">
+                    <span>🔒</span> 30-day money back guarantee
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            © 2024 DataMax Pro. All rights reserved. | Privacy Policy | Terms of Service
         </div>
     </div>
 
     <script>
-        function startOffer(offerType) {
-            // In a real implementation, this would redirect to your CPA offer link
-            // For demo purposes, we'll show an alert
-            alert(`This would redirect to your CPA offer for: ${offerType}\n\nRemember to use your actual affiliate link from your CPA network.`);
+        // Countdown timer
+        function startCountdown() {
+            let timeLeft = 15 * 60; // 15 minutes in seconds
+            const timerElement = document.getElementById('countdown');
             
-            // Example of what you'd actually do:
-            // window.location.href = 'https://your-cpa-affiliate-link.com';
+            const countdown = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                
+                timerElement.textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                timeLeft--;
+                
+                if (timeLeft < 0) {
+                    clearInterval(countdown);
+                    timerElement.textContent = "OFFER EXPIRED";
+                    timerElement.style.color = "#ff4444";
+                }
+            }, 1000);
         }
+        
+        function subscribeNow() {
+            // In a real implementation, this would process the subscription
+            alert("Redirecting to secure subscription page...\n\nThis would connect to your CPA offer with 'Subscribe Now' as the final CTA.");
+            
+            // Example redirect (replace with your actual offer link)
+            // window.location.href = 'https://yourofferdestination.com/subscribe';
+        }
+        
+        // Start the countdown when page loads
+        document.addEventListener('DOMContentLoaded', startCountdown);
     </script>
 </body>
 </html>
