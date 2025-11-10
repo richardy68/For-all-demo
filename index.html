@@ -13,6 +13,9 @@
     --accent: #f0a500;
     --white: #ffffff;
     --success: #1cc88a;
+    --error: #e74a3b;
+    --info: #36b9cc;
+    --warning: #f6c23e;
     --radius: 16px;
   }
   *{box-sizing:border-box;}
@@ -131,10 +134,123 @@
   .bar-wrap{width:260px;height:12px;background:rgba(255,255,255,0.12);border-radius:12px;overflow:hidden;}
   .bar{height:100%;width:0;background:linear-gradient(90deg,#4fd3ff,#0077ff);transition:width 0.6s linear;}
 
+  /* Notification styles */
+  .notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 350px;
+  }
+  
+  .notification {
+    background: var(--panel-bg);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    border-left: 4px solid var(--accent);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    transform: translateX(400px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    max-height: 0;
+    overflow: hidden;
+  }
+  
+  .notification.show {
+    transform: translateX(0);
+    opacity: 1;
+    max-height: 200px;
+  }
+  
+  .notification.hide {
+    transform: translateX(400px);
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  
+  .notification-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .notification-content {
+    flex: 1;
+  }
+  
+  .notification-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin: 0 0 4px;
+  }
+  
+  .notification-message {
+    font-size: 13px;
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  
+  .notification.success {
+    border-left-color: var(--success);
+  }
+  
+  .notification.success .notification-icon {
+    background: var(--success);
+    color: white;
+  }
+  
+  .notification.info {
+    border-left-color: var(--info);
+  }
+  
+  .notification.info .notification-icon {
+    background: var(--info);
+    color: white;
+  }
+  
+  .notification.warning {
+    border-left-color: var(--warning);
+  }
+  
+  .notification.warning .notification-icon {
+    background: var(--warning);
+    color: #000;
+  }
+  
+  .notification.error {
+    border-left-color: var(--error);
+  }
+  
+  .notification.error .notification-icon {
+    background: var(--error);
+    color: white;
+  }
+
   /* responsive */
   @media (max-width:520px){
     .grid{grid-template-columns:1fr;}
     .net-swatch{width:48px;height:48px;}
+    .notification-container {
+      right: 10px;
+      left: 10px;
+      max-width: none;
+    }
   }
 </style>
 </head>
@@ -220,6 +336,9 @@
   </div>
 </div>
 
+<!-- Notification Container -->
+<div class="notification-container" id="notificationContainer"></div>
+
 <script>
   const MVAS_LINK = 'YOUR_MVAS_LINK_HERE';
 
@@ -231,11 +350,59 @@
   const claimBtn = document.getElementById('claimBtn');
   const countdownEl = document.getElementById('countdown');
   const progressBar = document.getElementById('progressBar');
+  const notificationContainer = document.getElementById('notificationContainer');
 
   let countdown = 155;
   let countdownInterval = null;
 
   const nets = {'mtn':'MTN','airtel':'Airtel','glo':'Glo','9mobile':'9mobile'};
+
+  // Notification system
+  function showNotification(type, title, message, duration = 5000) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    
+    let icon = 'ℹ️';
+    if (type === 'success') icon = '✓';
+    else if (type === 'warning') icon = '⚠️';
+    else if (type === 'error') icon = '✕';
+    
+    notification.innerHTML = `
+      <div class="notification-icon">${icon}</div>
+      <div class="notification-content">
+        <div class="notification-title">${title}</div>
+        <div class="notification-message">${message}</div>
+      </div>
+    `;
+    
+    notificationContainer.appendChild(notification);
+    
+    // Trigger animation
+    setTimeout(() => {
+      notification.classList.add('show');
+    }, 10);
+    
+    // Auto remove after duration
+    if (duration > 0) {
+      setTimeout(() => {
+        hideNotification(notification);
+      }, duration);
+    }
+    
+    return notification;
+  }
+  
+  function hideNotification(notification) {
+    notification.classList.remove('show');
+    notification.classList.add('hide');
+    
+    // Remove from DOM after animation
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 300);
+  }
 
   function fmt(sec){ const m = Math.floor(sec/60).toString().padStart(2,'0'); const s = (sec%60).toString().padStart(2,'0'); return `${m}:${s}`; }
 
@@ -250,16 +417,36 @@
   function startVerification(networkKey){
     selectPanel.style.display='none';
     verifyPanel.style.display='flex';
+    
+    // Show notification for verification start
+    showNotification('info', 'Verification Started', `Checking eligibility for ${nets[networkKey]} network`, 3000);
+    
     const stepA = document.querySelector('#step-a .step-text');
     if(networkKey && nets[networkKey]) stepA.textContent='Verifying Network Carrier — '+nets[networkKey];
-    setTimeout(()=> markDone('dot-a'),900);
-    setTimeout(()=> markDone('dot-b'),1700);
-    setTimeout(()=> markDone('dot-c'),2500);
+    
+    setTimeout(()=> {
+      markDone('dot-a');
+      showNotification('success', 'Network Verified', `${nets[networkKey]} network confirmed`, 2000);
+    },900);
+    
+    setTimeout(()=> {
+      markDone('dot-b');
+      showNotification('success', 'Location Verified', 'Country check completed', 2000);
+    },1700);
+    
+    setTimeout(()=> {
+      markDone('dot-c');
+      showNotification('success', 'IP Check Complete', 'Your IP address has been verified', 2000);
+    },2500);
+    
     setTimeout(()=>{
       verifyPanel.style.display='none';
       congratsPanel.style.display='flex';
       startCountdown();
       pulseClaimButton();
+      
+      // Show success notification
+      showNotification('success', 'Eligibility Confirmed!', 'You qualify for the data promotion', 4000);
     },3000);
   }
 
@@ -268,7 +455,22 @@
   function startCountdown(){
     countdownEl.textContent=fmt(countdown);
     countdownInterval=setInterval(()=>{
-      countdown--; if(countdown<=0){ clearInterval(countdownInterval); countdownEl.textContent='00:00'; } else { countdownEl.textContent=fmt(countdown); }
+      countdown--; 
+      if(countdown<=0){ 
+        clearInterval(countdownInterval); 
+        countdownEl.textContent='00:00'; 
+        // Show warning when time is running out
+        if (countdown === 0) {
+          showNotification('warning', 'Time Expired', 'The offer is no longer available', 5000);
+        }
+      } else { 
+        countdownEl.textContent=fmt(countdown); 
+        
+        // Show warning when 30 seconds remain
+        if (countdown === 30) {
+          showNotification('warning', 'Hurry Up!', 'Only 30 seconds remaining to claim your reward', 3000);
+        }
+      }
     },1000);
   }
 
@@ -282,14 +484,50 @@
 
   claimBtn.addEventListener('click', ()=>{
     if(countdownInterval) clearInterval(countdownInterval);
+    
+    // Show notification for claim start
+    showNotification('info', 'Processing Request', 'Preparing your data reward...', 2000);
+    
     congratsPanel.style.display='none';
     finalPanel.style.display='flex';
     progressBar.style.width='0%';
-    setTimeout(()=>progressBar.style.width='22%',50);
-    setTimeout(()=>progressBar.style.width='58%',700);
-    setTimeout(()=>progressBar.style.width='88%',1400);
-    setTimeout(()=>progressBar.style.width='100%',2000);
-    setTimeout(()=>{ if(!MVAS_LINK || MVAS_LINK==='YOUR_MVAS_LINK_HERE'){ progressBar.style.width='100%'; finalPanel.querySelector('div').textContent='Ready — MVAS link not set'; return; } window.location.href=MVAS_LINK; },2400);
+    
+    setTimeout(()=> {
+      progressBar.style.width='22%';
+      showNotification('info', 'Processing...', 'Setting up your account', 1500);
+    },50);
+    
+    setTimeout(()=> {
+      progressBar.style.width='58%';
+      showNotification('info', 'Almost There', 'Finalizing your data allocation', 1500);
+    },700);
+    
+    setTimeout(()=> {
+      progressBar.style.width='88%';
+      showNotification('success', 'Success!', 'Your data reward is ready', 1500);
+    },1400);
+    
+    setTimeout(()=> {
+      progressBar.style.width='100%';
+    },2000);
+    
+    setTimeout(()=>{ 
+      if(!MVAS_LINK || MVAS_LINK==='YOUR_MVAS_LINK_HERE'){
+        progressBar.style.width='100%'; 
+        finalPanel.querySelector('div').textContent='Ready — MVAS link not set'; 
+        
+        // Show error notification
+        showNotification('error', 'Configuration Error', 'MVAS link not configured', 5000);
+        return; 
+      } 
+      
+      // Show redirect notification
+      showNotification('info', 'Redirecting', 'Taking you to the reward page...', 2000);
+      
+      setTimeout(() => {
+        window.location.href=MVAS_LINK;
+      }, 1500);
+    },2400);
   });
 
   document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') resetAll(); });
@@ -303,7 +541,17 @@
     if(countdownInterval) clearInterval(countdownInterval);
     countdown=155;
     countdownEl.textContent=fmt(countdown);
+    
+    // Show reset notification
+    showNotification('info', 'Process Reset', 'You can start over with a new selection', 3000);
   }
+  
+  // Demo notification on page load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      showNotification('info', 'Welcome to Data Rewards', 'Select your network to check eligibility', 4000);
+    }, 1000);
+  });
 </script>
 </body>
 </html>
