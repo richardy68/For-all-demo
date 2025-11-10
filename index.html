@@ -7,159 +7,222 @@
 <meta name="robots" content="noindex,nofollow" />
 <style>
   :root{
-    --bg:#0b4fd7;
-    --card:#07224a;
-    --card-2:#0b3f9b;
-    --muted:#bcd3ff;
-    --accent:#ff8a00;
+    --bg: #0a0a0a;
+    --panel-bg: rgba(30,30,30,0.85);
+    --muted: #aaa;
+    --accent: #f0a500;
     --white: #ffffff;
     --success: #1cc88a;
-    --glass: rgba(255,255,255,0.06);
-    --radius:16px;
+    --radius: 16px;
   }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#0570f0 0%, #05264f 100%);color:var(--white);-webkit-font-smoothing:antialiased}
-  .center{max-width:980px;margin:28px auto;padding:20px}
-  .brand{display:flex;align-items:center;gap:14px}
-  .brand .logo{width:60px;height:60px;border-radius:12px;background:linear-gradient(135deg,#0b74ff,#064bd9);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px}
-  h1{margin:6px 0 0;font-size:20px}
-  p.lead{margin:6px 0 0;color:var(--muted);font-size:14px}
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: 'Inter', system-ui, 'Segoe UI', Roboto, Arial;
+    background: linear-gradient(180deg, #0a0a0a, #1b1b1b);
+    color: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+  .center{max-width:980px;margin:28px auto;padding:20px;}
+  .brand{display:flex;align-items:center;gap:14px;cursor:pointer;}
+  .brand .logo{
+    width:60px;height:60px;border-radius:12px;
+    background: linear-gradient(135deg,#f0a500,#d18e00);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:20px;
+    box-shadow:0 4px 20px rgba(240,165,0,0.5);
+  }
+  h1{margin:6px 0 0;font-size:20px;}
+  p.lead{margin:6px 0 0;color:var(--muted);font-size:14px;}
 
   /* ---------- Network selection card ---------- */
-  .panel{background:linear-gradient(180deg,#07214b 0%, #03203f 100%);border-radius:18px;padding:22px;margin-top:18px;box-shadow:0 8px 30px rgba(0,0,0,0.35)}
-  .panel h2{margin:0 0 6px;font-size:20px}
-  .panel p{margin:0 0 14px;color:var(--muted);font-size:14px}
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-  .net-btn{background:#0a2a5a;border-radius:12px;padding:18px;display:flex;align-items:center;gap:12px;cursor:pointer;border:2px solid rgba(255,255,255,0.03);transition:transform .14s, box-shadow .14s}
-  .net-btn:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(2,6,23,0.45)}
-  .net-swatch{width:56px;height:56px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#05122a;font-size:16px}
-  .net-label{font-weight:700}
-  .net-sub{font-size:13px;color:var(--muted)}
+  .panel{
+    background: var(--panel-bg);
+    border-radius: var(--radius);
+    padding:22px;
+    margin-top:18px;
+    box-shadow:0 12px 40px rgba(0,0,0,0.6);
+  }
+  .panel h2{margin:0 0 6px;font-size:20px;color: var(--accent);}
+  .panel p{margin:0 0 14px;color:var(--muted);font-size:14px;}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+  .net-btn{
+    background: rgba(50,50,50,0.6);
+    border-radius:12px;
+    padding:18px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+    border:2px solid rgba(255,255,255,0.05);
+    transition: transform 0.14s, box-shadow 0.14s;
+  }
+  .net-btn:hover{
+    transform:translateY(-6px);
+    box-shadow:0 10px 30px rgba(240,165,0,0.35);
+  }
+  .net-swatch{width:56px;height:56px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#05122a;font-size:16px;}
+  .net-label{font-weight:700;}
+  .net-sub{font-size:13px;color:var(--muted);}
 
   /* specific swatches */
-  .s-mtn{background:#ffd400}
-  .s-airtel{background:#e60000;color:#fff}
-  .s-glo{background:#0db14b}
-  .s-9m{background:#111111;color:#fff}
+  .s-mtn{background:#ffd400;}
+  .s-airtel{background:#e60000;color:#fff;}
+  .s-glo{background:#0db14b;}
+  .s-9m{background:#111111;color:#fff;}
 
   /* verifying screen */
-  .verify-wrap{display:none;flex-direction:column;align-items:center;gap:18px}
-  .circle{width:92px;height:92px;border-radius:50%;border:6px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center}
-  .steps{width:100%;max-width:420px;margin-top:6px}
-  .step{display:flex;align-items:center;gap:12px;padding:10px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));margin-bottom:8px}
-  .dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,0.12);flex:0 0 14px;display:inline-block}
-  .dot.done{background:var(--success)}
-  .step-text{font-size:14px;color:var(--muted)}
+  .verify-wrap{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+  }
+  .circle{
+    width:92px;height:92px;border-radius:50%;
+    border:6px solid rgba(255,255,255,0.12);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow: 0 0 20px rgba(79,211,255,0.6);
+  }
+  .steps{width:100%;max-width:420px;margin-top:6px;}
+  .step{
+    display:flex;align-items:center;gap:12px;
+    padding:10px;border-radius:12px;
+    background: rgba(255,255,255,0.02);
+    margin-bottom:8px;
+  }
+  .dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,0.12);flex:0 0 14px;display:inline-block;}
+  .dot.done{background: var(--success); box-shadow:0 0 6px var(--success);}
+  .step-text{font-size:14px;color:var(--muted);}
 
   /* congrats card */
-  .congrats{display:none;flex-direction:column;align-items:center;gap:14px;background:linear-gradient(180deg,#0b3f9b,#08306d);padding:20px;border-radius:16px;box-shadow:0 12px 40px rgba(2,8,32,0.5);max-width:420px;margin:0 auto}
-  .congrats h3{margin:0;font-size:18px}
-  .congrats p{margin:0;font-size:15px;color:var(--muted)}
-  .bonus{font-weight:800;color:var(--white);font-size:15px;margin-top:6px;text-align:center}
-  .claim-btn{background:var(--accent);color:#05122a;padding:12px 22px;border-radius:12px;border:0;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,0.28)}
-  .timer{font-size:13px;color:var(--muted);margin-top:6px}
+  .congrats{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+    background: linear-gradient(180deg,#111111,#222222);
+    padding:20px;
+    border-radius:var(--radius);
+    box-shadow:0 12px 40px rgba(240,165,0,0.5);
+    max-width:420px;margin:20px auto;
+    text-align:center;
+  }
+  .congrats h3{margin:0;font-size:18px;color:var(--accent);}
+  .congrats p{margin:0;font-size:15px;color:var(--muted);}
+  .bonus{font-weight:800;color:var(--white);font-size:15px;margin-top:6px;}
+  .claim-btn{
+    background: linear-gradient(90deg,#f0a500,#ffcc00);
+    color:#05122a;
+    padding:12px 22px;
+    border-radius:12px;
+    border:0;font-weight:800;font-size:16px;
+    cursor:pointer;box-shadow:0 8px 24px rgba(240,165,0,0.28);
+    transition: all 0.3s ease;
+  }
+  .claim-btn:hover{
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(240,165,0,0.45);
+  }
+  .timer{font-size:13px;color:var(--muted);margin-top:6px;}
 
   /* final loading */
-  .final-load{display:none;flex-direction:column;align-items:center;gap:12px}
-  .bar-wrap{width:260px;height:12px;background:rgba(255,255,255,0.12);border-radius:12px;overflow:hidden}
-  .bar{height:100%;width:0;background:linear-gradient(90deg,#4fd3ff,#0077ff);transition:width 0.6s linear}
+  .final-load{display:none;flex-direction:column;align-items:center;gap:12px;}
+  .bar-wrap{width:260px;height:12px;background:rgba(255,255,255,0.12);border-radius:12px;overflow:hidden;}
+  .bar{height:100%;width:0;background:linear-gradient(90deg,#4fd3ff,#0077ff);transition:width 0.6s linear;}
 
   /* responsive */
   @media (max-width:520px){
-    .grid{grid-template-columns:1fr}
-    .net-swatch{width:48px;height:48px}
+    .grid{grid-template-columns:1fr;}
+    .net-swatch{width:48px;height:48px;}
   }
 </style>
 </head>
 <body>
-  <div class="center">
-    <div class="brand">
-      <div class="logo">D</div>
-      <div>
-        <h1>Data Rewards Portal</h1>
-        <p class="lead">Official-like verification • Secure activation</p>
-      </div>
-    </div>
-
-    <!-- NETWORK SELECTION -->
-    <div class="panel" id="selectPanel" role="region" aria-label="Select network">
-      <h2>Select Your Network</h2>
-      <p>Choose the network you are currently using to check promo availability.</p>
-
-      <div class="grid" id="grid">
-        <div class="net-btn" data-net="mtn" tabindex="0">
-          <div class="net-swatch s-mtn">MTN</div>
-          <div>
-            <div class="net-label">MTN</div>
-            <div class="net-sub">Popular</div>
-          </div>
-        </div>
-
-        <div class="net-btn" data-net="airtel" tabindex="0">
-          <div class="net-swatch s-airtel">A</div>
-          <div>
-            <div class="net-label">AIRTEL</div>
-            <div class="net-sub">Fast activation</div>
-          </div>
-        </div>
-
-        <div class="net-btn" data-net="glo" tabindex="0">
-          <div class="net-swatch s-glo">G</div>
-          <div>
-            <div class="net-label">GLO</div>
-            <div class="net-sub">Value plan</div>
-          </div>
-        </div>
-
-        <div class="net-btn" data-net="9mobile" tabindex="0">
-          <div class="net-swatch s-9m">9</div>
-          <div>
-            <div class="net-label">9MOBILE</div>
-            <div class="net-sub">Newer users</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- VERIFYING / PROGRESS -->
-    <div id="verifyPanel" class="verify-wrap" role="status" aria-live="polite">
-      <div class="circle" id="verifyCircle">
-        <svg width="42" height="42" viewBox="0 0 24 24" fill="none"><path d="M12 2v6" stroke="rgba(255,255,255,0.85)" stroke-width="1.6" stroke-linecap="round"/><path d="M12 22v-6" stroke="rgba(255,255,255,0.85)" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </div>
-      <div style="text-align:center">
-        <div style="font-weight:800;font-size:18px">Verifying Your Connection... please wait</div>
-        <div style="color:var(--muted);margin-top:6px;font-size:14px">We're running a quick check to confirm eligibility</div>
-      </div>
-
-      <div class="steps" id="stepsWrap" aria-hidden="false">
-        <div class="step" id="step-a"><span class="dot" id="dot-a"></span><div class="step-text">Verifying Network Carrier</div></div>
-        <div class="step" id="step-b"><span class="dot" id="dot-b"></span><div class="step-text">Checking Country</div></div>
-        <div class="step" id="step-c"><span class="dot" id="dot-c"></span><div class="step-text">Checking IP Address</div></div>
-      </div>
-    </div>
-
-    <!-- CONGRATS -->
-    <div id="congratsPanel" class="congrats" role="region" aria-label="Congratulations" style="margin-top:20px">
-      <h3>🎉 Congratulations! You are qualified</h3>
-      <p style="color:var(--muted);margin-top:6px">You will get:</p>
-      <div class="bonus">30GB of data + ₦3,000 Airtime when you subscribe for N50.</div>
-
-      <button id="claimBtn" class="claim-btn">Loading... ⟳</button>
-      <div class="timer">Claim Promo in (<span id="countdown">02:35</span>)</div>
-    </div>
-
-    <!-- FINAL LOADING -->
-    <div id="finalPanel" class="final-load" style="margin-top:26px">
-      <div style="font-weight:800;font-size:17px">Loading… please wait</div>
-      <div class="bar-wrap" aria-hidden="false"><div id="progressBar" class="bar"></div></div>
+<div class="center">
+  <div class="brand">
+    <div class="logo">D</div>
+    <div>
+      <h1>Data Rewards Portal</h1>
+      <p class="lead">Official-like verification • Secure activation</p>
     </div>
   </div>
 
-<script>
-  // Configuration
-  const MVAS_LINK = 'YOUR_MVAS_LINK_HERE'; // <-- replace with your MVAS redirect
+  <!-- NETWORK SELECTION -->
+  <div class="panel" id="selectPanel" role="region" aria-label="Select network">
+    <h2>Select Your Network</h2>
+    <p>Choose the network you are currently using to check promo availability.</p>
 
-  // Elements
+    <div class="grid" id="grid">
+      <div class="net-btn" data-net="mtn" tabindex="0">
+        <div class="net-swatch s-mtn">MTN</div>
+        <div>
+          <div class="net-label">MTN</div>
+          <div class="net-sub">Popular</div>
+        </div>
+      </div>
+
+      <div class="net-btn" data-net="airtel" tabindex="0">
+        <div class="net-swatch s-airtel">A</div>
+        <div>
+          <div class="net-label">AIRTEL</div>
+          <div class="net-sub">Fast activation</div>
+        </div>
+      </div>
+
+      <div class="net-btn" data-net="glo" tabindex="0">
+        <div class="net-swatch s-glo">G</div>
+        <div>
+          <div class="net-label">GLO</div>
+          <div class="net-sub">Value plan</div>
+        </div>
+      </div>
+
+      <div class="net-btn" data-net="9mobile" tabindex="0">
+        <div class="net-swatch s-9m">9</div>
+        <div>
+          <div class="net-label">9MOBILE</div>
+          <div class="net-sub">Newer users</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERIFYING / PROGRESS -->
+  <div id="verifyPanel" class="verify-wrap" role="status" aria-live="polite">
+    <div class="circle" id="verifyCircle"></div>
+    <div style="text-align:center">
+      <div style="font-weight:800;font-size:18px">Verifying Your Connection... please wait</div>
+      <div style="color:var(--muted);margin-top:6px;font-size:14px">We're running a quick check to confirm eligibility</div>
+    </div>
+
+    <div class="steps" id="stepsWrap" aria-hidden="false">
+      <div class="step" id="step-a"><span class="dot" id="dot-a"></span><div class="step-text">Verifying Network Carrier</div></div>
+      <div class="step" id="step-b"><span class="dot" id="dot-b"></span><div class="step-text">Checking Country</div></div>
+      <div class="step" id="step-c"><span class="dot" id="dot-c"></span><div class="step-text">Checking IP Address</div></div>
+    </div>
+  </div>
+
+  <!-- CONGRATS -->
+  <div id="congratsPanel" class="congrats">
+    <h3>🎉 Congratulations! You are qualified</h3>
+    <p>You will get:</p>
+    <div class="bonus">30GB of data + ₦3,000 Airtime when you subscribe for N50.</div>
+
+    <button id="claimBtn" class="claim-btn">Loading... ⟳</button>
+    <div class="timer">Claim Promo in (<span id="countdown">02:35</span>)</div>
+  </div>
+
+  <!-- FINAL LOADING -->
+  <div id="finalPanel" class="final-load">
+    <div style="font-weight:800;font-size:17px">Loading… please wait</div>
+    <div class="bar-wrap" aria-hidden="false"><div id="progressBar" class="bar"></div></div>
+  </div>
+</div>
+
+<script>
+  const MVAS_LINK = 'YOUR_MVAS_LINK_HERE';
+
   const grid = document.getElementById('grid');
   const selectPanel = document.getElementById('selectPanel');
   const verifyPanel = document.getElementById('verifyPanel');
@@ -169,140 +232,78 @@
   const countdownEl = document.getElementById('countdown');
   const progressBar = document.getElementById('progressBar');
 
-  // countdown start seconds (2:35 = 155s)
   let countdown = 155;
   let countdownInterval = null;
 
-  // network colors/names (used for minor feedback)
-  const nets = {
-    'mtn': {name:'MTN'},
-    'airtel': {name:'Airtel'},
-    'glo': {name:'Glo'},
-    '9mobile': {name:'9mobile'}
-  };
+  const nets = {'mtn':'MTN','airtel':'Airtel','glo':'Glo','9mobile':'9mobile'};
 
-  // Helper to format mm:ss
-  function fmt(sec){
-    const m = Math.floor(sec/60).toString().padStart(2,'0');
-    const s = (sec%60).toString().padStart(2,'0');
-    return `${m}:${s}`;
-  }
+  function fmt(sec){ const m = Math.floor(sec/60).toString().padStart(2,'0'); const s = (sec%60).toString().padStart(2,'0'); return `${m}:${s}`; }
 
-  // Start by showing the selection (already visible)
-  // Add click handlers for network buttons
   document.querySelectorAll('.net-btn').forEach(btn=>{
     btn.addEventListener('click', () => {
       const net = btn.getAttribute('data-net');
       startVerification(net);
     });
-    btn.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); } });
+    btn.addEventListener('keydown', (e) => { if(e.key==='Enter'||e.key===' '){e.preventDefault();btn.click();} });
   });
 
-  // Verification sequence (fake, staged)
   function startVerification(networkKey){
-    // hide selection
-    selectPanel.style.display = 'none';
-    // show verifying
-    verifyPanel.style.display = 'flex';
-
-    // small UX: display network name on first step text
+    selectPanel.style.display='none';
+    verifyPanel.style.display='flex';
     const stepA = document.querySelector('#step-a .step-text');
-    if(networkKey && nets[networkKey]) stepA.textContent = 'Verifying Network Carrier — ' + nets[networkKey].name;
-
-    // run staged checks
-    setTimeout(()=> markDone('dot-a'), 900);
-    setTimeout(()=> markDone('dot-b'), 1700);
-    setTimeout(()=> markDone('dot-c'), 2500);
-
-    // after checks, show congrats
-    setTimeout(()=> {
-      verifyPanel.style.display = 'none';
-      congratsPanel.style.display = 'flex';
+    if(networkKey && nets[networkKey]) stepA.textContent='Verifying Network Carrier — '+nets[networkKey];
+    setTimeout(()=> markDone('dot-a'),900);
+    setTimeout(()=> markDone('dot-b'),1700);
+    setTimeout(()=> markDone('dot-c'),2500);
+    setTimeout(()=>{
+      verifyPanel.style.display='none';
+      congratsPanel.style.display='flex';
       startCountdown();
-      // animate claim button small pulse to simulate loading
       pulseClaimButton();
-    }, 3000);
+    },3000);
   }
 
-  function markDone(id){
-    document.getElementById(id).classList.add('done');
-  }
+  function markDone(id){ document.getElementById(id).classList.add('done'); }
 
   function startCountdown(){
-    countdownEl.textContent = fmt(countdown);
-    countdownInterval = setInterval(()=>{
-      countdown--;
-      if(countdown <= 0){
-        clearInterval(countdownInterval);
-        countdownEl.textContent = '00:00';
-        // auto-enable claim if desired (we'll keep the button clickable anyway)
-      } else {
-        countdownEl.textContent = fmt(countdown);
-      }
-    }, 1000);
+    countdownEl.textContent=fmt(countdown);
+    countdownInterval=setInterval(()=>{
+      countdown--; if(countdown<=0){ clearInterval(countdownInterval); countdownEl.textContent='00:00'; } else { countdownEl.textContent=fmt(countdown); }
+    },1000);
   }
 
-  // pulse animation for the orange button (loading feel)
   function pulseClaimButton(){
     claimBtn.animate([
-      { transform: 'translateY(0)', boxShadow: '0 10px 24px rgba(0,0,0,0.15)' },
-      { transform: 'translateY(-6px)', boxShadow: '0 18px 40px rgba(0,0,0,0.22)' },
-      { transform: 'translateY(0)', boxShadow: '0 10px 24px rgba(0,0,0,0.15)' }
-    ], { duration: 1600, iterations: Infinity });
+      {transform:'translateY(0)',boxShadow:'0 10px 24px rgba(0,0,0,0.15)'},
+      {transform:'translateY(-6px)',boxShadow:'0 18px 40px rgba(0,0,0,0.22)'},
+      {transform:'translateY(0)',boxShadow:'0 10px 24px rgba(0,0,0,0.15)'}
+    ],{duration:1600,iterations:Infinity});
   }
 
-  // Claim button click -> final loading -> redirect
   claimBtn.addEventListener('click', ()=>{
-    // stop countdown
     if(countdownInterval) clearInterval(countdownInterval);
-    // hide congrats, show final load
-    congratsPanel.style.display = 'none';
-    finalPanel.style.display = 'flex';
-    // animate progress bar to 100% over 2.6s
-    progressBar.style.width = '0%';
-    setTimeout(()=> progressBar.style.width = '22%', 50);
-    setTimeout(()=> progressBar.style.width = '58%', 700);
-    setTimeout(()=> progressBar.style.width = '88%', 1400);
-    setTimeout(()=> progressBar.style.width = '100%', 2000);
-    // after full load, redirect (slight delay for UX)
-    setTimeout(()=> {
-      // For safety: if MVAS_LINK not replaced, don't redirect - show final text
-      if(!MVAS_LINK || MVAS_LINK === 'YOUR_MVAS_LINK_HERE') {
-        // show message and stop
-        progressBar.style.width = '100%';
-        finalPanel.querySelector('div').textContent = 'Ready — MVAS link not set';
-        // you can replace above with redirect once you add your link
-        return;
-      }
-      window.location.href = MVAS_LINK;
-    }, 2400);
+    congratsPanel.style.display='none';
+    finalPanel.style.display='flex';
+    progressBar.style.width='0%';
+    setTimeout(()=>progressBar.style.width='22%',50);
+    setTimeout(()=>progressBar.style.width='58%',700);
+    setTimeout(()=>progressBar.style.width='88%',1400);
+    setTimeout(()=>progressBar.style.width='100%',2000);
+    setTimeout(()=>{ if(!MVAS_LINK || MVAS_LINK==='YOUR_MVAS_LINK_HERE'){ progressBar.style.width='100%'; finalPanel.querySelector('div').textContent='Ready — MVAS link not set'; return; } window.location.href=MVAS_LINK; },2400);
   });
 
-  // Accessibility: allow keyboard escape to go back to selection (optional)
-  document.addEventListener('keydown', (e)=>{
-    if(e.key === 'Escape') {
-      // reset and show selection
-      resetAll();
-    }
-  });
-
-  function resetAll(){
-    // hide everything except selection
-    verifyPanel.style.display = 'none';
-    congratsPanel.style.display = 'none';
-    finalPanel.style.display = 'none';
-    // reset dots
-    ['dot-a','dot-b','dot-c'].forEach(id=> document.getElementById(id).classList.remove('done'));
-    // show select
-    selectPanel.style.display = 'block';
-    // reset countdown
-    if(countdownInterval) clearInterval(countdownInterval);
-    countdown = 155;
-    countdownEl.textContent = fmt(countdown);
-  }
-
-  // For safety, allow starting again by clicking brand logo
+  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') resetAll(); });
   document.querySelector('.logo').addEventListener('click', resetAll);
+  function resetAll(){
+    verifyPanel.style.display='none';
+    congratsPanel.style.display='none';
+    finalPanel.style.display='none';
+    ['dot-a','dot-b','dot-c'].forEach(id=>document.getElementById(id).classList.remove('done'));
+    selectPanel.style.display='block';
+    if(countdownInterval) clearInterval(countdownInterval);
+    countdown=155;
+    countdownEl.textContent=fmt(countdown);
+  }
 </script>
 </body>
 </html>
