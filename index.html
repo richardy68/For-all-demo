@@ -61,7 +61,20 @@ function showNotif(){
   n.style.display="block";
   setTimeout(()=>n.style.display="none",2500);
 }
-setInterval(showNotif,6000);
+const fakeUsers = ["Emeka","Chinedu","Aisha","Umar","Blessing","Tolu","Femi","Richard","Michael","Gift","Zainab","Chisom","Seyi","Ada"];
+const fakeLocations = ["Abuja","Lagos","Port Harcourt","Enugu","Ibadan","Benin","Kaduna","Owerri"];
+const fakeData = ["50GB","70GB","90GB","30GB","120GB"];
+
+function showNotif(){
+  const name = fakeUsers[Math.floor(Math.random()*fakeUsers.length)];
+  const location = fakeLocations[Math.floor(Math.random()*fakeLocations.length)];
+  const bundle = fakeData[Math.floor(Math.random()*fakeData.length)];
+  const n=document.getElementById("notif");
+  n.innerText = `${name} just got ${bundle} of data from ${location}`;
+  n.style.display="block";
+  setTimeout(()=>n.style.display="none",2500);
+}
+setInterval(showNotif,5000);
 
 function goPage2(){switchPage("page2");setTimeout(()=>switchPage("page3"),6000);}
 function goPage4(){switchPage("page4");setTimeout(()=>switchPage("page5"),6000);}
