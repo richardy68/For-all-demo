@@ -1,35 +1,38 @@
-<header>
-    <img src="[Your Logo Link]" alt="Downtown Mobile Data Service Logo">
-    <h1>Downtown Mobile Data Service</h1>
+<header class="soft-header">
+    <div class="logo-area">
+        <img src="[Your Logo Link]" alt="Downtown Mobile Data Service Logo">
+    </div>
+    <button class="hamburger-menu">☰</button>
     </header>
 
-<section id="carousel-area">
-    <div class="carousel">
-        <img src="https://i.postimg.cc/nrmk2fD0/images_2_23.jpg" alt="Data Services Promo Slide 1">
-        <img src="https://i.postimg.cc/sXQ9fCwD/images-2-21.jpg" alt="Connectivity Promo Slide 2">
+<section id="carousel-area" class="mobile-full-width">
+    <div class="image-slide-show" data-interval="3000">
+        <img src="https://i.postimg.cc/nrmk2fD0/images_2_23.jpg" alt="Data Promo 1" class="active-slide">
+        <img src="https://i.postimg.cc/sXQ9fCwD/images-2-21.jpg" alt="Data Promo 2" class="inactive-slide">
         </div>
 </section>
 
 <section id="network-selection">
     <div class="network-box-container">
         <h2>Choose Your Network</h2>
-        <div class="network-grid">
-            <div class="network-card" data-network="MTN">
+        
+        <div class="network-grid-mobile"> 
+            <a href="#" class="network-card mtn">
                 <img src="[MTN Logo URL]" alt="MTN Logo">
                 <p>MTN</p>
-            </div>
-            <div class="network-card" data-network="AIRTEL">
+            </a>
+            <a href="#" class="network-card airtel">
                 <img src="[AIRTEL Logo URL]" alt="Airtel Logo">
                 <p>AIRTEL</p>
-            </div>
-            <div class="network-card" data-network="GLO">
+            </a>
+            <a href="#" class="network-card glo">
                 <img src="[GLO Logo URL]" alt="Glo Logo">
                 <p>GLO</p>
-            </div>
-            <div class="network-card" data-network="9MOBILE">
+            </a>
+            <a href="#" class="network-card n-mobile">
                 <img src="[9MOBILE Logo URL]" alt="9Mobile Logo">
                 <p>9MOBILE</p>
-            </div>
+            </a>
         </div>
     </div>
 </section>
