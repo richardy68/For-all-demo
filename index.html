@@ -1,117 +1,35 @@
-<!doctype html>
+<header>
+    <img src="[Your Logo Link]" alt="Downtown Mobile Data Service Logo">
+    <h1>Downtown Mobile Data Service</h1>
+    </header>
 
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Downtown FREE Data Service</title>
-<style>
-  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0f172a;color:white;}
-  .page{display:none;min-height:100vh;padding:20px;box-sizing:border-box;}
-  .active{display:block;}
-  h1,h2{text-align:center;font-weight:700;}
-  .card{background:#1e293b;padding:20px;border-radius:12px;max-width:450px;margin:auto;}
-  .network-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:20px;}
-  .network-btn{padding:15px;border-radius:10px;background:#334155;color:#fff;border:none;font-size:18px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;}
-  .loader{text-align:center;margin-top:60px;}
-  .loader div{width:50px;height:50px;border-radius:50%;border:6px solid rgba(255,255,255,.2);border-top-color:white;margin:auto;animation:spin 1s linear infinite;}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .notif{position:fixed;top:15px;left:50%;transform:translateX(-50%);background:#fff;color:#111;padding:10px 18px;border-radius:6px;font-size:14px;display:none;box-shadow:0 0 8px rgba(0,0,0,.3);}
-  .plan{background:#0ea5e9;padding:12px;border-radius:10px;margin:12px 0;font-size:18px;font-weight:600;text-align:center;color:white;}
-  .btn-main{width:100%;padding:16px;background:#22c55e;border:none;color:white;font-size:18px;border-radius:12px;margin-top:20px;cursor:pointer;position:relative;}
-  .btn-main.loading{opacity:.7;pointer-events:none;}
-  .btn-main.loading:after{content:"";position:absolute;right:20px;top:50%;transform:translateY(-50%);width:20px;height:20px;border:3px solid rgba(255,255,255,.2);border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;}
-</style>
-</head>
-<body>
-<div id="notif" class="notif">✔ Someone just subscribed</div><!-- PAGE 1 --><div id="page1" class="page active">
-  <h1>Downtown FREE mobile data</h1><!-- IMAGE CAROUSEL START --><div class="carousel">
-  <div class="slides">
-    <img src="https://i.postimg.cc/nrmk2fD0/images_2_23.jpg" class="slide active" />
-    <img src="https://i.postimg.cc/sXQ9fCwD/images-2-21.jpg" class="slide" />
-  </div>
-  <div class="dots">
-    <span class="dot active"></span>
-    <span class="dot"></span>
-  </div>
-</div>
-<!-- IMAGE CAROUSEL END --><!-- NETWORK SELECTION START --><div class="network-grid">
-  <div class="network-box" data-network="MTN">
-    <img src="https://i.postimg.cc/Y0h0b0bL/mtn-logo.png" />
-    <span>MTN</span>
-  </div>
-  <div class="network-box" data-network="AIRTEL">
-    <img src="https://i.postimg.cc/9Q8Cz7cJ/airtel-logo.png" />
-    <span>AIRTEL</span>
-  </div>
-  <div class="network-box" data-network="GLO">
-    <img src="https://i.postimg.cc/HsS03B4P/glo-logo.png" />
-    <span>GLO</span>
-  </div>
-  <div class="network-box" data-network="9MOBILE">
-    <img src="https://i.postimg.cc/Ssd6mJ6G/9mobile-logo.png" />
-    <span>9MOBILE</span>
-  </div>
-</div>
-<!-- NETWORK SELECTION END -->
-  <div class="card">
-    <h2>Choose your Network</h2>
-    <div class="network-grid">
-      <button class="network-btn" onclick="goPage2()">MTN</button>
-      <button class="network-btn" onclick="goPage2()">AIRTEL</button>
-      <button class="network-btn" onclick="goPage2()">GLO</button>
-      <button class="network-btn" onclick="goPage2()">9MOBILE</button>
+<section id="carousel-area">
+    <div class="carousel">
+        <img src="https://i.postimg.cc/nrmk2fD0/images_2_23.jpg" alt="Data Services Promo Slide 1">
+        <img src="https://i.postimg.cc/sXQ9fCwD/images-2-21.jpg" alt="Connectivity Promo Slide 2">
+        </div>
+</section>
+
+<section id="network-selection">
+    <div class="network-box-container">
+        <h2>Choose Your Network</h2>
+        <div class="network-grid">
+            <div class="network-card" data-network="MTN">
+                <img src="[MTN Logo URL]" alt="MTN Logo">
+                <p>MTN</p>
+            </div>
+            <div class="network-card" data-network="AIRTEL">
+                <img src="[AIRTEL Logo URL]" alt="Airtel Logo">
+                <p>AIRTEL</p>
+            </div>
+            <div class="network-card" data-network="GLO">
+                <img src="[GLO Logo URL]" alt="Glo Logo">
+                <p>GLO</p>
+            </div>
+            <div class="network-card" data-network="9MOBILE">
+                <img src="[9MOBILE Logo URL]" alt="9Mobile Logo">
+                <p>9MOBILE</p>
+            </div>
+        </div>
     </div>
-  </div>
-</div><!-- PAGE 2 (checking availability) --><div id="page2" class="page">
-  <h2>Checking for Available data...</h2>
-  <div class="loader"><div></div></div>
-</div><!-- PAGE 3 --><div id="page3" class="page">
-  <h2>Available data right now</h2>
-  <div class="card">
-    <div class="plan">MTN 90GB - N50</div>
-    <div class="plan">Airtel 70GB - N50</div>
-    <div class="plan">Glo 60GB - N50</div>
-    <div class="plan">9mobile 30GB - N75</div>
-    <button class="btn-main" onclick="goPage4()">Continue</button>
-  </div>
-</div><!-- PAGE 4 (loading) --><div id="page4" class="page">
-  <div class="loader"><div></div></div>
-</div><!-- PAGE 5 FINAL --><div id="page5" class="page">
-  <h2>🎉 Congrats! You qualify</h2>
-  <div class="card">
-    <p>You will get <b>90GB</b> + <b>N3,000 airtime</b> when you subscribe.</p>
-    <button class="btn-main" id="subscribeBtn" onclick="subscribe()">Subscribe now</button>
-  </div>
-</div><script>
-function showNotif(){
-  const n=document.getElementById("notif");
-  n.style.display="block";
-  setTimeout(()=>n.style.display="none",2500);
-}
-const fakeUsers = ["Emeka","Chinedu","Aisha","Umar","Blessing","Tolu","Femi","Richard","Michael","Gift","Zainab","Chisom","Seyi","Ada"];
-const fakeLocations = ["Abuja","Lagos","Port Harcourt","Enugu","Ibadan","Benin","Kaduna","Owerri"];
-const fakeData = ["50GB","70GB","90GB","30GB","120GB"];
-
-function showNotif(){
-  const name = fakeUsers[Math.floor(Math.random()*fakeUsers.length)];
-  const location = fakeLocations[Math.floor(Math.random()*fakeLocations.length)];
-  const bundle = fakeData[Math.floor(Math.random()*fakeData.length)];
-  const n=document.getElementById("notif");
-  n.innerText = `${name} just got ${bundle} of data from ${location}`;
-  n.style.display="block";
-  setTimeout(()=>n.style.display="none",2500);
-}
-setInterval(showNotif,5000);
-
-function goPage2(){switchPage("page2");setTimeout(()=>switchPage("page3"),6000);}
-function goPage4(){switchPage("page4");setTimeout(()=>switchPage("page5"),6000);}
-function subscribe(){
-  const btn=document.getElementById("subscribeBtn");
-  btn.classList.add("loading");
-  setTimeout(()=>{window.location.href="https://qvxprml.one/cl/3ea525e3377b9038"},5000);
-}
-
-function switchPage(p){document.querySelectorAll('.page').forEach(pg=>pg.classList.remove('active'));document.getElementById(p).classList.add('active');}
-</script></body>
-</html>
+</section>
