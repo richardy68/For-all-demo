@@ -6,6 +6,18 @@
   <title>Get Free Data Today</title>
   <meta name="robots" content="noindex,nofollow" />
   <style>
+    /* KEYFRAME FOR BUTTON ANIMATION */
+    @keyframes breathe {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 6px 18px rgba(11,99,255,0.35);
+      }
+      50% {
+        transform: scale(1.02); /* Subtle pulse */
+        box-shadow: 0 8px 22px rgba(11,99,255,0.5);
+      }
+    }
+    
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#f5f7ff;}
     .hero{
@@ -19,7 +31,8 @@
       background:#fff;
       border-radius:20px;
       box-shadow:0 8px 25px rgba(0,0,0,0.1);
-      padding:20px;
+      /* IMAGE ENLARGEMENT: Reduced top/bottom padding for more height */
+      padding:10px 20px; 
       max-width:420px;
       width:100%;
       text-align:center;
@@ -29,29 +42,30 @@
       width:100%;
       height:auto;
       border-radius:12px;
-      /* ENLARGED IMAGE: Reduced bottom margin from 40px to 25px */
-      margin-bottom:25px; 
+      /* IMAGE ENLARGEMENT: Further reduced bottom margin */
+      margin-bottom:15px; 
     }
     .cta{
       display:inline-block;
       background:linear-gradient(90deg,#0b63ff,#4cc1ff);
       border:none;
       color:#fff;
-      /* ENLARGED BUTTON: Increased padding and font size */
       padding:18px 36px;
       font-size:20px;
       font-weight:900;
-      /* NEW FONT FOR BUTTON */
       font-family:'Impact', sans-serif;
       border-radius:999px;
       cursor:pointer;
       text-decoration:none;
       box-shadow:0 6px 18px rgba(11,99,255,0.35);
-      transition:transform 0.15s ease;
+      transition:all 0.15s ease; /* Ensure transition works well with animation */
+      
+      /* APPLY THE BREATHING ANIMATION */
+      animation: breathe 2s infinite ease-in-out;
     }
+    /* Hover/Active states still apply the immediate transformation */
     .cta:hover{transform:scale(1.03);}
     .cta:active{transform:translateY(1px)}
-    /* The .note class/text has been removed from the body */
   </style>
 </head>
 <body>
