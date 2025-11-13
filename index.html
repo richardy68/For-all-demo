@@ -30,21 +30,23 @@
       width:100%;
       height:auto;
       border-radius:12px;
-      margin-bottom:18px;
+      margin-bottom:40px; /* increased spacing between image and button */
     }
     .cta{
       display:inline-block;
       background:linear-gradient(90deg,#0b63ff,#4cc1ff);
       border:none;
       color:#fff;
-      padding:14px 24px;
-      font-size:17px;
+      padding:16px 28px;
+      font-size:18px;
       font-weight:800;
       border-radius:999px;
       cursor:pointer;
       text-decoration:none;
       box-shadow:0 6px 18px rgba(11,99,255,0.35);
+      transition:transform 0.15s ease;
     }
+    .cta:hover{transform:scale(1.03);}
     .cta:active{transform:translateY(1px)}
     .note{
       text-align:center;margin-top:14px;color:#6c7bff;font-size:13px;
