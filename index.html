@@ -1,446 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Downtown Mobile Data Service</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #1a1a1a;
-            color: #f0f0f0;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
-            padding: 1.5rem 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #fff;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo span {
-            color: #4a90e2;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 2rem;
-        }
-
-        nav ul li a {
-            color: #ddd;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: #4a90e2;
-        }
-
-        /* Carousel Styles */
-        .carousel-section {
-            margin: 2rem 0;
-        }
-
-        .carousel {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .carousel-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-
-        .carousel-slide.active {
-            opacity: 1;
-        }
-
-        .carousel-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .carousel-controls {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .carousel-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .carousel-dot.active {
-            background-color: #fff;
-        }
-
-        /* Network Selection Section */
-        .network-section {
-            background-color: #252525;
-            padding: 3rem 2rem;
-            margin: 3rem 0;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            color: #fff;
-            font-size: 2.2rem;
-            font-weight: 700;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(135deg, #4a90e2 0%, #2c5aa0 100%);
-            border-radius: 2px;
-        }
-
-        .networks-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .network-box {
-            background: #333;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            aspect-ratio: 1 / 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 1.5rem;
-            border: 2px solid transparent;
-        }
-
-        .network-box:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-            border-color: #4a90e2;
-        }
-
-        .network-logo {
-            width: 100%;
-            height: 80%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .network-logo img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .network-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #1a1a1a;
-            padding: 2rem 0;
-            margin-top: 3rem;
-            border-top: 1px solid #333;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: #4a90e2;
-        }
-
-        .copyright {
-            color: #777;
-            font-size: 0.9rem;
-            margin-top: 1rem;
-            text-align: center;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            nav ul {
-                margin-top: 1rem;
-                justify-content: center;
-            }
-
-            nav ul li {
-                margin: 0 1rem;
-            }
-
-            .carousel {
-                height: 300px;
-            }
-
-            .networks-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-links {
-                margin-top: 1rem;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .carousel {
-                height: 200px;
-            }
-
-            .network-section {
-                padding: 2rem 1rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Get Free Data Today</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <style>
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#000;
+      padding:20px;
+    }
+    .card{
+      position:relative;
+      width:100%;
+      max-width:420px;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(2,6,23,0.5);
+    }
+    .card img{
+      display:block;
+      width:100%;
+      height:auto;
+      vertical-align:middle;
+    }
+    .cta{
+      position:absolute;
+      left:50%;
+      bottom:20px;
+      transform:translateX(-50%);
+      background:linear-gradient(90deg,#0b63ff,#4cc1ff);
+      border:none;
+      color:#fff;
+      padding:14px 20px;
+      font-size:16px;
+      font-weight:700;
+      border-radius:999px;
+      cursor:pointer;
+      box-shadow:0 6px 18px rgba(11,99,255,0.35);
+      text-decoration:none;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+    }
+    .cta:active{transform:translateX(-50%) translateY(1px)}
+    .note{
+      text-align:center;margin-top:12px;color:#cfd8ff;font-size:13px;
+    }
+    @media (min-width:900px){
+      .card{max-width:600px}
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">Downtown <span>Mobile</span></div>
-                <nav>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Data Plans</a></li>
-                        <li><a href="#">Airtime</a></li>
-                        <li><a href="#">Support</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <div class="container">
-        <!-- Carousel Section -->
-        <section class="carousel-section">
-            <div class="carousel">
-                <div class="carousel-slide active">
-                    <img src="https://i.postimg.cc/nrmk2fD0/images_2_23.jpg" alt="Mobile Data Service Promotion 1">
-                </div>
-                <div class="carousel-slide">
-                    <img src="https://i.postimg.cc/sXQ9fCwD/images-2-21.jpg" alt="Mobile Data Service Promotion 2">
-                </div>
-                <div class="carousel-controls">
-                    <div class="carousel-dot active" data-slide="0"></div>
-                    <div class="carousel-dot" data-slide="1"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Network Selection Section -->
-        <section class="network-section">
-            <h2 class="section-title">Choose Your Network</h2>
-            <div class="networks-grid">
-                <div class="network-box" onclick="selectNetwork('MTN')">
-                    <div class="network-logo">
-                        <img src="https://i.postimg.cc/KjC3gQP2/download-1.png" alt="MTN Logo">
-                    </div>
-                    <div class="network-name">MTN</div>
-                </div>
-                <div class="network-box" onclick="selectNetwork('AIRTEL')">
-                    <div class="network-logo">
-                        <img src="https://i.postimg.cc/76xWpnJd/images-2.png" alt="Airtel Logo">
-                    </div>
-                    <div class="network-name">AIRTEL</div>
-                </div>
-                <div class="network-box" onclick="selectNetwork('GLO')">
-                    <div class="network-logo">
-                        <img src="https://i.postimg.cc/ZqDwMzZh/images-2-17.jpg" alt="Glo Logo">
-                    </div>
-                    <div class="network-name">GLO</div>
-                </div>
-                <div class="network-box" onclick="selectNetwork('9MOBILE')">
-                    <div class="network-logo">
-                        <img src="https://i.postimg.cc/FHTpYXfX/images-2-20.jpg" alt="9mobile Logo">
-                    </div>
-                    <div class="network-name">9MOBILE</div>
-                </div>
-            </div>
-        </section>
+  <main class="hero">
+    <div class="card" role="region" aria-label="Promo image with get free data button">
+      <img src="https://i.postimg.cc/MK59K9B2/Screenshot-20250731-071855-1.jpg" alt="Promo image" />
+      <a href="#" class="cta" onclick="event.preventDefault(); alert('You clicked Get Free Data Today — replace this handler with your flow.');">Get free data today</a>
     </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">Downtown Mobile</div>
-                <div class="footer-links">
-                    <a href="#">About Us</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
-            </div>
-            <div class="copyright">
-                &copy; 2023 Downtown Mobile Data Service. All rights reserved.
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Carousel functionality
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelectorAll('.carousel-dot');
-        const totalSlides = slides.length;
-
-        function showSlide(n) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            currentSlide = (n + totalSlides) % totalSlides;
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
-        }
-
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
-
-        // Auto-rotate carousel every 5 seconds
-        setInterval(nextSlide, 5000);
-
-        // Add click events to dots
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                showSlide(index);
-            });
-        });
-
-        // Network selection function
-        function selectNetwork(network) {
-            // Visual feedback
-            const boxes = document.querySelectorAll('.network-box');
-            boxes.forEach(box => {
-                box.style.borderColor = '';
-                box.style.transform = '';
-            });
-            
-            event.currentTarget.style.borderColor = '#4a90e2';
-            event.currentTarget.style.transform = 'translateY(-8px)';
-            
-            // Show confirmation (you can replace this with actual navigation)
-            setTimeout(() => {
-                alert(`You selected ${network}. Redirecting to data plans...`);
-                // Here you would typically redirect to the selected network's page
-                // window.location.href = `/plans/${network.toLowerCase()}`;
-            }, 300);
-        }
-
-        // Initialize carousel
-        showSlide(0);
-    </script>
+  </main>
+  <p class="note">Tip: replace the button href/onclick with your affiliate/MVAS redirect.</p>
 </body>
 </html>
