@@ -19,7 +19,6 @@
     }
 
     /* KEYFRAMES FOR NOTIFICATION ANIMATION */
-    /* Adjusting to match the video's look (more distinct, red border) */
     @keyframes slideInOut {
       0% { transform: translateY(-100%); opacity: 0; }
       5% { transform: translateY(0); opacity: 1; } /* Quick slide down */
@@ -71,24 +70,23 @@
     .cta:hover{transform:scale(1.03);}
     .cta:active{transform:translateY(1px)}
 
-    /* --- NOTIFICATION POPUP STYLES (Video Look) --- */
+    /* --- NOTIFICATION POPUP STYLES (THEME-ALIGNED) --- */
     #social-proof-notification {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      /* Adjust padding and max-width for the look in the video */
       padding: 5px 10px; 
       max-width: 90%; 
-      margin: 10px 5%; /* Center it and give space on the sides */
+      margin: 10px 5%; 
       
-      /* Dark/Black background from video */
       background-color: #1a1a1a; 
       color: #fff;
       text-align: left;
       font-family: Arial, sans-serif;
-      border-radius: 8px; /* Slightly rounded corners */
-      border-left: 5px solid red; /* Red vertical line from the video */
+      border-radius: 8px; 
+      /* THEME CHANGE: Blue border to match CTA */
+      border-left: 5px solid #0b63ff; 
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       z-index: 1000;
       
@@ -101,7 +99,7 @@
     }
 
     #social-proof-notification.show {
-      animation: slideInOut 5s forwards; /* 5s total animation time */
+      animation: slideInOut 5s forwards; 
     }
     
     .notification-content {
@@ -119,7 +117,8 @@
     }
 
     .notification-title {
-        color: orange; /* Color from video */
+        /* THEME CHANGE: Light blue/cyan for the title */
+        color: #4cc1ff; 
         font-size: 14px;
         font-weight: bold;
         margin-bottom: 2px;
@@ -152,8 +151,9 @@
         margin-left: 15px;
     }
     
-    .money-bag-icon {
-        color: gold;
+    /* THEME CHANGE: Data Icon color to blue */
+    .data-icon {
+        color: #4cc1ff; 
         font-size: 24px;
         margin-right: 10px;
     }
@@ -163,7 +163,7 @@
   
   <div id="social-proof-notification">
     <div class="notification-content">
-        <div class="money-bag-icon">💰</div>
+        <div class="data-icon">📶</div> 
         <div class="notification-text-wrapper">
             <div class="notification-title">New Winner!</div>
             <div class="notification-message" id="notification-message"></div>
@@ -186,12 +186,12 @@
     
     // Data for randomizing the messages
     const names = ["Chioma", "Amina", "Blessing", "Tobi", "Emeka", "Ngozi", "Femi", "Chinedu", "Aisha", "Uche"];
-    const prizes = [
-      { amount: "₦1,000,000", label: "cash prize!" },
-      { amount: "₦2,000,000", label: "cash prize!" },
-      { amount: "₦1,500,000", label: "cash prize!" },
-      { amount: "₦500,000", label: "gift card!" },
-      { amount: "₦750,000", label: "shopping voucher!" }
+    const dataPrizes = [
+      { amount: "25GB", label: "data bundle!" },
+      { amount: "50GB", label: "data bonus!" },
+      { amount: "10GB", label: "mobile data!" },
+      { amount: "5GB", label: "free internet!" },
+      { amount: "15GB", label: "data credit!" }
     ];
 
     function getRandomItem(arr) {
@@ -200,12 +200,12 @@
 
     function showNotification() {
       const randomName = getRandomItem(names);
-      const randomPrize = getRandomItem(prizes);
+      const randomPrize = getRandomItem(dataPrizes); 
       // Random time between 1 and 45 seconds ago
       const randomTime = Math.floor(Math.random() * 45) + 1; 
       const timeAgoText = randomTime === 1 ? 'just now' : `${randomTime} seconds ago`;
 
-      messageElement.textContent = `${randomName} just won ${randomPrize.amount} ${randomPrize.label}`;
+      messageElement.textContent = `${randomName} just won a ${randomPrize.amount} ${randomPrize.label}`;
       timeElement.textContent = timeAgoText;
       
       notificationPopup.classList.add('show');
@@ -216,8 +216,7 @@
       }, { once: true });
     }
 
-    // Show initial notification after a short delay, then repeat
-    // Interval set to 5s to match the animation duration
+    // Interval settings remain the same
     const ANIMATION_DURATION_MS = 5000; 
     const INITIAL_DELAY_MS = 2000; 
 
