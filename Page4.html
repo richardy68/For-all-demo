@@ -3,25 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promo Popup</title>
-    <link rel="stylesheet" href="styles.css">
-    </head>
+    <title>Promo Offer</title>
+    <style>
+        /* Base Styling and Background */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Dark Navy Blue Background */
+            background-color: #1a1a38; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensure it takes full viewport height */
+            color: white;
+            text-align: center;
+        }
+
+        /* The Promotional Card */
+        .promo-card {
+            /* Bright Blue Color */
+            background-color: #0056ff; 
+            padding: 40px;
+            border-radius: 20px; /* Rounded corners */
+            width: 90%;
+            max-width: 400px; /* Control max width */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+        }
+
+        /* Congratulatory Header */
+        .promo-card h2 {
+            font-size: 1.5em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            /* Use Flex to align the emoji and text */
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        /* Emoji Styling */
+        .promo-card .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        /* Description Text */
+        .promo-card p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            opacity: 0.9; /* Slightly softer text color */
+        }
+
+        /* The Orange Button */
+        .subscribe-btn {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            /* Bright Orange Color */
+            background-color: #ff8c00; 
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .subscribe-btn:hover {
+            background-color: #e67e00; /* Slightly darker orange on hover */
+        }
+
+        /* Timer Text */
+        .timer {
+            margin-top: 20px;
+            font-size: 0.95em;
+            opacity: 0.8;
+        }
+
+    </style>
+</head>
 <body>
-    <div class="page-container">
-        <div class="promo-box">
-            <h1 class="congrats-heading">
-                🎉 Congratulations! You are qualified
-            </h1>
-            <p class="bonus-text">
-                You will get a bonus of **10GB** + **₦3,000 Airtime** when you subscribe.
-            </p>
-            <button class="subscribe-button">
-                SUBSCRIBE NOW
-            </button>
-            <p class="timer-text">
-                Claim Promo in (2:39)
-            </p>
+
+    <div class="promo-card">
+        
+        <h2>
+            <span class="emoji">🎉</span>
+            Congratulations! You are qualified
+        </h2>
+        
+        <p>
+            You will get a bonus of <strong>10GB + ₦3,000 Airtime</strong> when you subscribe.
+        </p>
+
+        <a href="#" class="subscribe-btn">
+            SUBSCRIBE NOW
+        </a>
+
+        <div class="timer">
+            Claim Promo in (2:39)
         </div>
     </div>
+
 </body>
 </html>
