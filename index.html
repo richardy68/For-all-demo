@@ -27,15 +27,25 @@
     }
     
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#f5f7ff;}
-    .hero{
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      /* Background gradient for the overall page, as seen in your image */
+      background: linear-gradient(135deg, #007bff, #00c6ff); 
+    }
+
+    /* Styles for both page containers */
+    .page-container {
       min-height:100vh;
-      display:flex;
+      display:none; /* Initially hidden */
       align-items:center; /* center vertically */
       justify-content:center; /* center horizontally */
       padding:20px;
     }
-    .box{
+    .page-container.active {
+      display:flex; /* Show when active */
+    }
+
+    /* --- PAGE 1 (Landing Page) Styles --- */
+    #page1 .box{
       background:#fff;
       border-radius:20px;
       box-shadow:0 8px 25px rgba(0,0,0,0.1);
@@ -44,14 +54,14 @@
       width:100%;
       text-align:center;
     }
-    .box img{
+    #page1 .box img{
       display:block;
       width:100%;
       height:auto;
       border-radius:12px;
       margin-bottom:15px; 
     }
-    .cta{
+    #page1 .cta{
       display:inline-block;
       background:linear-gradient(90deg,#0b63ff,#4cc1ff);
       border:none;
@@ -67,32 +77,32 @@
       transition:all 0.15s ease;
       animation: breathe 2s infinite ease-in-out;
     }
-    .cta:hover{transform:scale(1.03);}
-    .cta:active{transform:translateY(1px)}
+    #page1 .cta:hover{transform:scale(1.03);}
+    #page1 .cta:active{transform:translateY(1px)}
 
-    /* NOTIFICATION POPUP STYLES */
+    /* NOTIFICATION POPUP STYLES (applies to page1) */
     #notification-popup {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      background: rgba(0,0,0,0.9); /* Dark background like the example */
+      background: rgba(0,0,0,0.9);
       color: #fff;
       padding: 15px 20px;
       text-align: center;
-      font-family: Arial, sans-serif; /* A simple, clear font */
+      font-family: Arial, sans-serif;
       font-size: 16px;
       font-weight: bold;
-      z-index: 1000; /* Ensure it's on top of everything */
-      transform: translateY(-100%); /* Start off-screen */
-      opacity: 0; /* Start invisible */
-      will-change: transform, opacity; /* Optimize for animation */
+      z-index: 1000;
+      transform: translateY(-100%);
+      opacity: 0;
+      will-change: transform, opacity;
     }
     #notification-popup.show {
-      animation: slideDown 4s forwards; /* Animation: 4s total (10% down, 80% stay, 10% up) */
+      animation: slideDown 4s forwards;
     }
     #notification-popup .congratulations {
-        color: yellow; /* As seen in your image */
+        color: yellow;
         font-size: 14px;
         margin-bottom: 5px;
     }
@@ -102,7 +112,7 @@
     }
     #notification-popup .claim-button {
       display: inline-block;
-      background: linear-gradient(90deg, #d30000, #ff4c4c); /* Red button */
+      background: linear-gradient(90deg, #d30000, #ff4c4c);
       border: none;
       color: #fff;
       padding: 8px 18px;
@@ -114,6 +124,71 @@
       margin-top: 10px;
       box-shadow: 0 4px 10px rgba(255,0,0,0.4);
     }
+
+    /* --- PAGE 2 (Network Selection) Styles --- */
+    #page2 .selection-box {
+      background: #1a2a4e; /* Dark blue background for the card */
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      padding: 30px;
+      max-width: 450px; /* Slightly wider than page1 box */
+      width: 100%;
+      text-align: center;
+      color: #fff;
+    }
+    #page2 .selection-box h2 {
+      font-size: 26px;
+      font-weight: bold;
+      color: #fedb70; /* Yellowish color for the heading */
+      margin-bottom: 30px;
+    }
+    #page2 .network-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two columns */
+      gap: 20px; /* Space between buttons */
+    }
+    #page2 .network-button {
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+    #page2 .network-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+    #page2 .network-button:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    #page2 .network-button .dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      border: 2px solid transparent; /* Default border */
+    }
+    /* Specific dot colors and borders for networks */
+    #page2 .network-button.mtn .dot { background-color: #ffcc00; border-color: #ffcc00; } /* Yellow */
+    #page2 .network-button.airtel .dot { background-color: #ff0000; border-color: #ff0000; } /* Red */
+    #page2 .network-button.glo .dot { background-color: #008000; border-color: #008000; } /* Green */
+    #page2 .network-button.ninemobile .dot { background-color: #000000; border-color: #000000; } /* Black */
+    /* Add subtle border for all network buttons */
+    #page2 .network-button.mtn { border: 2px solid #ffcc00; }
+    #page2 .network-button.airtel { border: 2px solid #ff0000; }
+    #page2 .network-button.glo { border: 2px solid #008000; }
+    #page2 .network-button.ninemobile { border: 2px solid #000000; }
+    
   </style>
 </head>
 <body>
@@ -123,17 +198,44 @@
     <a href="#" class="claim-button" onclick="event.preventDefault(); alert('You clicked Claim Now from the notification!');">Claim Now</a>
   </div>
 
-  <main class="hero">
-    <div class="box">
-      <img src="https://i.postimg.cc/VNx768y4/Screenshot-20250731-071855-5.jpg" alt="Promo image" />
-      <a href="#" class="cta" onclick="event.preventDefault(); alert('You clicked Get Free Data Today — replace this with your redirect.');">Get free data today</a>
+  <div id="page1" class="page-container active">
+    <main class="hero">
+      <div class="box">
+        <img src="https://i.postimg.cc/MK59K9B2/Screenshot-20250731-071855-1.jpg" alt="Promo image" />
+        <a href="#" class="cta" id="proceedToNetworkSelection">Get free data today</a>
+      </div>
+    </main>
+  </div>
+
+  <div id="page2" class="page-container">
+    <div class="selection-box">
+      <h2>Select Your Network</h2>
+      <div class="network-grid">
+        <a href="#" class="network-button mtn" onclick="event.preventDefault(); alert('You selected MTN!');">
+          <div class="dot"></div>
+          <span>MTN</span>
+        </a>
+        <a href="#" class="network-button airtel" onclick="event.preventDefault(); alert('You selected AIRTEL!');">
+          <div class="dot"></div>
+          <span>AIRTEL</span>
+        </a>
+        <a href="#" class="network-button glo" onclick="event.preventDefault(); alert('You selected GLO!');">
+          <div class="dot"></div>
+          <span>GLO</span>
+        </a>
+        <a href="#" class="network-button ninemobile" onclick="event.preventDefault(); alert('You selected 9MOBILE!');">
+          <div class="dot"></div>
+          <span>9MOBILE</span>
+        </a>
+      </div>
     </div>
-  </main>
+  </div>
 
   <script>
+    // --- Notification Popup Logic (Remains the same) ---
     const notificationPopup = document.getElementById('notification-popup');
     const claimText = notificationPopup.querySelector('.claim-text');
-    const names = ["Alex", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Heidi", "Ivan", "Jude", "Kate", "Lily", "Mike", "Nina", "Oscar", "Pam", "Queen", "Rachel", "Samuel", "Tina"];
+    const names = ["Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Heidi", "Ivan", "Judy", "Karl", "Lily", "Mike", "Nina", "Oscar", "Pam", "Quinn", "Rachel", "Sam", "Tina"];
     const claims = [
       { amount: "200GB", item: "$10 Giftcard" },
       { amount: "150GB", item: "$5 Giftcard" },
@@ -155,17 +257,33 @@
       
       notificationPopup.classList.add('show');
 
-      // The animation itself removes the 'show' class after it finishes
       notificationPopup.addEventListener('animationend', () => {
         notificationPopup.classList.remove('show');
       }, { once: true });
     }
 
-    // Show initial notification after a short delay, then repeat
     setTimeout(() => {
       showNotification();
-      setInterval(showNotification, 4000); // Repeat every 4 seconds (animation is 4s long)
-    }, 2000); // Initial delay before first popup
+      setInterval(showNotification, 4000);
+    }, 2000); 
+
+    // --- Page Switching Logic ---
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const proceedButton = document.getElementById('proceedToNetworkSelection');
+
+    proceedButton.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default button action (alert)
+      page1.classList.remove('active'); // Hide page 1
+      page2.classList.add('active');    // Show page 2
+      // You can add a specific alert here for the button on page1 if needed, 
+      // or redirect directly to page2 without an alert from the main button.
+      // alert('Proceeding to network selection!'); 
+    });
+
+    // --- Network Button Click Handlers ---
+    // The individual network buttons already have their onclick alerts,
+    // but you would replace them with actual redirects or further steps.
   </script>
 </body>
 </html>
