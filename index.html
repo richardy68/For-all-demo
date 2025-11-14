@@ -17,6 +17,14 @@
         box-shadow: 0 8px 22px rgba(11,99,255,0.5);
       }
     }
+
+    /* KEYFRAMES FOR NOTIFICATION ANIMATION */
+    @keyframes slideDown {
+      0% { transform: translateY(-100%); opacity: 0; }
+      10% { transform: translateY(0); opacity: 1; } /* Quick slide down */
+      90% { transform: translateY(0); opacity: 1; } /* Stay visible */
+      100% { transform: translateY(-100%); opacity: 0; } /* Slide up and hide */
+    }
     
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#f5f7ff;}
@@ -31,7 +39,6 @@
       background:#fff;
       border-radius:20px;
       box-shadow:0 8px 25px rgba(0,0,0,0.1);
-      /* IMAGE ENLARGEMENT: Reduced top/bottom padding for more height */
       padding:10px 20px; 
       max-width:420px;
       width:100%;
@@ -42,7 +49,6 @@
       width:100%;
       height:auto;
       border-radius:12px;
-      /* IMAGE ENLARGEMENT: Further reduced bottom margin */
       margin-bottom:15px; 
     }
     .cta{
@@ -58,22 +64,108 @@
       cursor:pointer;
       text-decoration:none;
       box-shadow:0 6px 18px rgba(11,99,255,0.35);
-      transition:all 0.15s ease; /* Ensure transition works well with animation */
-      
-      /* APPLY THE BREATHING ANIMATION */
+      transition:all 0.15s ease;
       animation: breathe 2s infinite ease-in-out;
     }
-    /* Hover/Active states still apply the immediate transformation */
     .cta:hover{transform:scale(1.03);}
     .cta:active{transform:translateY(1px)}
+
+    /* NOTIFICATION POPUP STYLES */
+    #notification-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.9); /* Dark background like the example */
+      color: #fff;
+      padding: 15px 20px;
+      text-align: center;
+      font-family: Arial, sans-serif; /* A simple, clear font */
+      font-size: 16px;
+      font-weight: bold;
+      z-index: 1000; /* Ensure it's on top of everything */
+      transform: translateY(-100%); /* Start off-screen */
+      opacity: 0; /* Start invisible */
+      will-change: transform, opacity; /* Optimize for animation */
+    }
+    #notification-popup.show {
+      animation: slideDown 4s forwards; /* Animation: 4s total (10% down, 80% stay, 10% up) */
+    }
+    #notification-popup .congratulations {
+        color: yellow; /* As seen in your image */
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    #notification-popup .claim-text {
+        font-size: 18px;
+        color: white;
+    }
+    #notification-popup .claim-button {
+      display: inline-block;
+      background: linear-gradient(90deg, #d30000, #ff4c4c); /* Red button */
+      border: none;
+      color: #fff;
+      padding: 8px 18px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 10px;
+      box-shadow: 0 4px 10px rgba(255,0,0,0.4);
+    }
   </style>
 </head>
 <body>
+  <div id="notification-popup">
+    <div class="congratulations">🎉 Congratulations!</div>
+    <div class="claim-text"></div>
+    <a href="#" class="claim-button" onclick="event.preventDefault(); alert('You clicked Claim Now from the notification!');">Claim Now</a>
+  </div>
+
   <main class="hero">
     <div class="box">
-      <img src="https://i.postimg.cc/VNx768y4/Screenshot-20250731-071855-5.jpg" alt="Promo image" />
+      <img src="https://i.postimg.cc/MK59K9B2/Screenshot-20250731-071855-1.jpg" alt="Promo image" />
       <a href="#" class="cta" onclick="event.preventDefault(); alert('You clicked Get Free Data Today — replace this with your redirect.');">Get free data today</a>
     </div>
   </main>
+
+  <script>
+    const notificationPopup = document.getElementById('notification-popup');
+    const claimText = notificationPopup.querySelector('.claim-text');
+    const names = ["Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Heidi", "Ivan", "Judy", "Karl", "Lily", "Mike", "Nina", "Oscar", "Pam", "Quinn", "Rachel", "Sam", "Tina"];
+    const claims = [
+      { amount: "200GB", item: "$10 Giftcard" },
+      { amount: "150GB", item: "$5 Giftcard" },
+      { amount: "100GB", item: "$20 Voucher" },
+      { amount: "300GB", item: "$15 Credit" },
+      { amount: "250GB", item: "$5 Giftcard" }
+    ];
+
+    function getRandomItem(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function showNotification() {
+      const randomName = getRandomItem(names);
+      const randomClaim = getRandomItem(claims);
+      const randomTime = Math.floor(Math.random() * 10) + 5; // 5-14 seconds ago
+
+      claimText.textContent = `${randomName} just claimed ${randomClaim.amount} and ${randomClaim.item} ${randomTime} seconds ago!`;
+      
+      notificationPopup.classList.add('show');
+
+      // The animation itself removes the 'show' class after it finishes
+      notificationPopup.addEventListener('animationend', () => {
+        notificationPopup.classList.remove('show');
+      }, { once: true });
+    }
+
+    // Show initial notification after a short delay, then repeat
+    setTimeout(() => {
+      showNotification();
+      setInterval(showNotification, 4000); // Repeat every 4 seconds (animation is 4s long)
+    }, 2000); // Initial delay before first popup
+  </script>
 </body>
 </html>
