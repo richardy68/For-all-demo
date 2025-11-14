@@ -25,8 +25,9 @@
         }
 
         .main-title {
+            /* Changed title text from yellow to white for a cleaner look */
             font-size: 1.5em;
-            color: #ffd700; /* Gold/yellow color for emphasis */
+            color: white; 
             margin-bottom: 30px;
         }
 
@@ -59,6 +60,12 @@
             justify-content: space-between;
             align-items: center;
         }
+        
+        /* Style for the currently active/loading item */
+        .status-item.active {
+            color: white;
+            font-weight: bold;
+        }
 
         .status-item.verified {
             background-color: #008000; /* Green for verified */
@@ -81,52 +88,71 @@
 <body>
 
     <div class="verification-container">
-        <h1 class="main-title">Verifying Your Connection... please wait</h1>
+        <h1 class="main-title">Processing... please wait</h1>
 
         <div class="loader-ring"></div>
         
         <div id="status-items">
-            <div class="status-item verified">
-                Verifying Network Carrier <span class="badge verified-badge">&#10003;</span>
+            <div id="step-carrier" class="status-item">
+                Verifying Network Carrier
             </div>
             
-            <div class="status-item">
+            <div id="step-data" class="status-item">
+                Checking Available Data
+            </div>
+            
+            <div id="step-country" class="status-item">
                 Checking Country
             </div>
-            
-            <div class="status-item">
-                Checking IP Address
             </div>
-            
-            <div id="data-check-item" class="status-item loading">
-                <span id="data-text">Checking Available Data</span>
-            </div>
-        </div>
     </div>
 
     <script>
-        // --- JAVASCRIPT FOR TIMER & REDIRECT ---
+        // --- JAVASCRIPT FOR SEQUENTIAL VERIFICATION & REDIRECT ---
         document.addEventListener('DOMContentLoaded', (event) => {
-            const dataCheckItem = document.getElementById('data-check-item');
-            
-            // 1. Wait for 4 seconds to complete the final check
-            setTimeout(() => {
-                // Complete the verification visual update
-                dataCheckItem.classList.remove('loading'); 
-                dataCheckItem.classList.add('verified');   
+            const steps = [
+                { id: 'step-carrier', delay: 1500 }, // 1.5 seconds
+                { id: 'step-data', delay: 1500 },    // 1.5 seconds
+                { id: 'step-country', delay: 1500 }  // 1.5 seconds
+            ];
+            const totalDelayBeforeRedirect = 5000; // Total time to complete all checks
+
+            let currentTime = 0;
+
+            // Function to verify a single step
+            const verifyStep = (elementId) => {
+                const element = document.getElementById(elementId);
+                element.classList.remove('active');
+                element.classList.add('verified');
                 
+                // Add the checkmark badge
                 const verifiedBadge = document.createElement('span');
                 verifiedBadge.className = 'badge verified-badge';
                 verifiedBadge.innerHTML = '&#10003;'; 
-                dataCheckItem.appendChild(verifiedBadge);
-                
-                // 2. Wait an additional 1 second (1000ms) before redirecting
-                setTimeout(() => {
-                    // 3. REDIRECT to the second page
-                    window.location.href = 'page4.html'; 
-                }, 1000); 
+                element.appendChild(verifiedBadge);
+            };
 
-            }, 4000); // 4000 milliseconds = 4 seconds
+            // Loop through the steps to set up the sequence
+            steps.forEach((step, index) => {
+                const element = document.getElementById(step.id);
+                
+                // Set the current item to active/bold at the start of its delay period
+                setTimeout(() => {
+                    element.classList.add('active');
+                }, currentTime);
+                
+                // Set the item to verified after its delay
+                currentTime += step.delay;
+                setTimeout(() => {
+                    verifyStep(step.id);
+                }, currentTime);
+            });
+
+            // Redirect after all steps are complete (Total time of all delays + a short pause)
+            setTimeout(() => {
+                // REDIRECT to the second page
+                window.location.href = 'page4.html'; 
+            }, currentTime + 500); // 500ms pause after the last checkmark appears
         });
     </script>
 </body>
