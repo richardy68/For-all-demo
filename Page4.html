@@ -20,42 +20,58 @@
 
         .promo-box {
             background-color: #1a73e8; /* Bright blue box */
-            padding: 30px;
+            /* Increased padding for more space */
+            padding: 45px 35px; 
             border-radius: 12px;
             width: 80%;
-            max-width: 350px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            max-width: 380px; /* Slightly wider max-width */
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7); /* Stronger shadow */
         }
 
         .promo-box h1 {
             color: #ffd700; /* Gold/yellow title */
-            font-size: 1.5em;
-            margin-bottom: 10px;
+            font-size: 1.8em; /* Slightly larger heading */
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); /* Added text shadow for noticeability */
         }
 
         .promo-box p {
-            font-size: 1em;
-            margin-bottom: 30px;
+            font-size: 1.1em; /* Slightly larger paragraph text */
+            margin-bottom: 35px;
+            font-weight: 500; /* Medium weight */
+            /* Made the text inside bold for noticeability */
+            line-height: 1.4;
         }
 
         .promo-button {
             background-color: #ff8c00; /* Orange button */
             color: white;
-            padding: 15px 30px;
+            padding: 18px 30px; /* Increased padding */
             border: none;
             border-radius: 8px;
-            font-size: 1.1em;
+            font-size: 1.2em; /* Larger button text */
             font-weight: bold;
             display: block;
             width: 100%;
             cursor: pointer;
-            box-shadow: 0 3px 0 #cc7000;
+            box-shadow: 0 4px 0 #cc7000; /* Deeper shadow for 3D effect */
+            transition: background-color 0.2s;
+        }
+
+        .promo-button:hover {
+            background-color: #ff9933;
         }
 
         .timer {
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #ddd;
+            margin-top: 25px; /* Increased margin */
+            font-size: 1em;
+            color: #fff; /* White color for better contrast */
+            font-weight: bold;
+        }
+        
+        #countdown {
+            color: #ffeb3b; /* Bright yellow for the timer number */
+            font-weight: bold;
         }
     </style>
 </head>
@@ -64,13 +80,50 @@
     <div class="promo-box">
         <h1>🎉 Congratulations! You are qualified</h1>
         <p>You will get a bonus of **10GB + N3,000 Airtime** when you subscribe</p>
-        <button class="promo-button">
-            Loading... ↻
+        <button class="promo-button" id="promo-btn">
+            CLAIM PROMO NOW
         </button>
         <div class="timer">
-            Claim Promo in (<span id="countdown">2:35</span>)
+            Expires in (<span id="countdown">1:00</span>)
         </div>
     </div>
+
+    <script>
+        // Start time in seconds (1 minute = 60 seconds)
+        let timeInSeconds = 60; 
+        const countdownElement = document.getElementById('countdown');
+
+        function updateCountdown() {
+            const minutes = Math.floor(timeInSeconds / 60);
+            const seconds = timeInSeconds % 60;
+
+            // Format the time as M:SS
+            const displayTime = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+            
+            countdownElement.textContent = displayTime;
+
+            if (timeInSeconds <= 0) {
+                clearInterval(timerInterval);
+                countdownElement.textContent = "EXPIRED";
+                document.getElementById('promo-btn').disabled = true;
+                document.getElementById('promo-btn').textContent = "PROMO EXPIRED";
+            } else {
+                timeInSeconds--;
+            }
+        }
+
+        // Run the function immediately, then every second
+        updateCountdown();
+        const timerInterval = setInterval(updateCountdown, 1000);
+
+        // Optional: Make the button clickable (currently just a loading text replacement)
+        document.getElementById('promo-btn').addEventListener('click', function() {
+            this.textContent = 'Processing...';
+            this.disabled = true;
+            // In a real application, you would add your subscription logic here
+            // For now, it just changes the text.
+        });
+    </script>
     
-    </body>
+</body>
 </html>
