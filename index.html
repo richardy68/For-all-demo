@@ -6,14 +6,14 @@
   <title>Get Free Data Today</title>
   <meta name="robots" content="noindex,nofollow" />
   <style>
-    /* KEYFRAME FOR BUTTON ANIMATION (Kept for Page 1 CTA) */
+    /* KEYFRAME FOR BUTTON ANIMATION */
     @keyframes breathe {
       0%, 100% {
         transform: scale(1);
         box-shadow: 0 6px 18px rgba(11,99,255,0.35);
       }
       50% {
-        transform: scale(1.02);
+        transform: scale(1.02); /* Subtle pulse */
         box-shadow: 0 8px 22px rgba(11,99,255,0.5);
       }
     }
@@ -21,68 +21,45 @@
     /* KEYFRAMES FOR NOTIFICATION ANIMATION */
     @keyframes slideDown {
       0% { transform: translateY(-100%); opacity: 0; }
-      10% { transform: translateY(0); opacity: 1; }
-      90% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-100%); opacity: 0; }
+      10% { transform: translateY(0); opacity: 1; } /* Quick slide down */
+      90% { transform: translateY(0); opacity: 1; } /* Stay visible */
+      100% { transform: translateY(-100%); opacity: 0; } /* Slide up and hide */
     }
     
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      /* Background gradient for the overall page */
-      background: linear-gradient(135deg, #007bff, #00c6ff); 
-    }
-
-    /* Styles for both page containers */
-    .page-container {
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#f5f7ff;}
+    .hero{
       min-height:100vh;
-      display:none; /* Initially hidden */
-      align-items:center;
-      justify-content:center;
+      display:flex;
+      align-items:center; /* center vertically */
+      justify-content:center; /* center horizontally */
       padding:20px;
     }
-    .page-container.active {
-      display:flex; /* Show when active */
-    }
-
-    /* --- PAGE 1 (Landing Page) Styles --- */
-    #page1 {
-        background: #f5f7ff; /* Restore original background color */
-    }
-    #page1 .hero{
-        min-height:100vh;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        padding:20px;
-    }
-    #page1 .box{
+    .box{
       background:#fff;
       border-radius:20px;
       box-shadow:0 8px 25px rgba(0,0,0,0.1);
-      /* RESTORED */
-      padding:20px; 
+      padding:10px 20px; 
       max-width:420px;
       width:100%;
       text-align:center;
     }
-    #page1 .box img{
+    .box img{
       display:block;
       width:100%;
       height:auto;
       border-radius:12px;
-      /* RESTORED */
-      margin-bottom:40px; 
+      margin-bottom:15px; 
     }
-    #page1 .cta{
+    .cta{
       display:inline-block;
       background:linear-gradient(90deg,#0b63ff,#4cc1ff);
       border:none;
       color:#fff;
-      /* RESTORED */
-      padding:16px 28px;
-      font-size:18px;
-      font-weight:800;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; /* RESTORED FONT */
+      padding:18px 36px;
+      font-size:20px;
+      font-weight:900;
+      font-family:'Impact', sans-serif;
       border-radius:999px;
       cursor:pointer;
       text-decoration:none;
@@ -90,8 +67,8 @@
       transition:all 0.15s ease;
       animation: breathe 2s infinite ease-in-out;
     }
-    #page1 .cta:hover{transform:scale(1.03);}
-    #page1 .cta:active{transform:translateY(1px)}
+    .cta:hover{transform:scale(1.03);}
+    .cta:active{transform:translateY(1px)}
 
     /* NOTIFICATION POPUP STYLES */
     #notification-popup {
@@ -99,23 +76,23 @@
       top: 0;
       left: 0;
       width: 100%;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.9); /* Dark background like the example */
       color: #fff;
       padding: 15px 20px;
       text-align: center;
-      font-family: Arial, sans-serif;
+      font-family: Arial, sans-serif; /* A simple, clear font */
       font-size: 16px;
       font-weight: bold;
-      z-index: 1000;
-      transform: translateY(-100%);
-      opacity: 0;
-      will-change: transform, opacity;
+      z-index: 1000; /* Ensure it's on top of everything */
+      transform: translateY(-100%); /* Start off-screen */
+      opacity: 0; /* Start invisible */
+      will-change: transform, opacity; /* Optimize for animation */
     }
     #notification-popup.show {
-      animation: slideDown 4s forwards;
+      animation: slideDown 4s forwards; /* Animation: 4s total (10% down, 80% stay, 10% up) */
     }
     #notification-popup .congratulations {
-        color: yellow;
+        color: yellow; /* As seen in your image */
         font-size: 14px;
         margin-bottom: 5px;
     }
@@ -125,7 +102,7 @@
     }
     #notification-popup .claim-button {
       display: inline-block;
-      background: linear-gradient(90deg, #d30000, #ff4c4c);
+      background: linear-gradient(90deg, #d30000, #ff4c4c); /* Red button */
       border: none;
       color: #fff;
       padding: 8px 18px;
@@ -137,110 +114,23 @@
       margin-top: 10px;
       box-shadow: 0 4px 10px rgba(255,0,0,0.4);
     }
-
-    /* --- PAGE 2 (Network Selection) Styles --- */
-    #page2 .selection-box {
-      background: #1a2a4e;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-      padding: 30px;
-      max-width: 450px;
-      width: 100%;
-      text-align: center;
-      color: #fff;
-    }
-    #page2 .selection-box h2 {
-      font-size: 26px;
-      font-weight: bold;
-      color: #fedb70;
-      margin-bottom: 30px;
-    }
-    #page2 .network-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    #page2 .network-button {
-      background: #fff;
-      border-radius: 15px;
-      padding: 20px 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-      font-size: 16px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
-    }
-    #page2 .network-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    }
-    #page2 .network-button:active {
-        transform: translateY(0);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    /* Logo Styling */
-    #page2 .network-button img {
-        width: 50px; /* Size for the logo */
-        height: 50px;
-        object-fit: contain;
-        margin-bottom: 10px;
-        border-radius: 5px; /* Subtle rounding for logo image */
-    }
   </style>
 </head>
 <body>
-  
   <div id="notification-popup">
     <div class="congratulations">🎉 Congratulations!</div>
     <div class="claim-text"></div>
     <a href="#" class="claim-button" onclick="event.preventDefault(); alert('You clicked Claim Now from the notification!');">Claim Now</a>
   </div>
 
-  
-  <div id="page1" class="page-container active">
-    <main class="hero">
-      <div class="box">
-        <img src="https://i.postimg.cc/MK59K9B2/Screenshot-20250731-071855-1.jpg" alt="Promo image" />
-        <a href="#" class="cta" id="proceedToNetworkSelection">Get free data today</a>
-      </div>
-    </main>
-  </div>
-
-  
-  <div id="page2" class="page-container">
-    <div class="selection-box">
-      <h2>Select Your Network</h2>
-      <div class="network-grid">
-        <a href="#" class="network-button" onclick="event.preventDefault(); alert('You selected MTN!');">
-          <img src="" alt="MTN Logo Placeholder" class="logo-placeholder" data-network="mtn" />
-          <span>MTN</span>
-        </a>
-        <a href="#" class="network-button" onclick="event.preventDefault(); alert('You selected AIRTEL!');">
-          <img src="" alt="AIRTEL Logo Placeholder" class="logo-placeholder" data-network="airtel" />
-          <span>AIRTEL</span>
-        </a>
-        <a href="#" class="network-button" onclick="event.preventDefault(); alert('You selected GLO!');">
-          <img src="" alt="GLO Logo Placeholder" class="logo-placeholder" data-network="glo" />
-          <span>GLO</span>
-        </a>
-        <a href="#" class="network-button" onclick="event.preventDefault(); alert('You selected 9MOBILE!');">
-          <img src="" alt="9MOBILE Logo Placeholder" class="logo-placeholder" data-network="ninemobile" />
-          <span>9MOBILE</span>
-        </a>
-      </div>
+  <main class="hero">
+    <div class="box">
+      <img src="https://i.postimg.cc/MK59K9B2/Screenshot-20250731-071855-1.jpg" alt="Promo image" />
+      <a href="#" class="cta" onclick="event.preventDefault(); alert('You clicked Get Free Data Today — replace this with your redirect.');">Get free data today</a>
     </div>
-  </div>
+  </main>
 
   <script>
-    // --- Notification Popup Logic ---
-    let notificationInterval; // Global variable to hold the interval ID
-
     const notificationPopup = document.getElementById('notification-popup');
     const claimText = notificationPopup.querySelector('.claim-text');
     const names = ["Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Heidi", "Ivan", "Judy", "Karl", "Lily", "Mike", "Nina", "Oscar", "Pam", "Quinn", "Rachel", "Sam", "Tina"];
@@ -259,53 +149,23 @@
     function showNotification() {
       const randomName = getRandomItem(names);
       const randomClaim = getRandomItem(claims);
-      const randomTime = Math.floor(Math.random() * 10) + 5;
+      const randomTime = Math.floor(Math.random() * 10) + 5; // 5-14 seconds ago
 
       claimText.textContent = `${randomName} just claimed ${randomClaim.amount} and ${randomClaim.item} ${randomTime} seconds ago!`;
       
       notificationPopup.classList.add('show');
 
+      // The animation itself removes the 'show' class after it finishes
       notificationPopup.addEventListener('animationend', () => {
         notificationPopup.classList.remove('show');
       }, { once: true });
     }
 
-    // Start the notification loop
+    // Show initial notification after a short delay, then repeat
     setTimeout(() => {
       showNotification();
-      notificationInterval = setInterval(showNotification, 4000);
-    }, 2000); 
-
-    // --- Page Switching Logic ---
-    const page1 = document.getElementById('page1');
-    const page2 = document.getElementById('page2');
-    const proceedButton = document.getElementById('proceedToNetworkSelection');
-
-    proceedButton.addEventListener('click', function(event) {
-      event.preventDefault();
-      
-      // 2. STOP THE NOTIFICATION when moving to the next page
-      clearInterval(notificationInterval);
-      
-      page1.classList.remove('active'); 
-      page2.classList.add('active');
-    });
-
-    // --- LOGO PLACEHOLDERS ---
-    // 3. CODE READY FOR LOGO URLs:
-    // Once you provide the image URLs, you can paste them into this object.
-    const networkLogos = {
-        mtn: "PASTE_MTN_LOGO_URL_HERE",
-        airtel: "PASTE_AIRTEL_LOGO_URL_HERE",
-        glo: "PASTE_GLO_LOGO_URL_HERE",
-        ninemobile: "PASTE_9MOBILE_LOGO_URL_HERE"
-    };
-
-    document.querySelectorAll('.logo-placeholder').forEach(img => {
-        const network = img.getAttribute('data-network');
-        img.src = networkLogos[network];
-    });
-
+      setInterval(showNotification, 4000); // Repeat every 4 seconds (animation is 4s long)
+    }, 2000); // Initial delay before first popup
   </script>
 </body>
 </html>
