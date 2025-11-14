@@ -51,20 +51,18 @@
             min-width: 200px;
             cursor: pointer;
             box-shadow: 0 3px 0 #cc7000;
-            /* Text remains capitalized for the initial 'SUBSCRIBE NOW' state */
-            text-transform: uppercase; 
+            /* 🛑 FIXED: Removed 'text-transform: uppercase;' to allow lowercase loading text */
         }
         
-        /* 1. KEYFRAMES FOR SPINNING ANIMATION */
+        /* KEYFRAMES FOR SPINNING ANIMATION */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        /* 2. CLASS TO APPLY SPINNING TO THE ICON */
+        /* CLASS TO APPLY SPINNING TO THE ICON */
         .spinning-icon {
             display: inline-block;
-            /* Apply the animation: spin (name), 1s (duration), linear (speed curve), infinite (loop) */
             animation: spin 1s linear infinite;
         }
 
@@ -81,7 +79,7 @@
         <h1> You are qualified! </h1>
         <p>You will get 20gb of data + N3,000 airtime on your number when you subscribe</p>
         <button class="promo-button" id="subscribe-button">
-            SUBSCRIBE NOW
+            SUBSCRIBE NOW 
         </button>
         <div class="timer">
             Expires in (<span id="countdown">1:00</span>)
@@ -107,6 +105,7 @@
                 clearInterval(timerInterval);
                 countdownElement.textContent = '0:00';
                 promoButton.disabled = true;
+                // If the offer expires, the text will be capitalized here
                 promoButton.textContent = 'OFFER EXPIRED'; 
                 promoButton.style.opacity = '0.5';
                 promoButton.style.boxShadow = 'none';
@@ -126,19 +125,15 @@
 
         promoButton.addEventListener('click', function() {
             if (!promoButton.disabled) {
-                // Stop the main countdown timer
                 clearInterval(timerInterval);
                 
-                // Disable button and prepare for animation
                 promoButton.disabled = true;
                 promoButton.style.boxShadow = 'none';
 
-                // 🛑 CORRECTED: Text is now "Loading..." (lowercase)
+                // 3. TEXT IS TYPED AS "Loading..." (lowercase) HERE
                 promoButton.innerHTML = 'Loading... <span class="spinning-icon">↻</span>'; 
                 
-                // Start the 4-second wait time
                 setTimeout(() => {
-                    // Redirect after the delay
                     window.location.href = REDIRECT_URL;
                 }, DELAY_MS);
             }
