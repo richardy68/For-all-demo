@@ -20,7 +20,6 @@
 
         .promo-box {
             background-color: #1a73e8; /* Bright blue box */
-            /* INCREASED PADDING from 30px to 40px */
             padding: 40px; 
             border-radius: 12px;
             width: 80%;
@@ -47,10 +46,14 @@
             border-radius: 8px;
             font-size: 1.1em;
             font-weight: bold;
-            display: block;
-            width: 100%;
+            /* 2. SHORTENED BUTTON WIDTH */
+            display: inline-block; /* Changed from 'block' to allow width control */
+            width: auto; /* Allow button to fit content */
+            min-width: 200px; /* Optional: set a minimum width */
             cursor: pointer;
             box-shadow: 0 3px 0 #cc7000;
+            /* 3. CAPITAL LETTERS */
+            text-transform: uppercase;
         }
 
         .timer {
@@ -63,10 +66,10 @@
 <body>
 
     <div class="promo-box">
-        <h1> Congratulations! You are qualified</h1>
+        <h1> You are qualified</h1>
         <p>You will get 20gb of data + N3,000 airtime on your number when you subscribe</p>
         <button class="promo-button" id="subscribe-button">
-            SUBSCRIBE NOW 
+            Subscribe Now
         </button>
         <div class="timer">
             Expires in (<span id="countdown">1:00</span>)
@@ -95,7 +98,8 @@
                 countdownElement.textContent = '0:00';
                 // Disable the button when the time is up
                 promoButton.disabled = true;
-                promoButton.textContent = 'Offer Expired';
+                // Ensure expired text is also capitalized
+                promoButton.textContent = 'OFFER EXPIRED'; 
                 promoButton.style.opacity = '0.5';
                 promoButton.style.boxShadow = 'none';
             } else {
