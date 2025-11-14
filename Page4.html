@@ -3,112 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promo Offer</title>
+    <title>Congratulations!</title>
     <style>
-        /* Base Styling and Background */
+        /* Styles to match the second image */
         body {
+            background-color: #0c1842; /* Darker blue background */
+            color: white;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            /* Dark Navy Blue Background */
-            background-color: #1a1a38; 
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Ensure it takes full viewport height */
-            color: white;
+            min-height: 100vh;
+            margin: 0;
             text-align: center;
         }
 
-        /* The Promotional Card */
-        .promo-card {
-            /* Bright Blue Color */
-            background-color: #0056ff; 
-            padding: 40px;
-            border-radius: 20px; /* Rounded corners */
-            width: 90%;
-            max-width: 400px; /* Control max width */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+        .promo-box {
+            background-color: #1a73e8; /* Bright blue box */
+            /* INCREASED PADDING from 30px to 40px */
+            padding: 40px; 
+            border-radius: 12px;
+            width: 80%;
+            max-width: 350px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
-        /* Congratulatory Header */
-        .promo-card h2 {
+        .promo-box h1 {
+            color: #ffd700; /* Gold/yellow title */
             font-size: 1.5em;
-            margin-top: 0;
-            margin-bottom: 20px;
-            /* Use Flex to align the emoji and text */
-            display: flex; 
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            line-height: 1.2;
+            margin-bottom: 10px;
         }
 
-        /* Emoji Styling */
-        .promo-card .emoji {
-            font-size: 1.5em;
-            margin-right: 10px;
-        }
-
-        /* Description Text */
-        .promo-card p {
-            font-size: 1.1em;
+        .promo-box p {
+            font-size: 1em;
             margin-bottom: 30px;
-            line-height: 1.4;
-            opacity: 0.9; /* Slightly softer text color */
         }
 
-        /* The Orange Button */
-        .subscribe-btn {
-            display: block;
-            width: 100%;
-            padding: 15px 20px;
-            /* Bright Orange Color */
-            background-color: #ff8c00; 
+        .promo-button {
+            background-color: #ff8c00; /* Orange button */
             color: white;
-            text-decoration: none;
+            padding: 15px 30px;
+            border: none;
             border-radius: 8px;
             font-size: 1.1em;
             font-weight: bold;
-            border: none;
+            display: block;
+            width: 100%;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            box-shadow: 0 3px 0 #cc7000;
         }
 
-        .subscribe-btn:hover {
-            background-color: #e67e00; /* Slightly darker orange on hover */
-        }
-
-        /* Timer Text */
         .timer {
             margin-top: 20px;
-            font-size: 0.95em;
-            opacity: 0.8;
+            font-size: 0.9em;
+            color: #ddd;
         }
-
     </style>
 </head>
 <body>
 
-    <div class="promo-card">
-        
-        <h2>
-            <span class="emoji">🎉</span>
-            Congratulations! You are qualified
-        </h2>
-        
-        <p>
-            You will get a bonus of <strong>10GB + ₦3,000 Airtime</strong> when you subscribe.
-        </p>
-
-        <a href="#" class="subscribe-btn">
-            SUBSCRIBE NOW
-        </a>
-
+    <div class="promo-box">
+        <h1>🎉 Congratulations! You are qualified</h1>
+        <p>You will get a bonus of **10GB + N3,000 Airtime** when you subscribe</p>
+        <button class="promo-button" id="subscribe-button">
+            Subscribe Now
+        </button>
         <div class="timer">
-            Claim Promo in (2:39)
+            Expires in (<span id="countdown">1:00</span>)
         </div>
     </div>
+    
+    <script>
+        // Set the time for the countdown to 1 minute (60 seconds)
+        let timeInSeconds = 60; 
+        const countdownElement = document.getElementById('countdown');
+        const promoButton = document.getElementById('subscribe-button');
+
+        // Function to format the time (M:SS)
+        function formatTime(totalSeconds) {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        // Function to update the timer
+        function updateCountdown() {
+            countdownElement.textContent = formatTime(timeInSeconds);
+
+            if (timeInSeconds <= 0) {
+                clearInterval(timerInterval);
+                countdownElement.textContent = '0:00';
+                // Disable the button when the time is up
+                promoButton.disabled = true;
+                promoButton.textContent = 'Offer Expired';
+                promoButton.style.opacity = '0.5';
+                promoButton.style.boxShadow = 'none';
+            } else {
+                timeInSeconds--;
+            }
+        }
+
+        // Start the countdown timer
+        const timerInterval = setInterval(updateCountdown, 1000);
+        
+        // Initial call to set the time immediately
+        updateCountdown();
+
+        // Optional: Add a basic click handler
+        promoButton.addEventListener('click', function() {
+            if (!promoButton.disabled) {
+                alert('Redirecting to subscription page...');
+                // Replace with actual link: window.location.href = 'your_subscription_link.html';
+            }
+        });
+    </script>
 
 </body>
 </html>
