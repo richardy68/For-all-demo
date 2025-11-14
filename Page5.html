@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Get Free Data Today</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <style>
+    /* KEYFRAME FOR BUTTON ANIMATION */
+    @keyframes breathe {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 6px 18px rgba(11,99,255,0.35);
+      }
+      50% {
+        transform: scale(1.02); /* Subtle pulse */
+        box-shadow: 0 8px 22px rgba(11,99,255,0.5);
+      }
+    }
+
+    /* KEYFRAMES FOR NOTIFICATION ANIMATION */
+    /* Adjusting to match the video's look (more distinct, red border) */
+    @keyframes slideInOut {
+      0% { transform: translateY(-100%); opacity: 0; }
+      5% { transform: translateY(0); opacity: 1; } /* Quick slide down */
+      95% { transform: translateY(0); opacity: 1; } /* Stay visible */
+      100% { transform: translateY(-100%); opacity: 0; } /* Slide up and hide */
+    }
+    
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#f5f7ff;}
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center; /* center vertically */
+      justify-content:center; /* center horizontally */
+      padding:20px;
+    }
+    .box{
+      background:#fff;
+      border-radius:20px;
+      box-shadow:0 8px 25px rgba(0,0,0,0.1);
+      padding:10px 20px; 
+      max-width:420px;
+      width:100%;
+      text-align:center;
+    }
+    .box img{
+      display:block;
+      width:100%;
+      height:auto;
+      border-radius:12px;
+      margin-bottom:15px; 
+    }
+    .cta{
+      display:inline-block;
+      background:linear-gradient(90deg,#0b63ff,#4cc1ff);
+      border:none;
+      color:#fff;
+      padding:18px 36px;
+      font-size:20px;
+      font-weight:900;
+      font-family:'Impact', sans-serif;
+      border-radius:999px;
+      cursor:pointer;
+      text-decoration:none;
+      box-shadow:0 6px 18px rgba(11,99,255,0.35);
+      transition:all 0.15s ease;
+      animation: breathe 2s infinite ease-in-out;
+    }
+    .cta:hover{transform:scale(1.03);}
+    .cta:active{transform:translateY(1px)}
+
+    /* --- NOTIFICATION POPUP STYLES (Video Look) --- */
+    #social-proof-notification {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      /* Adjust padding and max-width for the look in the video */
+      padding: 5px 10px; 
+      max-width: 90%; 
+      margin: 10px 5%; /* Center it and give space on the sides */
+      
+      /* Dark/Black background from video */
+      background-color: #1a1a1a; 
+      color: #fff;
+      text-align: left;
+      font-family: Arial, sans-serif;
+      border-radius: 8px; /* Slightly rounded corners */
+      border-left: 5px solid red; /* Red vertical line from the video */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+      
+      transform: translateY(-100%);
+      opacity: 0;
+      will-change: transform, opacity;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #social-proof-notification.show {
+      animation: slideInOut 5s forwards; /* 5s total animation time */
+    }
+    
+    .notification-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .notification-icon {
+        font-size: 24px;
+        margin-right: 10px;
+    }
+
+    .notification-text-wrapper {
+        line-height: 1.4;
+    }
+
+    .notification-title {
+        color: orange; /* Color from video */
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 2px;
+    }
+    
+    .notification-message {
+        font-size: 13px;
+        color: #ddd;
+    }
+
+    .notification-time {
+        font-size: 11px;
+        color: #999;
+        display: flex;
+        align-items: center;
+        margin-top: 2px;
+    }
+    
+    .notification-time-icon {
+        margin-right: 4px;
+    }
+    
+    .close-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 0 5px;
+        margin-left: 15px;
+    }
+    
+    .money-bag-icon {
+        color: gold;
+        font-size: 24px;
+        margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="social-proof-notification">
+    <div class="notification-content">
+        <div class="money-bag-icon">💰</div>
+        <div class="notification-text-wrapper">
+            <div class="notification-title">New Winner!</div>
+            <div class="notification-message" id="notification-message"></div>
+            <div class="notification-time"><span class="notification-time-icon">🕒</span> <span id="notification-time"></span></div>
+        </div>
+    </div>
+    <button class="close-btn" onclick="document.getElementById('social-proof-notification').classList.remove('show');">×</button>
+  </div>
+  <main class="hero">
+    <div class="box">
+      <img src="https://i.postimg.cc/MK59K9B2/Screenshot-20250731-071855-1.jpg" alt="Promo image" />
+      <a href="#" class="cta" onclick="event.preventDefault(); alert('You clicked Get Free Data Today — replace this with your redirect.');">Get free data today</a>
+    </div>
+  </main>
+
+  <script>
+    const notificationPopup = document.getElementById('social-proof-notification');
+    const messageElement = document.getElementById('notification-message');
+    const timeElement = document.getElementById('notification-time');
+    
+    // Data for randomizing the messages
+    const names = ["Chioma", "Amina", "Blessing", "Tobi", "Emeka", "Ngozi", "Femi", "Chinedu", "Aisha", "Uche"];
+    const prizes = [
+      { amount: "₦1,000,000", label: "cash prize!" },
+      { amount: "₦2,000,000", label: "cash prize!" },
+      { amount: "₦1,500,000", label: "cash prize!" },
+      { amount: "₦500,000", label: "gift card!" },
+      { amount: "₦750,000", label: "shopping voucher!" }
+    ];
+
+    function getRandomItem(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function showNotification() {
+      const randomName = getRandomItem(names);
+      const randomPrize = getRandomItem(prizes);
+      // Random time between 1 and 45 seconds ago
+      const randomTime = Math.floor(Math.random() * 45) + 1; 
+      const timeAgoText = randomTime === 1 ? 'just now' : `${randomTime} seconds ago`;
+
+      messageElement.textContent = `${randomName} just won ${randomPrize.amount} ${randomPrize.label}`;
+      timeElement.textContent = timeAgoText;
+      
+      notificationPopup.classList.add('show');
+
+      // The animation itself removes the 'show' class after it finishes (5s total duration)
+      notificationPopup.addEventListener('animationend', () => {
+        notificationPopup.classList.remove('show');
+      }, { once: true });
+    }
+
+    // Show initial notification after a short delay, then repeat
+    // Interval set to 5s to match the animation duration
+    const ANIMATION_DURATION_MS = 5000; 
+    const INITIAL_DELAY_MS = 2000; 
+
+    setTimeout(() => {
+      showNotification();
+      // Schedule the next notification right after the current one finishes its animation cycle
+      setInterval(showNotification, ANIMATION_DURATION_MS); 
+    }, INITIAL_DELAY_MS); 
+  </script>
+</body>
+</html>
