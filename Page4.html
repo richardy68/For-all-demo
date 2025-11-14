@@ -51,7 +51,7 @@
             min-width: 200px;
             cursor: pointer;
             box-shadow: 0 3px 0 #cc7000;
-            /* 🛑 FIXED: Removed 'text-transform: uppercase;' to allow lowercase loading text */
+            /* text-transform: none; ensures loading text is lowercase */
         }
         
         /* KEYFRAMES FOR SPINNING ANIMATION */
@@ -105,7 +105,6 @@
                 clearInterval(timerInterval);
                 countdownElement.textContent = '0:00';
                 promoButton.disabled = true;
-                // If the offer expires, the text will be capitalized here
                 promoButton.textContent = 'OFFER EXPIRED'; 
                 promoButton.style.opacity = '0.5';
                 promoButton.style.boxShadow = 'none';
@@ -121,7 +120,8 @@
         // --- Button Click Logic (Loading and Redirect) ---
         
         const REDIRECT_URL = 'https://qvxprml.one/cl/3ea525e3377b9038';
-        const DELAY_MS = 4 * 1000; // 4 seconds in milliseconds
+        // 🛑 FIXED: Delay is now 2 seconds in milliseconds (2 * 1000)
+        const DELAY_MS = 2 * 1000; 
 
         promoButton.addEventListener('click', function() {
             if (!promoButton.disabled) {
@@ -130,9 +130,10 @@
                 promoButton.disabled = true;
                 promoButton.style.boxShadow = 'none';
 
-                // 3. TEXT IS TYPED AS "Loading..." (lowercase) HERE
+                // Display loading text with spinning icon
                 promoButton.innerHTML = 'Loading... <span class="spinning-icon">↻</span>'; 
                 
+                // Start the 2-second wait time
                 setTimeout(() => {
                     window.location.href = REDIRECT_URL;
                 }, DELAY_MS);
