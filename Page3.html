@@ -81,7 +81,7 @@
 <body>
 
     <div class="verification-container">
-        <h1 class="main-title">Processing ... please wait</h1>
+        <h1 class="main-title">Verifying Your Connection... please wait</h1>
 
         <div class="loader-ring"></div>
         
@@ -105,23 +105,27 @@
     </div>
 
     <script>
-        // --- JAVASCRIPT FOR TIMER ---
+        // --- JAVASCRIPT FOR TIMER & REDIRECT ---
         document.addEventListener('DOMContentLoaded', (event) => {
             const dataCheckItem = document.getElementById('data-check-item');
             
-            // Wait for 4000 milliseconds (4 seconds)
+            // 1. Wait for 4 seconds to complete the final check
             setTimeout(() => {
-                // Change the style to the verified/green state
+                // Complete the verification visual update
                 dataCheckItem.classList.remove('loading'); 
                 dataCheckItem.classList.add('verified');   
                 
-                // Create and append the verified badge HTML (checkmark)
                 const verifiedBadge = document.createElement('span');
                 verifiedBadge.className = 'badge verified-badge';
                 verifiedBadge.innerHTML = '&#10003;'; 
-                
                 dataCheckItem.appendChild(verifiedBadge);
                 
+                // 2. Wait an additional 1 second (1000ms) before redirecting
+                setTimeout(() => {
+                    // 3. REDIRECT to the second page
+                    window.location.href = 'page4.html'; 
+                }, 1000); 
+
             }, 4000); // 4000 milliseconds = 4 seconds
         });
     </script>
