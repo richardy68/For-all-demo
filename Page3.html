@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Screen</title>
+    <style>
+        /* --- CSS STYLING --- */
+        body {
+            background-color: #0d1a49; /* Dark blue background */
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .verification-container {
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 1.5em;
+            color: #ffd700; /* Gold/yellow color for emphasis */
+            margin-bottom: 30px;
+        }
+
+        /* --- Loading Ring Animation --- */
+        .loader-ring {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- Status Items --- */
+        .status-item {
+            background-color: #1a2c68; /* Slightly lighter blue for boxes */
+            color: #ccc; /* Lighter text for inactive items */
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 1.1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-item.verified {
+            background-color: #008000; /* Green for verified */
+            color: white;
+            font-weight: bold;
+        }
+
+        .badge {
+            margin-left: 10px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .verified-badge {
+            color: white;
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="verification-container">
+        <h1 class="main-title">Verifying Your Connection... please wait</h1>
+
+        <div class="loader-ring"></div>
+        
+        <div id="status-items">
+            <div class="status-item verified">
+                Verifying Network Carrier <span class="badge verified-badge">&#10003;</span>
+            </div>
+            
+            <div class="status-item">
+                Checking Country
+            </div>
+            
+            <div class="status-item">
+                Checking IP Address
+            </div>
+            
+            <div id="data-check-item" class="status-item loading">
+                <span id="data-text">Checking Available Data</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- JAVASCRIPT FOR TIMER ---
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const dataCheckItem = document.getElementById('data-check-item');
+            
+            // Wait for 4000 milliseconds (4 seconds)
+            setTimeout(() => {
+                // Change the style to the verified/green state
+                dataCheckItem.classList.remove('loading'); 
+                dataCheckItem.classList.add('verified');   
+                
+                // Create and append the verified badge HTML (checkmark)
+                const verifiedBadge = document.createElement('span');
+                verifiedBadge.className = 'badge verified-badge';
+                verifiedBadge.innerHTML = '&#10003;'; 
+                
+                dataCheckItem.appendChild(verifiedBadge);
+                
+            }, 4000); // 4000 milliseconds = 4 seconds
+        });
+    </script>
+</body>
+</html>
