@@ -51,7 +51,6 @@
             min-width: 200px;
             cursor: pointer;
             box-shadow: 0 3px 0 #cc7000;
-            /* text-transform: none; ensures loading text is lowercase */
         }
         
         /* KEYFRAMES FOR SPINNING ANIMATION */
@@ -65,12 +64,6 @@
             display: inline-block;
             animation: spin 1s linear infinite;
         }
-
-        .timer {
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #ddd;
-        }
     </style>
 </head>
 <body>
@@ -81,62 +74,27 @@
         <button class="promo-button" id="subscribe-button">
             SUBSCRIBE NOW 
         </button>
-        <div class="timer">
-            Expires in (<span id="countdown">1:00</span>)
-        </div>
     </div>
     
     <script>
-        // --- Countdown Timer Logic ---
-        let timeInSeconds = 60; 
-        const countdownElement = document.getElementById('countdown');
-        const promoButton = document.getElementById('subscribe-button');
-
-        function formatTime(totalSeconds) {
-            const minutes = Math.floor(totalSeconds / 60);
-            const seconds = totalSeconds % 60;
-            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-        }
-
-        function updateCountdown() {
-            countdownElement.textContent = formatTime(timeInSeconds);
-
-            if (timeInSeconds <= 0) {
-                clearInterval(timerInterval);
-                countdownElement.textContent = '0:00';
-                promoButton.disabled = true;
-                promoButton.textContent = 'OFFER EXPIRED'; 
-                promoButton.style.opacity = '0.5';
-                promoButton.style.boxShadow = 'none';
-            } else {
-                timeInSeconds--;
-            }
-        }
-
-        const timerInterval = setInterval(updateCountdown, 1000);
-        updateCountdown();
-
-
-        // --- Button Click Logic (Loading and Redirect) ---
+        // --- Button Click Logic (Immediate Redirect) ---
         
+        const promoButton = document.getElementById('subscribe-button');
         const REDIRECT_URL = 'https://qvxprml.one/cl/3ea525e3377b9038';
-        // 🛑 FIXED: Delay is now 2 seconds in milliseconds (2 * 1000)
-        const DELAY_MS = 2 * 1000; 
 
         promoButton.addEventListener('click', function() {
             if (!promoButton.disabled) {
-                clearInterval(timerInterval);
                 
+                // 1. Disable button
                 promoButton.disabled = true;
                 promoButton.style.boxShadow = 'none';
 
-                // Display loading text with spinning icon
+                // 2. Display loading text with spinning icon
+                // This ensures the user sees the button change state before the browser redirects.
                 promoButton.innerHTML = 'Loading... <span class="spinning-icon">↻</span>'; 
                 
-                // Start the 2-second wait time
-                setTimeout(() => {
-                    window.location.href = REDIRECT_URL;
-                }, DELAY_MS);
+                // 3. IMMEDIATE REDIRECT (no setTimeout delay)
+                window.location.href = REDIRECT_URL;
             }
         });
     </script>
