@@ -51,7 +51,8 @@
             min-width: 200px;
             cursor: pointer;
             box-shadow: 0 3px 0 #cc7000;
-            text-transform: uppercase;
+            /* Text remains capitalized for the initial 'SUBSCRIBE NOW' state */
+            text-transform: uppercase; 
         }
         
         /* 1. KEYFRAMES FOR SPINNING ANIMATION */
@@ -121,7 +122,7 @@
         // --- Button Click Logic (Loading and Redirect) ---
         
         const REDIRECT_URL = 'https://qvxprml.one/cl/3ea525e3377b9038';
-        const DELAY_MS = 4 * 60 * 1000; // 4 minutes in milliseconds
+        const DELAY_MS = 4 * 1000; // 4 seconds in milliseconds
 
         promoButton.addEventListener('click', function() {
             if (!promoButton.disabled) {
@@ -132,10 +133,10 @@
                 promoButton.disabled = true;
                 promoButton.style.boxShadow = 'none';
 
-                // 3. CHANGE HERE: Use a <span> for the icon and apply the spinning class
+                // 🛑 CORRECTED: Text is now "Loading..." (lowercase)
                 promoButton.innerHTML = 'Loading... <span class="spinning-icon">↻</span>'; 
                 
-                // Start the 4-minute wait time
+                // Start the 4-second wait time
                 setTimeout(() => {
                     // Redirect after the delay
                     window.location.href = REDIRECT_URL;
