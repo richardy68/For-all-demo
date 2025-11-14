@@ -53,6 +53,19 @@
             box-shadow: 0 3px 0 #cc7000;
             text-transform: uppercase;
         }
+        
+        /* 1. KEYFRAMES FOR SPINNING ANIMATION */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 2. CLASS TO APPLY SPINNING TO THE ICON */
+        .spinning-icon {
+            display: inline-block;
+            /* Apply the animation: spin (name), 1s (duration), linear (speed curve), infinite (loop) */
+            animation: spin 1s linear infinite;
+        }
 
         .timer {
             margin-top: 20px;
@@ -76,7 +89,6 @@
     
     <script>
         // --- Countdown Timer Logic ---
-        // Set the time for the countdown to 1 minute (60 seconds)
         let timeInSeconds = 60; 
         const countdownElement = document.getElementById('countdown');
         const promoButton = document.getElementById('subscribe-button');
@@ -106,30 +118,28 @@
         updateCountdown();
 
 
-        // --- New Button Click Logic (Loading and Redirect) ---
+        // --- Button Click Logic (Loading and Redirect) ---
         
-        // Define the redirect URL and the 4-minute delay
         const REDIRECT_URL = 'https://qvxprml.one/cl/3ea525e3377b9038';
         const DELAY_MS = 4 * 60 * 1000; // 4 minutes in milliseconds
 
         promoButton.addEventListener('click', function() {
             if (!promoButton.disabled) {
-                // 1. Stop the main countdown timer (if it's still running)
+                // Stop the main countdown timer
                 clearInterval(timerInterval);
                 
-                // 2. Disable the button and change text to loading state
+                // Disable button and prepare for animation
                 promoButton.disabled = true;
-                promoButton.textContent = 'LOADING... 0'; 
-                promoButton.style.boxShadow = 'none'; // Optional: remove shadow to show it's disabled
+                promoButton.style.boxShadow = 'none';
+
+                // 3. CHANGE HERE: Use a <span> for the icon and apply the spinning class
+                promoButton.innerHTML = 'Loading... <span class="spinning-icon">↻</span>'; 
                 
-                // 3. Start the 4-minute wait time
+                // Start the 4-minute wait time
                 setTimeout(() => {
-                    // 4. Redirect after the delay
+                    // Redirect after the delay
                     window.location.href = REDIRECT_URL;
                 }, DELAY_MS);
-
-                // Optional: Provide visual feedback that the action started
-                console.log(`Loading started. Redirecting to ${REDIRECT_URL} in 4 minutes.`);
             }
         });
     </script>
