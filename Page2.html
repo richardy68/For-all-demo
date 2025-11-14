@@ -91,6 +91,14 @@
     .network-button.glo { border: 2px solid #008000; }
     .network-button.ninemobile { border: 2px solid #000000; }
   </style>
+  <script>
+    // Function to handle the redirection
+    function redirectToPage3(networkName) {
+        // You could use the networkName here if you needed to pass it to the next page
+        console.log("Redirecting after selecting: " + networkName);
+        window.location.href = 'page3.html';
+    }
+  </script>
 </head>
 <body>
   
@@ -98,25 +106,25 @@
     <div class="selection-box">
       <h2>Select Your Network</h2>
       <div class="network-grid">
-        <a href="#" class="network-button mtn" onclick="event.preventDefault(); alert('You selected MTN!');">
+        <a href="javascript:void(0);" class="network-button mtn" onclick="redirectToPage3('MTN');">
           <div class="logo-container">
             <img src="https://i.postimg.cc/KjC3gQP2/download-1.png" alt="MTN Logo" />
           </div>
           <span>MTN</span>
         </a>
-        <a href="#" class="network-button airtel" onclick="event.preventDefault(); alert('You selected AIRTEL!');">
+        <a href="javascript:void(0);" class="network-button airtel" onclick="redirectToPage3('AIRTEL');">
           <div class="logo-container">
             <img src="https://i.postimg.cc/76xWpnJd/images-2.png" alt="Airtel Logo" />
           </div>
           <span>AIRTEL</span>
         </a>
-        <a href="#" class="network-button glo" onclick="event.preventDefault(); alert('You selected GLO!');">
+        <a href="javascript:void(0);" class="network-button glo" onclick="redirectToPage3('GLO');">
           <div class="logo-container">
             <img src="https://i.postimg.cc/ZqDwMzZh/images-2-17.jpg" alt="GLO Logo" />
           </div>
           <span>GLO</span>
         </a>
-        <a href="#" class="network-button ninemobile" onclick="event.preventDefault(); alert('You selected 9MOBILE!');">
+        <a href="javascript:void(0);" class="network-button ninemobile" onclick="redirectToPage3('9MOBILE');">
           <div class="logo-container">
             <img src="https://i.postimg.cc/FHTpYXfX/images-2-20.jpg" alt="9Mobile Logo" />
           </div>
