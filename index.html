@@ -6,187 +6,119 @@
   <title>Get Free Data Today</title>
   <meta name="robots" content="noindex,nofollow" />
   <style>
-    /* KEYFRAME FOR BUTTON ANIMATION */
+    /* BUTTON ANIMATION */
     @keyframes breathe {
-      0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 6px 18px rgba(11,99,255,0.35);
-      }
-      50% {
-        transform: scale(1.02);
-        box-shadow: 0 8px 22px rgba(11,99,255,0.5);
-      }
+      0%,100%{transform:scale(1);box-shadow:0 6px 18px rgba(11,99,255,0.35);}
+      50%{transform:scale(1.02);box-shadow:0 8px 22px rgba(11,99,255,0.5);}
     }
 
-    /* KEYFRAMES FOR NOTIFICATION ANIMATION */
+    /* NOTIFICATION ANIMATION */
     @keyframes slideDown {
-      0% { transform: translateY(-100%); opacity: 0; }
-      10% { transform: translateY(0); opacity: 1; }
-      90% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-100%); opacity: 0; }
+      0%{transform:translateY(-100%);opacity:0;}
+      10%{transform:translateY(0);opacity:1;}
+      90%{transform:translateY(0);opacity:1;}
+      100%{transform:translateY(-100%);opacity:0;}
     }
 
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:#f5f7ff;}
-    .hero{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-    }
-    .box{
-      background:#fff;
-      border-radius:20px;
-      box-shadow:0 8px 25px rgba(0,0,0,0.1);
-      padding:10px 20px;
-      max-width:420px;
-      width:100%;
-      text-align:center;
-    }
-    .box img{
-      display:block;
-      width:100%;
-      height:auto;
-      border-radius:12px;
-      margin-bottom:15px;
-    }
-    .cta{
-      display:inline-block;
-      background:linear-gradient(90deg,#0b63ff,#4cc1ff);
-      border:none;
-      color:#fff;
-      padding:18px 36px;
-      font-size:20px;
-      font-weight:900;
-      font-family:'Impact', sans-serif;
-      border-radius:999px;
-      cursor:pointer;
-      text-decoration:none;
-      box-shadow:0 6px 18px rgba(11,99,255,0.35);
-      transition:all 0.15s ease;
-      animation: breathe 2s infinite ease-in-out;
-    }
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+    .box{background:#fff;border-radius:20px;box-shadow:0 8px 25px rgba(0,0,0,0.1);padding:10px 20px;max-width:420px;width:100%;text-align:center;}
+    .box img{display:block;width:100%;height:auto;border-radius:12px;margin-bottom:15px;}
+    .cta{display:inline-block;background:linear-gradient(90deg,#0b63ff,#4cc1ff);border:none;color:#fff;padding:18px 36px;font-size:20px;font-weight:900;font-family:'Impact', sans-serif;border-radius:999px;cursor:pointer;text-decoration:none;box-shadow:0 6px 18px rgba(11,99,255,0.35);transition:all 0.15s ease;animation:breathe 2s infinite ease-in-out;}
+    .cta:hover{transform:scale(1.03);}
+    .cta:active{transform:translateY(1px)}
 
-    /* LOADING OVERLAY */
-    #loading-overlay {
+    /* NOTIFICATION POPUP */
+    #notification-popup {
       position: fixed;
       top:0;
       left:0;
       width:100%;
-      height:100%;
-      background: rgba(255,255,255,0.95);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-
-    /* Small circle loader */
-    .loader {
-      width: 45px;
-      height: 45px;
-      border: 5px solid #ccc;
-      border-top-color: #0b63ff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Notification popup styles (unchanged) */
-    #notification-popup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
       background: rgba(0,0,0,0.9);
-      color: #fff;
-      padding: 15px 20px;
-      text-align: center;
-      font-size: 16px;
-      font-weight: bold;
-      z-index: 1000;
+      color:#fff;
+      padding:15px 20px;
+      text-align:center;
+      font-family:Arial,sans-serif;
+      font-size:16px;
+      font-weight:bold;
+      z-index:1000;
       transform: translateY(-100%);
-      opacity: 0;
+      opacity:0;
+      will-change: transform,opacity;
     }
-    #notification-popup.show {
-      animation: slideDown 4s forwards;
-    }
-    #notification-popup .congratulations { color: yellow; font-size: 14px; margin-bottom: 5px; }
-    #notification-popup .claim-text { font-size: 18px; color: white; }
-    #notification-popup .claim-button {
-      display: inline-block;
-      background: linear-gradient(90deg, #d30000, #ff4c4c);
-      color: #fff;
-      padding: 8px 18px;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 999px;
-      margin-top: 10px;
-      text-decoration: none;
-    }
+    #notification-popup.show {animation: slideDown 4s forwards;}
+    #notification-popup .congratulations{color:yellow;font-size:14px;margin-bottom:5px;}
+    #notification-popup .claim-text{font-size:18px;color:white;}
+    #notification-popup .claim-button{display:inline-block;background:linear-gradient(90deg,#d30000,#ff4c4c);border:none;color:#fff;padding:8px 18px;font-size:16px;font-weight:bold;border-radius:999px;cursor:pointer;text-decoration:none;margin-top:10px;box-shadow:0 4px 10px rgba(255,0,0,0.4);}
+
+    /* LOADING OVERLAY */
+    #loading-overlay {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.95);display:none;align-items:center;justify-content:center;z-index:9999;}
+    .loader{width:45px;height:45px;border:5px solid #ccc;border-top-color:#0b63ff;border-radius:50%;animation:spin 1s linear infinite;}
+    @keyframes spin{100%{transform:rotate(360deg);}}
   </style>
 </head>
-
 <body>
+  <!-- NOTIFICATION POPUP -->
+  <div id="notification-popup">
+    <div class="congratulations">🎉 Congratulations!</div>
+    <div class="claim-text"></div>
+    <a href="#" class="claim-button" onclick="event.preventDefault(); alert('You clicked Claim Now!');">Claim Now</a>
+  </div>
 
   <!-- LOADING OVERLAY -->
   <div id="loading-overlay">
     <div class="loader"></div>
   </div>
 
-  <div id="notification-popup">
-    <div class="congratulations">🎉 Congratulations!</div>
-    <div class="claim-text"></div>
-    <a href="#" class="claim-button" onclick="event.preventDefault();">Claim Now</a>
-  </div>
-
   <main class="hero">
     <div class="box">
       <img src="https://i.postimg.cc/MK59K9B2/Screenshot-20250731-071855-1.jpg" alt="Promo image" />
-      <!-- CTA NOW TRIGGERS LOADING + REDIRECT -->
       <a href="#" class="cta" onclick="startLoading()">Get free data today</a>
     </div>
   </main>
 
   <script>
-    /* --- LOADING SCREEN + REDIRECT --- */
-    function startLoading() {
-      document.getElementById("loading-overlay").style.display = "flex";
-      setTimeout(() => {
-        window.location.href = "page2.html"; // 🔴 Replace with actual second page filename
-      }, 2000);
-    }
-
-    /* --- NOTIFICATION SYSTEM (unchanged) --- */
+    // NOTIFICATIONS
     const notificationPopup = document.getElementById('notification-popup');
     const claimText = notificationPopup.querySelector('.claim-text');
     const names = ["Alice","Bob","Charlie","David","Eve","Frank","Grace","Heidi","Ivan","Judy","Karl","Lily","Mike","Nina","Oscar","Pam","Quinn","Rachel","Sam","Tina"];
     const claims = [
-      { amount:"200GB", item:"$10 Giftcard" },
-      { amount:"150GB", item:"$5 Giftcard" },
-      { amount:"100GB", item:"$20 Voucher" },
-      { amount:"300GB", item:"$15 Credit" },
-      { amount:"250GB", item:"$5 Giftcard" }
+      { amount: "200GB", item: "$10 Giftcard" },
+      { amount: "150GB", item: "$5 Giftcard" },
+      { amount: "100GB", item: "$20 Voucher" },
+      { amount: "300GB", item: "$15 Credit" },
+      { amount: "250GB", item: "$5 Giftcard" }
     ];
 
-    function getRandom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+    function getRandomItem(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
     function showNotification(){
-      const n = getRandom(names);
-      const c = getRandom(claims);
-      const t = Math.floor(Math.random()*10)+5;
-      claimText.textContent = `${n} just claimed ${c.amount} and ${c.item} ${t} seconds ago!`;
+      const randomName = getRandomItem(names);
+      const randomClaim = getRandomItem(claims);
+      const randomTime = Math.floor(Math.random()*10)+5;
+      claimText.textContent = `${randomName} just claimed ${randomClaim.amount} and ${randomClaim.item} ${randomTime} seconds ago!`;
       notificationPopup.classList.add('show');
     }
 
-    setTimeout(() => {
-      showNotification();
-      setInterval(showNotification, 4000);
-    }, 2000);
-  </script>
+    // FIXED: removed { once:true } so it repeats
+    notificationPopup.addEventListener('animationend', ()=>{
+      notificationPopup.classList.remove('show');
+    });
 
+    // initial and repeated notifications
+    setTimeout(()=>{
+      showNotification();
+      setInterval(showNotification,4000);
+    },2000);
+
+    // LOADING + REDIRECT
+    function startLoading(){
+      document.getElementById("loading-overlay").style.display = "flex";
+      setTimeout(()=>{
+        window.location.href = "page2.html"; // <-- make sure this matches your second page filename
+      },2000);
+    }
+  </script>
 </body>
 </html>
