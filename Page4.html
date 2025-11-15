@@ -53,17 +53,13 @@
             box-shadow: 0 3px 0 #cc7000;
         }
         
-        /* KEYFRAMES FOR SPINNING ANIMATION */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .timer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #ddd;
         }
-
-        /* CLASS TO APPLY SPINNING TO THE ICON */
-        .spinning-icon {
-            display: inline-block;
-            animation: spin 1s linear infinite;
-        }
+        
+        /* Removed spinning/animation CSS as requested in the previous steps */
     </style>
 </head>
 <body>
@@ -74,26 +70,48 @@
         <button class="promo-button" id="subscribe-button">
             SUBSCRIBE NOW 
         </button>
+        <div class="timer">
+            Expires in (<span id="countdown">1:00</span>)
+        </div>
     </div>
     
     <script>
-        // --- Button Click Logic (Immediate Redirect) ---
-        
+        // --- RESTORED: Countdown Timer Logic ---
+        let timeInSeconds = 60; // Start at 1 minute
+        const countdownElement = document.getElementById('countdown');
         const promoButton = document.getElementById('subscribe-button');
         const REDIRECT_URL = 'https://qvxprml.one/cl/3ea525e3377b9038';
 
+        function formatTime(totalSeconds) {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        function updateCountdown() {
+            countdownElement.textContent = formatTime(timeInSeconds);
+
+            if (timeInSeconds <= 0) {
+                clearInterval(timerInterval);
+                countdownElement.textContent = '0:00';
+                // Disable button when timer expires
+                promoButton.disabled = true;
+                promoButton.textContent = 'OFFER EXPIRED'; 
+                promoButton.style.opacity = '0.5';
+                promoButton.style.boxShadow = 'none';
+            } else {
+                timeInSeconds--;
+            }
+        }
+
+        const timerInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // --- Button Click Logic (Immediate Redirect) ---
+        
         promoButton.addEventListener('click', function() {
             if (!promoButton.disabled) {
-                
-                // 1. Disable button
-                promoButton.disabled = true;
-                promoButton.style.boxShadow = 'none';
-
-                // 2. Display loading text with spinning icon
-                // This ensures the user sees the button change state before the browser redirects.
-                promoButton.innerHTML = 'Loading... <span class="spinning-icon">↻</span>'; 
-                
-                // 3. IMMEDIATE REDIRECT (no setTimeout delay)
+                // Immediate redirect upon click
                 window.location.href = REDIRECT_URL;
             }
         });
