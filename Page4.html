@@ -53,17 +53,7 @@
             box-shadow: 0 3px 0 #cc7000;
         }
         
-        /* KEYFRAMES FOR SPINNING ANIMATION */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* CLASS TO APPLY SPINNING TO THE ICON */
-        .spinning-icon {
-            display: inline-block;
-            animation: spin 1s linear infinite;
-        }
+        /* Removed all spinning/animation CSS */
     </style>
 </head>
 <body>
@@ -83,19 +73,12 @@
         const REDIRECT_URL = 'https://qvxprml.one/cl/3ea525e3377b9038';
 
         promoButton.addEventListener('click', function() {
-            if (!promoButton.disabled) {
-                
-                // 1. Disable button
-                promoButton.disabled = true;
-                promoButton.style.boxShadow = 'none';
-
-                // 2. Display loading text with spinning icon
-                // This ensures the user sees the button change state before the browser redirects.
-                promoButton.innerHTML = 'Loading... <span class="spinning-icon">↻</span>'; 
-                
-                // 3. IMMEDIATE REDIRECT (no setTimeout delay)
-                window.location.href = REDIRECT_URL;
-            }
+            
+            // IMMEDIATE REDIRECT: No state change, no delay.
+            window.location.href = REDIRECT_URL;
+            
+            // Note: The button is not disabled, so a user could technically double-click, 
+            // but the first click will initiate navigation immediately.
         });
     </script>
 
